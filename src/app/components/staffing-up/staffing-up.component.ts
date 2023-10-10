@@ -11,19 +11,26 @@ import { confirm } from 'devextreme/ui/dialog';
   templateUrl: './staffing-up.component.html',
   styles: [
     `
-      .table-container {
-        display: flex;
+      .flex-item {
+        flex: 1 5 50%;
       }
-
-      .table {
-        flex: 1;
-        padding: 10px;
+      .appResize {
+        position: relative;
+        width: 20px;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
     `,
   ],
 })
 export class StaffingUpComponent {
-  @ViewChild('projectsGrid', { static: false }) dataGrid!: DxDataGridComponent;
+  @ViewChild('projectsGrid', { static: false })
+  projectsGrid!: DxDataGridComponent;
+  @ViewChild('usersGrid', { static: false }) usersGrid!: DxDataGridComponent;
+
+  public style: object = {};
 
   statusObj = {
     new: 'NEW',
@@ -109,8 +116,8 @@ export class StaffingUpComponent {
     }
 
     if (e.toData === 'projects') {
-      projectId = this.dataGrid.instance.getKeyByRowIndex(+e.toIndex);
-      this.dataGrid.instance.expandRow(projectId);
+      projectId = this.projectsGrid.instance.getKeyByRowIndex(+e.toIndex);
+      this.projectsGrid.instance.expandRow(projectId);
     }
 
     const user = e.itemData;

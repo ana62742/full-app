@@ -1,5 +1,5 @@
-<div class="table-container">
-  <div class="table">
+<div id="wrapper" class="flex gap-1 mx-3 pt-5">
+  <div class="flex-item" #leftElement>
     <dx-data-grid
       #usersGrid
       [height]="440"
@@ -19,7 +19,16 @@
       <dxi-column dataField="name" caption="Name"></dxi-column>
     </dx-data-grid>
   </div>
-  <div class="table">
+
+  <dx-button
+    icon="dragvertical"
+    class="flex items-center justify-center cursor-col-resize w-4 h-8 my-auto focus:outline-none"
+    appResize
+    [leftResize]="leftElement"
+    [rightResize]="rightElement"
+  ></dx-button>
+
+  <div class="flex-item" #rightElement>
     <dx-data-grid
       #projectsGrid
       [height]="440"

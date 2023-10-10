@@ -14,7 +14,8 @@ import { SigninComponent } from './signin/signin.component';
 import { AppRoutingModule } from './app.routing.module';
 import { StaffingUpComponent } from './components/staffing-up/staffing-up.component';
 import { HomeComponent } from './home/home.component';
-import { DxDataGridModule } from 'devextreme-angular';
+import { DxButtonModule, DxDataGridModule } from 'devextreme-angular';
+import { ResizeDirective } from './directives/resize.directive';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { DxDataGridModule } from 'devextreme-angular';
     HomeComponent,
     SigninComponent,
     StaffingUpComponent,
+    ResizeDirective,
   ],
   imports: [
     BrowserModule,
@@ -34,6 +36,7 @@ import { DxDataGridModule } from 'devextreme-angular';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     DxDataGridModule,
+    DxButtonModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
