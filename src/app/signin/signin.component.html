@@ -1,6 +1,6 @@
 <main>
     <form [formGroup]="form">
-        <h1>Log in to access the app</h1>
+        <h1>Log in/Register to access the app</h1>
         <mat-form-field>
             <mat-label>Email</mat-label>
             <input type="email" matInput formControlName="email">
@@ -25,10 +25,6 @@
         <button mat-raised-button [disabled]="!form.valid" (click)="register()"
             *ngIf="!isLoggingIn" test-id="login-button">
             REGISTER
-        </button>
-        <button mat-raised-button class="button-loader" *ngIf="isLoggingIn"
-            test-id="login-loader">
-            <mat-spinner color="accent" diameter="20"></mat-spinner>
         </button>
     </form>
 </main>
