@@ -41,4 +41,18 @@ export class SigninComponent implements OnInit {
       }
     });
   }
+
+  register() {
+    this.isLoggingIn = false;
+
+    this.authenticationService.register({
+      email: this.form.value.email,
+      password: this.form.value.password
+    }).subscribe({
+      next: () => this.router.navigate(['home']),
+      error: error => {
+        alert(error.message);
+      }
+    });
+  }
 }

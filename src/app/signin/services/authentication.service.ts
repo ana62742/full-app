@@ -21,6 +21,16 @@ export class AuthenticationService {
     );
   }
 
+  register(params: SignIn) {
+    return from(this.auth.createUserWithEmailAndPassword(
+      params.email, params.password
+    )).pipe(
+      catchError((error: FirebaseError) => 
+        throwError(() => new Error(this.translateFirebaseErrorMessage(error)))
+      )
+  );
+  }  
+
   private translateFirebaseErrorMessage({code, message}: FirebaseError) {
     if (code === "auth/user-not-found") {
       return "User not found.";
