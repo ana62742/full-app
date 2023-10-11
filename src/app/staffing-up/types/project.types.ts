@@ -1,7 +1,4 @@
-export interface User {
-  id: number;
-  name: string;
-}
+import { User } from './user.types';
 
 export interface Aplicari {
   id: number;

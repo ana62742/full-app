@@ -10,8 +10,8 @@ import { Router } from '@angular/router';
 })
 export class SigninComponent implements OnInit {
   form!: FormGroup;
-  email: string = ''; 
-  password: string = ''; 
+  email: string = '';
+  password: string = '';
   isLoggingIn = false;
 
   constructor(
@@ -23,7 +23,7 @@ export class SigninComponent implements OnInit {
   ngOnInit(): void {
     this.form = this.formBuilder.group({
       email: '',
-      password: ''
+      password: '',
     });
   }
 
@@ -32,11 +32,11 @@ export class SigninComponent implements OnInit {
 
     this.authenticationService
       .signIn({
-        email: this.email, 
-        password: this.password, 
+        email: this.email,
+        password: this.password,
       })
       .subscribe({
-        next: () => this.router.navigate(['home']),
+        next: () => this.router.navigate(['staffing-up']),
         error: (error) => {
           this.isLoggingIn = false;
           alert(error.message);
@@ -49,8 +49,8 @@ export class SigninComponent implements OnInit {
 
     this.authenticationService
       .register({
-        email: this.email, 
-        password: this.password, 
+        email: this.email,
+        password: this.password,
       })
       .subscribe({
         next: () => this.router.navigate(['home']),

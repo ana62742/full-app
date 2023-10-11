@@ -1,17 +1,29 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { SigninComponent } from './signin/signin.component';
+import { SigninComponent } from './auth/components/signin/signin.component';
 import { AuthGuard } from './auth.guard';
-import { StaffingUpComponent } from './components/staffing-up/staffing-up.component';
+import { AppComponent } from './app.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/auth', pathMatch: 'full'},
-  { path: 'home', component: StaffingUpComponent, canActivate:[AuthGuard] },
-  { path: 'auth', component: SigninComponent}
+  {
+    path: '',
+    canActivate: [AuthGuard],
+    pathMatch: 'full',
+    component: AppComponent,
+  },
+  {
+    path: 'staffing-up',
+    canActivate: [AuthGuard],
+    loadChildren: () =>
+      import('./staffing-up/staffing-up.module').then(
+        (m) => m.StaffingUpModule
+      ),
+  },
+  { path: 'auth', component: SigninComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

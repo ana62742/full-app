@@ -1,11 +1,11 @@
 import { Component, ViewChild } from '@angular/core';
 import { DxDataGridComponent } from 'devextreme-angular';
-import { projects } from './projects';
-import { User, Project } from './types';
+import { projects } from '../../mock/projects';
+import { User } from '../../types/user.types';
+import { Project } from '../../types/project.types';
 import { RowDraggingEndEvent } from 'devextreme/ui/data_grid_types';
 import notify from 'devextreme/ui/notify';
 import { confirm } from 'devextreme/ui/dialog';
-import { HeaderComponent } from 'src/app/header/header.component';
 
 @Component({
   selector: 'app-staffing-up',
