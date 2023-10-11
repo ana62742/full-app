@@ -10,21 +10,6 @@ import { HeaderComponent } from 'src/app/header/header.component';
 @Component({
   selector: 'app-staffing-up',
   templateUrl: './staffing-up.component.html',
-  styles: [
-    `
-      .flex-item {
-        flex: 1 5 50%;
-      }
-      .appResize {
-        position: relative;
-        width: 20px;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-    `,
-  ]
 })
 export class StaffingUpComponent {
   @ViewChild('projectsGrid', { static: false })

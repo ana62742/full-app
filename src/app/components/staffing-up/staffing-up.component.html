@@ -1,6 +1,6 @@
 <app-header></app-header>
 <div id="wrapper" class="flex gap-1 mx-3 pt-5">
-  <div class="flex-item" #leftElement>
+  <div #leftElement>
     <dx-data-grid
       #usersGrid
       [height]="440"
@@ -29,7 +29,7 @@
     [rightResize]="rightElement"
   ></dx-button>
 
-  <div class="flex-item" #rightElement>
+  <div #rightElement>
     <dx-data-grid
       #projectsGrid
       [height]="440"
