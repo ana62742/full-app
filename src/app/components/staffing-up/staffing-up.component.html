@@ -1,0 +1,94 @@
+<div id="wrapper" class="flex gap-1 mx-3 pt-5">
+  <div class="flex-item" #leftElement>
+    <dx-data-grid
+      #usersGrid
+      [height]="440"
+      [showBorders]="true"
+      [dataSource]="users"
+      keyExpr="id"
+    >
+      <dxo-row-dragging
+        data="users"
+        group="sameGroup"
+        [allowReordering]="false"
+        [allowDropInsideItem]="false"
+        [onDragEnd]="onUserDragEnd"
+      />
+      <!-- Define your columns here -->
+      <dxi-column dataField="id" caption="ID"></dxi-column>
+      <dxi-column dataField="name" caption="Name"></dxi-column>
+    </dx-data-grid>
+  </div>
+
+  <dx-button
+    icon="dragvertical"
+    class="flex items-center justify-center cursor-col-resize w-4 h-8 my-auto focus:outline-none"
+    appResize
+    [leftResize]="leftElement"
+    [rightResize]="rightElement"
+  ></dx-button>
+
+  <div class="flex-item" #rightElement>
+    <dx-data-grid
+      #projectsGrid
+      [height]="440"
+      [dataSource]="projects"
+      [showBorders]="true"
+      [scrolling]="{ mode: 'virtual' }"
+      keyExpr="id"
+    >
+      <dxo-row-dragging
+        data="projects"
+        group="sameGroup"
+        [allowDropInsideItem]="true"
+        [allowReordering]="false"
+        [showDragIcons]="false"
+        [onDragStart]="onProjectDragStart"
+      />
+      <dxo-filter-row [visible]="true"></dxo-filter-row>
+      <dxo-header-filter [visible]="true"></dxo-header-filter>
+      <dxo-group-panel [visible]="true"></dxo-group-panel>
+      <dxo-grouping
+        [autoExpandAll]="false"
+        expandMode="rowClick"
+      ></dxo-grouping>
+      <dxi-column dataField="firma" sortOrder="asc" [groupIndex]="0">
+      </dxi-column>
+      <dxi-column dataField="proiect"></dxi-column>
+      <dxo-master-detail [enabled]="true" template="detail"></dxo-master-detail>
+      <div *dxTemplate="let project of 'detail'">
+        <div class="master-detail-caption">
+          Aplicari pt. {{ project.data.firma }}
+        </div>
+        <dx-data-grid
+          #targetGrid
+          [dataSource]="project.data.aplicari"
+          [showBorders]="true"
+          [columnAutoWidth]="true"
+          keyExpr="id"
+        >
+          <dxo-row-dragging
+            data="aplicari-{{ project.data.id }}"
+            group="sameGroup"
+            [showDragIcons]="false"
+            [onDragStart]="onProjectDragStart"
+          />
+          <dxo-editing
+            mode="cell"
+            [allowUpdating]="true"
+            [allowDeleting]="true"
+          />
+          <dxi-column dataField="user.name" [allowEditing]="false"></dxi-column>
+          <dxi-column dataField="status">
+            <dxo-lookup
+              [dataSource]="statuses"
+              displayExpr="value"
+              valueExpr="key"
+            >
+            </dxo-lookup>
+          </dxi-column>
+        </dx-data-grid>
+      </div>
+    </dx-data-grid>
+  </div>
+</div>
