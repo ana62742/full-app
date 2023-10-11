@@ -129,10 +129,19 @@ export class StaffingUpComponent {
         return;
       }
 
-      const confirmed = await confirm(
-        `Are you sure you want to add ${user.name} to project ${project.firma} - ${project.proiect}`,
-        'Confirm Changes'
-      );
+      const userHasRelevantSkills =
+        this.intersectedSkills(user.skills, project.tehnologii).length > 0;
+
+      const confirmed = userHasRelevantSkills
+        ? await confirm(
+            `Are you sure you want to add ${user.name} to project ${project.firma} - ${project.proiect}`,
+            'Confirm'
+          )
+        : await confirm(
+            `User ${user.name} does not have any relevant skills for project ${project.firma} - ${project.proiect}. Are you sure you want to add him?`,
+            'Skills mismatch'
+          );
+
       if (confirmed) {
         project.aplicari.push({
           id: project.aplicari.length + 1,
