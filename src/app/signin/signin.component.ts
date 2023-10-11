@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthenticationService } from './services/authentication.service';
+import { AuthenticationService } from '../../services/authentication.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,10 +10,9 @@ import { Router } from '@angular/router';
 })
 export class SigninComponent implements OnInit {
   form!: FormGroup;
-  email: string = ''; // Define the email variable
-  password: string = ''; // Define the password variable
+  email: string = ''; 
+  password: string = ''; 
   isLoggingIn = false;
-  isRecoveringPassword = false;
 
   constructor(
     private authenticationService: AuthenticationService,
@@ -23,8 +22,8 @@ export class SigninComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]],
+      email: '',
+      password: ''
     });
   }
 
@@ -33,8 +32,8 @@ export class SigninComponent implements OnInit {
 
     this.authenticationService
       .signIn({
-        email: this.email, // Use the email variable
-        password: this.password, // Use the password variable
+        email: this.email, 
+        password: this.password, 
       })
       .subscribe({
         next: () => this.router.navigate(['home']),
@@ -50,8 +49,8 @@ export class SigninComponent implements OnInit {
 
     this.authenticationService
       .register({
-        email: this.email, // Use the email variable
-        password: this.password, // Use the password variable
+        email: this.email, 
+        password: this.password, 
       })
       .subscribe({
         next: () => this.router.navigate(['home']),

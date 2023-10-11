@@ -15,6 +15,7 @@ import { AppRoutingModule } from './app.routing.module';
 import { StaffingUpComponent } from './components/staffing-up/staffing-up.component';
 import { DxButtonModule, DxDataGridModule, DxTextBoxModule } from 'devextreme-angular';
 import { ResizeDirective } from './directives/resize.directive';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { ResizeDirective } from './directives/resize.directive';
     SigninComponent,
     StaffingUpComponent,
     ResizeDirective,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

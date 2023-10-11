@@ -5,6 +5,7 @@ import { User, Project } from './types';
 import { RowDraggingEndEvent } from 'devextreme/ui/data_grid_types';
 import notify from 'devextreme/ui/notify';
 import { confirm } from 'devextreme/ui/dialog';
+import { HeaderComponent } from 'src/app/header/header.component';
 
 @Component({
   selector: 'app-staffing-up',
@@ -23,7 +24,7 @@ import { confirm } from 'devextreme/ui/dialog';
         justify-content: center;
       }
     `,
-  ],
+  ]
 })
 export class StaffingUpComponent {
   @ViewChild('projectsGrid', { static: false })
