@@ -1,4 +1,7 @@
-export const projects = [
+import { Project } from '../types/project.types';
+import { usersMock } from './users';
+
+export const projects: Project[] = [
   { id: 1, firma: 'Colt', proiect: 'B2x', aplicari: [] },
   {
     id: 2,
@@ -7,10 +10,7 @@ export const projects = [
     aplicari: [
       {
         id: 1,
-        user: {
-          id: 1,
-          name: 'Vasile',
-        },
+        user: usersMock[0],
         status: 'Propus BL',
       },
     ],
@@ -24,10 +24,7 @@ export const projects = [
     aplicari: [
       {
         id: 1,
-        user: {
-          id: 1,
-          name: 'Vasile',
-        },
+        user: usersMock[0],
         status: 'Alocare respinsa client',
       },
     ],
@@ -41,10 +38,7 @@ export const projects = [
     aplicari: [
       {
         id: 1,
-        user: {
-          id: 1,
-          name: 'Vasile',
-        },
+        user: usersMock[0],
         status: 'Alocare posibila',
       },
     ],
@@ -57,10 +51,7 @@ export const projects = [
     aplicari: [
       {
         id: 1,
-        user: {
-          id: 1,
-          name: 'Vasile',
-        },
+        user: usersMock[0],
         status: 'Alocare posibila',
       },
     ],
@@ -73,10 +64,7 @@ export const projects = [
     aplicari: [
       {
         id: 1,
-        user: {
-          id: 1,
-          name: 'Vasile',
-        },
+        user: usersMock[0],
         status: 'Alocare posibila',
       },
     ],
@@ -88,10 +76,7 @@ export const projects = [
     aplicari: [
       {
         id: 1,
-        user: {
-          id: 1,
-          name: 'Vasile',
-        },
+        user: usersMock[0],
         status: 'Alocare posibila',
       },
     ],
@@ -103,10 +88,7 @@ export const projects = [
     aplicari: [
       {
         id: 1,
-        user: {
-          id: 1,
-          name: 'Vasile',
-        },
+        user: usersMock[0],
         status: 'Alocare respinsa candidat',
       },
     ],
@@ -119,10 +101,7 @@ export const projects = [
     aplicari: [
       {
         id: 1,
-        user: {
-          id: 1,
-          name: 'Vasile',
-        },
+        user: usersMock[0],
         status: 'Propus Client',
       },
     ],
@@ -137,10 +116,7 @@ export const projects = [
     aplicari: [
       {
         id: 1,
-        user: {
-          id: 1,
-          name: 'Vasile',
-        },
+        user: usersMock[0],
         status: 'Alocare respinsa candidat',
       },
     ],
@@ -155,10 +131,7 @@ export const projects = [
     aplicari: [
       {
         id: 1,
-        user: {
-          id: 1,
-          name: 'Vasile',
-        },
+        user: usersMock[0],
         status: 'Propus BL',
       },
     ],
@@ -171,10 +144,7 @@ export const projects = [
     aplicari: [
       {
         id: 1,
-        user: {
-          id: 1,
-          name: 'Vasile',
-        },
+        user: usersMock[0],
         status: 'Alocare posibila',
       },
     ],
@@ -186,10 +156,7 @@ export const projects = [
     aplicari: [
       {
         id: 1,
-        user: {
-          id: 1,
-          name: 'Vasile',
-        },
+        user: usersMock[0],
         status: 'Propus BL',
       },
     ],
@@ -202,10 +169,7 @@ export const projects = [
     aplicari: [
       {
         id: 1,
-        user: {
-          id: 1,
-          name: 'Vasile',
-        },
+        user: usersMock[0],
         status: 'Propus Client',
       },
     ],
@@ -217,10 +181,7 @@ export const projects = [
     aplicari: [
       {
         id: 1,
-        user: {
-          id: 1,
-          name: 'Vasile',
-        },
+        user: usersMock[0],
         status: 'Propus Client',
       },
     ],
@@ -234,10 +195,7 @@ export const projects = [
     aplicari: [
       {
         id: 1,
-        user: {
-          id: 1,
-          name: 'Vasile',
-        },
+        user: usersMock[0],
         status: 'Propus Client',
       },
     ],
@@ -249,10 +207,7 @@ export const projects = [
     aplicari: [
       {
         id: 1,
-        user: {
-          id: 1,
-          name: 'Vasile',
-        },
+        user: usersMock[0],
         status: 'Alocare respinsa client',
       },
     ],
@@ -264,10 +219,7 @@ export const projects = [
     aplicari: [
       {
         id: 1,
-        user: {
-          id: 1,
-          name: 'Vasile',
-        },
+        user: usersMock[0],
         status: 'Alocare respinsa candidat',
       },
     ],
@@ -279,10 +231,7 @@ export const projects = [
     aplicari: [
       {
         id: 1,
-        user: {
-          id: 1,
-          name: 'Vasile',
-        },
+        user: usersMock[0],
         status: 'Propus BL',
       },
     ],
@@ -297,10 +246,7 @@ export const projects = [
     aplicari: [
       {
         id: 1,
-        user: {
-          id: 1,
-          name: 'Vasile',
-        },
+        user: usersMock[0],
         status: 'Propus BL',
       },
     ],
@@ -317,10 +263,7 @@ export const projects = [
     aplicari: [
       {
         id: 1,
-        user: {
-          id: 1,
-          name: 'Vasile',
-        },
+        user: usersMock[0],
         status: 'Alocare respinsa client',
       },
     ],
@@ -333,10 +276,7 @@ export const projects = [
     aplicari: [
       {
         id: 1,
-        user: {
-          id: 1,
-          name: 'Vasile',
-        },
+        user: usersMock[0],
         status: 'Propus Client',
       },
     ],
@@ -349,10 +289,7 @@ export const projects = [
     aplicari: [
       {
         id: 1,
-        user: {
-          id: 1,
-          name: 'Vasile',
-        },
+        user: usersMock[0],
         status: 'Alocare respinsa client',
       },
     ],
@@ -365,10 +302,7 @@ export const projects = [
     aplicari: [
       {
         id: 1,
-        user: {
-          id: 1,
-          name: 'Vasile',
-        },
+        user: usersMock[0],
         status: 'Propus Client',
       },
     ],
@@ -381,10 +315,7 @@ export const projects = [
     aplicari: [
       {
         id: 1,
-        user: {
-          id: 1,
-          name: 'Vasile',
-        },
+        user: usersMock[0],
         status: 'Alocare respinsa candidat',
       },
     ],
@@ -396,10 +327,7 @@ export const projects = [
     aplicari: [
       {
         id: 1,
-        user: {
-          id: 1,
-          name: 'Vasile',
-        },
+        user: usersMock[0],
         status: 'Alocare respinsa candidat',
       },
     ],
@@ -412,10 +340,7 @@ export const projects = [
     aplicari: [
       {
         id: 1,
-        user: {
-          id: 1,
-          name: 'Vasile',
-        },
+        user: usersMock[0],
         status: 'Alocare respinsa client',
       },
     ],
@@ -429,10 +354,7 @@ export const projects = [
     aplicari: [
       {
         id: 1,
-        user: {
-          id: 1,
-          name: 'Vasile',
-        },
+        user: usersMock[0],
         status: 'Propus BL',
       },
     ],
@@ -445,10 +367,7 @@ export const projects = [
     aplicari: [
       {
         id: 1,
-        user: {
-          id: 1,
-          name: 'Vasile',
-        },
+        user: usersMock[0],
         status: 'Alocare respinsa client',
       },
     ],
@@ -460,10 +379,7 @@ export const projects = [
     aplicari: [
       {
         id: 1,
-        user: {
-          id: 1,
-          name: 'Vasile',
-        },
+        user: usersMock[0],
         status: 'Alocare respinsa candidat',
       },
     ],
@@ -475,10 +391,7 @@ export const projects = [
     aplicari: [
       {
         id: 1,
-        user: {
-          id: 1,
-          name: 'Vasile',
-        },
+        user: usersMock[0],
         status: 'Alocare respinsa candidat',
       },
     ],
@@ -491,10 +404,7 @@ export const projects = [
     aplicari: [
       {
         id: 1,
-        user: {
-          id: 1,
-          name: 'Vasile',
-        },
+        user: usersMock[0],
         status: 'Alocare respinsa candidat',
       },
     ],
@@ -506,10 +416,7 @@ export const projects = [
     aplicari: [
       {
         id: 1,
-        user: {
-          id: 1,
-          name: 'Vasile',
-        },
+        user: usersMock[0],
         status: 'Propus Client',
       },
     ],
@@ -525,10 +432,7 @@ export const projects = [
     aplicari: [
       {
         id: 1,
-        user: {
-          id: 1,
-          name: 'Vasile',
-        },
+        user: usersMock[0],
         status: 'Propus BL',
       },
     ],
@@ -540,10 +444,7 @@ export const projects = [
     aplicari: [
       {
         id: 1,
-        user: {
-          id: 1,
-          name: 'Vasile',
-        },
+        user: usersMock[0],
         status: 'Propus Client',
       },
     ],
@@ -555,10 +456,7 @@ export const projects = [
     aplicari: [
       {
         id: 1,
-        user: {
-          id: 1,
-          name: 'Vasile',
-        },
+        user: usersMock[0],
         status: 'Alocare posibila',
       },
     ],
@@ -572,10 +470,7 @@ export const projects = [
     aplicari: [
       {
         id: 1,
-        user: {
-          id: 1,
-          name: 'Vasile',
-        },
+        user: usersMock[0],
         status: 'Propus BL',
       },
     ],
@@ -587,10 +482,7 @@ export const projects = [
     aplicari: [
       {
         id: 1,
-        user: {
-          id: 1,
-          name: 'Vasile',
-        },
+        user: usersMock[0],
         status: 'Alocare respinsa client',
       },
     ],
@@ -604,10 +496,7 @@ export const projects = [
     aplicari: [
       {
         id: 1,
-        user: {
-          id: 1,
-          name: 'Vasile',
-        },
+        user: usersMock[0],
         status: 'Propus BL',
       },
     ],
@@ -620,10 +509,7 @@ export const projects = [
     aplicari: [
       {
         id: 1,
-        user: {
-          id: 1,
-          name: 'Vasile',
-        },
+        user: usersMock[0],
         status: 'Propus BL',
       },
     ],
@@ -636,10 +522,7 @@ export const projects = [
     aplicari: [
       {
         id: 1,
-        user: {
-          id: 1,
-          name: 'Vasile',
-        },
+        user: usersMock[0],
         status: 'Alocare respinsa client',
       },
     ],
@@ -651,10 +534,7 @@ export const projects = [
     aplicari: [
       {
         id: 1,
-        user: {
-          id: 1,
-          name: 'Vasile',
-        },
+        user: usersMock[0],
         status: 'Alocare respinsa client',
       },
     ],
@@ -669,10 +549,7 @@ export const projects = [
     aplicari: [
       {
         id: 1,
-        user: {
-          id: 1,
-          name: 'Vasile',
-        },
+        user: usersMock[0],
         status: 'Alocare posibila',
       },
     ],
@@ -684,10 +561,7 @@ export const projects = [
     aplicari: [
       {
         id: 1,
-        user: {
-          id: 1,
-          name: 'Vasile',
-        },
+        user: usersMock[0],
         status: 'Alocare respinsa client',
       },
     ],
@@ -699,10 +573,7 @@ export const projects = [
     aplicari: [
       {
         id: 1,
-        user: {
-          id: 1,
-          name: 'Vasile',
-        },
+        user: usersMock[0],
         status: 'Alocare posibila',
       },
     ],
@@ -714,10 +585,7 @@ export const projects = [
     aplicari: [
       {
         id: 1,
-        user: {
-          id: 1,
-          name: 'Vasile',
-        },
+        user: usersMock[0],
         status: 'Propus Client',
       },
     ],
@@ -729,10 +597,7 @@ export const projects = [
     aplicari: [
       {
         id: 1,
-        user: {
-          id: 1,
-          name: 'Vasile',
-        },
+        user: usersMock[0],
         status: 'Propus BL',
       },
     ],
@@ -746,10 +611,7 @@ export const projects = [
     aplicari: [
       {
         id: 1,
-        user: {
-          id: 1,
-          name: 'Vasile',
-        },
+        user: usersMock[0],
         status: 'Propus Client',
       },
     ],
@@ -761,10 +623,7 @@ export const projects = [
     aplicari: [
       {
         id: 1,
-        user: {
-          id: 1,
-          name: 'Vasile',
-        },
+        user: usersMock[0],
         status: 'Alocare respinsa candidat',
       },
     ],
@@ -776,10 +635,7 @@ export const projects = [
     aplicari: [
       {
         id: 1,
-        user: {
-          id: 1,
-          name: 'Vasile',
-        },
+        user: usersMock[0],
         status: 'Alocare respinsa candidat',
       },
     ],

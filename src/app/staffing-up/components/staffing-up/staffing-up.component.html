@@ -15,9 +15,31 @@
         [allowDropInsideItem]="false"
         [onDragEnd]="onUserDragEnd"
       />
-      <!-- Define your columns here -->
-      <dxi-column dataField="id" caption="ID"></dxi-column>
+      <dxo-header-filter
+        [visible]="true"
+        [allowSearch]="true"
+      ></dxo-header-filter>
+      <!-- COLS -->
       <dxi-column dataField="name" caption="Name"></dxi-column>
+      <dxi-column dataField="cc" caption="CC"></dxi-column>
+      <dxi-column
+        dataField="skills"
+        caption="Skills"
+        cellTemplate="cellTemplate"
+        [lookup]="{ dataSource: skills }"
+        [calculateCellValue]="calculateCellValue"
+        [calculateFilterExpression]="calculateSkillsFilterExpression"
+      >
+        >
+      </dxi-column>
+      <dxi-column dataField="type" caption="Type"></dxi-column>
+
+      <div *dxTemplate="let item of 'cellTemplate'">
+        <dx-tag-box
+          [value]="item.value.split(', ')"
+          [disabled]="true"
+        ></dx-tag-box>
+      </div>
     </dx-data-grid>
   </div>
 

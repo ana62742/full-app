@@ -1,11 +1,12 @@
 import { Component, ViewChild } from '@angular/core';
 import { DxDataGridComponent } from 'devextreme-angular';
 import { projects } from '../../mock/projects';
-import { User } from '../../types/user.types';
 import { Project } from '../../types/project.types';
 import { RowDraggingEndEvent } from 'devextreme/ui/data_grid_types';
 import notify from 'devextreme/ui/notify';
 import { confirm } from 'devextreme/ui/dialog';
+import { usersMock } from '../../mock/users';
+import { User } from '../../types/user.types';
 
 @Component({
   selector: 'app-staffing-up',
@@ -34,24 +35,7 @@ export class StaffingUpComponent {
     };
   });
 
-  users: Array<User> = [
-    {
-      id: 1,
-      name: 'Vasile',
-    },
-    {
-      id: 2,
-      name: 'Ion',
-    },
-    {
-      id: 3,
-      name: 'Maria',
-    },
-    {
-      id: 4,
-      name: 'Magdalena',
-    },
-  ];
+  users = usersMock;
   projects: Array<Project> = projects.map((project) => {
     return {
       ...project,
@@ -75,8 +59,22 @@ export class StaffingUpComponent {
     };
   });
 
+  skillsSet = new Set(this.users.flatMap((user) => user.skills));
+  skills: string[] = [...this.skillsSet];
+
   constructor() {
     this.onUserDragEnd = this.onUserDragEnd.bind(this);
+  }
+
+  calculateSkillsFilterExpression(
+    filterValue: string,
+    selectedFilterOperation: any
+  ) {
+    return [this.calculateCellValue, 'contains', filterValue];
+  }
+
+  calculateCellValue(rowData: User) {
+    return rowData.skills.join(', ');
   }
 
   onProjectDragStart(e: RowDraggingEndEvent) {
