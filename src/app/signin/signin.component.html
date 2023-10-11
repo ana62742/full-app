@@ -23,8 +23,12 @@
             LOGIN
         </button><br>
         <button mat-raised-button [disabled]="!form.valid" (click)="register()"
-            *ngIf="!isLoggingIn" test-id="login-button">
+            *ngIf="!isLoggingIn" test-id="register-button">
             REGISTER
         </button>
+        <!-- <button mat-raised-button (click)="logout()"
+            *ngIf="!isLoggingIn" test-id="register-button">
+            LOGOUT
+        </button> -->
     </form>
 </main>

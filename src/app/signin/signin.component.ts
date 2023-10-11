@@ -43,7 +43,7 @@ export class SigninComponent implements OnInit {
   }
 
   register() {
-    this.isLoggingIn = false;
+    this.isLoggingIn = true;
 
     this.authenticationService.register({
       email: this.form.value.email,
@@ -54,5 +54,9 @@ export class SigninComponent implements OnInit {
         alert(error.message);
       }
     });
+  }
+
+  logout () {
+    this.authenticationService.logout();
   }
 }

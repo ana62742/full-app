@@ -1,14 +1,17 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { Router } from '@angular/router';
 import { catchError, from, Observable, of, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
+  isLoggedIn = false;
 
   constructor(
-    private auth: AngularFireAuth
+    private auth: AngularFireAuth,
+    private router: Router
   ) { }
 
   signIn(params: SignIn): Observable<any> {
@@ -29,7 +32,17 @@ export class AuthenticationService {
         throwError(() => new Error(this.translateFirebaseErrorMessage(error)))
       )
   );
-  }  
+  }
+  
+  logout() {
+    this.auth.signOut()
+      .then(() => {
+        this.router.navigate(['/auth']);
+      })
+      .catch((error) => {
+        console.error('Logout error:', error);
+      });
+  }
 
   private translateFirebaseErrorMessage({code, message}: FirebaseError) {
     if (code === "auth/user-not-found") {
