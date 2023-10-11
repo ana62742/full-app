@@ -13,17 +13,17 @@ import { AppComponent } from './app.component';
 import { SigninComponent } from './signin/signin.component';
 import { AppRoutingModule } from './app.routing.module';
 import { StaffingUpComponent } from './components/staffing-up/staffing-up.component';
-import { HomeComponent } from './home/home.component';
-import { DxButtonModule, DxDataGridModule } from 'devextreme-angular';
+import { DxButtonModule, DxDataGridModule, DxTextBoxModule } from 'devextreme-angular';
 import { ResizeDirective } from './directives/resize.directive';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
     SigninComponent,
     StaffingUpComponent,
     ResizeDirective,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -37,6 +37,7 @@ import { ResizeDirective } from './directives/resize.directive';
     AngularFireAuthModule,
     DxDataGridModule,
     DxButtonModule,
+    DxTextBoxModule
   ],
   providers: [],
   bootstrap: [AppComponent],
