@@ -1,11 +1,16 @@
 import { Component, ViewChild } from '@angular/core';
 import { DxDataGridComponent } from 'devextreme-angular';
-import { projects } from '../../mock/projects';
-import { User } from '../../types/user.types';
-import { Project } from '../../types/project.types';
+import { projectsMock } from '../../mock/projects';
+import {
+  ProjectInterface,
+  isAplicare,
+  statusObj,
+} from '../../types/project.types';
 import { RowDraggingEndEvent } from 'devextreme/ui/data_grid_types';
 import notify from 'devextreme/ui/notify';
 import { confirm } from 'devextreme/ui/dialog';
+import { usersMock } from '../../mock/users';
+import { isUser } from '../../types/user.types';
 
 @Component({
   selector: 'app-staffing-up',
@@ -18,41 +23,15 @@ export class StaffingUpComponent {
 
   public style: object = {};
 
-  statusObj = {
-    new: 'NEW',
-    propusBl: 'Propus BL',
-    propusClient: 'Propus Client',
-    alocarePosibila: 'Alocare posibila',
-    alocareRespinsaClient: 'Alocare respinsa client',
-    alocareRespinsaCandidat: 'Alocare respinsa candidat',
-  };
-
-  statuses = Object.keys(this.statusObj).map((key) => {
+  statuses = Object.keys(statusObj).map((key) => {
     return {
       key: key,
-      value: this.statusObj[key as keyof typeof this.statusObj],
+      value: statusObj[key as keyof typeof statusObj],
     };
   });
 
-  users: Array<User> = [
-    {
-      id: 1,
-      name: 'Vasile',
-    },
-    {
-      id: 2,
-      name: 'Ion',
-    },
-    {
-      id: 3,
-      name: 'Maria',
-    },
-    {
-      id: 4,
-      name: 'Magdalena',
-    },
-  ];
-  projects: Array<Project> = projects.map((project) => {
+  users = usersMock;
+  projects: Array<ProjectInterface> = projectsMock.map((project) => {
     return {
       ...project,
       aplicari: project.aplicari.map((aplicare) => {
@@ -75,8 +54,36 @@ export class StaffingUpComponent {
     };
   });
 
+  skillsSet = new Set(this.users.flatMap((user) => user.skills));
+  skills: string[] = [...this.skillsSet];
+
   constructor() {
     this.onUserDragEnd = this.onUserDragEnd.bind(this);
+  }
+
+  intersectedSkills(skills: string[], tehnologies: string[]): string[] {
+    return skills.filter((skill) => tehnologies.includes(skill));
+  }
+
+  calculateSkillsFilterExpression(
+    filterValue: string,
+    selectedFilterOperation: any
+  ) {
+    return [this.calculateCellValue, 'contains', filterValue];
+  }
+
+  calculateCellValue(rowData: unknown) {
+    if (isUser(rowData)) {
+      return rowData.skills.join(', ');
+    }
+    return rowData;
+  }
+
+  calculateDisplayValue(rowData: unknown) {
+    if (isAplicare(rowData)) {
+      return rowData.user.skills.join(', ');
+    }
+    return rowData;
   }
 
   onProjectDragStart(e: RowDraggingEndEvent) {
@@ -122,10 +129,19 @@ export class StaffingUpComponent {
         return;
       }
 
-      const confirmed = await confirm(
-        `Are you sure you want to add ${user.name} to project ${project.firma} - ${project.proiect}`,
-        'Confirm Changes'
-      );
+      const userHasRelevantSkills =
+        this.intersectedSkills(user.skills, project.tehnologii).length > 0;
+
+      const confirmed = userHasRelevantSkills
+        ? await confirm(
+            `Are you sure you want to add ${user.name} to project ${project.firma} - ${project.proiect}`,
+            'Confirm'
+          )
+        : await confirm(
+            `User ${user.name} does not have any relevant skills for project ${project.firma} - ${project.proiect}. Are you sure you want to add him?`,
+            'Skills mismatch'
+          );
+
       if (confirmed) {
         project.aplicari.push({
           id: project.aplicari.length + 1,

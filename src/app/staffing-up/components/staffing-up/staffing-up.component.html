@@ -15,12 +15,28 @@
         [allowDropInsideItem]="false"
         [onDragEnd]="onUserDragEnd"
       />
-      <!-- Define your columns here -->
-      <dxi-column dataField="id" caption="ID"></dxi-column>
+      <dxo-header-filter
+        [visible]="true"
+        [allowSearch]="true"
+      ></dxo-header-filter>
+      <!-- COLS -->
       <dxi-column dataField="name" caption="Name"></dxi-column>
+      <dxi-column dataField="cc" caption="CC"></dxi-column>
+      <dxi-column
+        dataField="skills"
+        caption="Skills"
+        [lookup]="{ dataSource: skills }"
+        [calculateCellValue]="calculateCellValue"
+        [calculateFilterExpression]="calculateSkillsFilterExpression"
+      >
+        >
+      </dxi-column>
+      <dxi-column dataField="type" caption="Type"></dxi-column>
     </dx-data-grid>
   </div>
 
+  <!-- ! Possible leak from appResize directory  -->
+  <!-- TODO: Find alternative -->
   <dx-button
     icon="dragvertical"
     class="flex items-center justify-center cursor-col-resize w-4 h-8 my-auto focus:outline-none"
@@ -56,10 +72,12 @@
       <dxi-column dataField="firma" sortOrder="asc" [groupIndex]="0">
       </dxi-column>
       <dxi-column dataField="proiect"></dxi-column>
+      <dxi-column dataField="tehnologii"></dxi-column>
+      <dxi-column dataField="locuriDisponibile"></dxi-column>
       <dxo-master-detail [enabled]="true" template="detail"></dxo-master-detail>
       <div *dxTemplate="let project of 'detail'">
-        <div class="master-detail-caption">
-          Aplicari pt. {{ project.data.firma }}
+        <div class="master-detail-caption mb-1 font-semibold">
+          Aplicari pt. {{ project.data.firma }} - {{ project.data.proiect }}
         </div>
         <dx-data-grid
           #targetGrid
@@ -79,7 +97,11 @@
             [allowUpdating]="true"
             [allowDeleting]="true"
           />
-          <dxi-column dataField="user.name" [allowEditing]="false"></dxi-column>
+          <dxi-column
+            dataField="user.name"
+            caption="Name"
+            [allowEditing]="false"
+          ></dxi-column>
           <dxi-column dataField="status">
             <dxo-lookup
               [dataSource]="statuses"
@@ -88,6 +110,15 @@
             >
             </dxo-lookup>
           </dxi-column>
+          <dxi-column
+            dataField="user.skills"
+            caption="Relevant skills"
+            cellTemplate="skillsTemplate"
+            [allowEditing]="false"
+          ></dxi-column>
+          <div *dxTemplate="let skills of 'skillsTemplate'">
+            {{ intersectedSkills(skills.value, project.data.tehnologii) }}
+          </div>
         </dx-data-grid>
       </div>
     </dx-data-grid>
