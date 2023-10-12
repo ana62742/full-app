@@ -1,9 +1,5 @@
 import { Injectable, signal } from '@angular/core';
-import {
-  AplicariInterface,
-  ProjectInterface,
-  statusObj,
-} from '../types/project.types';
+import { ProjectInterface, statusObj } from '../types/project.types';
 import { UserInterface } from '../types/user.types';
 
 @Injectable({
@@ -60,7 +56,7 @@ export class ProjectService {
       ],
     },
     {
-      id: 3,
+      id: 4,
       firma: 'Colt',
       proiect: 'B2x',
       tehnologii: ['Angular'],
@@ -68,7 +64,7 @@ export class ProjectService {
       aplicari: [],
     },
     {
-      id: 3,
+      id: 5,
       firma: 'Colt',
       proiect: '(blank)',
       tehnologii: ['Selenium'],
