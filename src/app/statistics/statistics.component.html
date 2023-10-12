@@ -1,0 +1,37 @@
+<app-header></app-header>
+
+<div style="display: flex;">
+  <div style="flex: 1; padding: 10px;">
+    <dx-pie-chart
+      [dataSource]="skillData"
+      [palette]="['#6ab0f3', '#8ec72e', '#e25a53', '#ff834e', '#a696c8']"
+      [title]="{
+        text: 'Skill Statistics',
+        subtitle: 'Number of projects per skill',
+      }"
+    >
+      <dxi-series
+        type="doughnut"
+        [argumentField]="'skill'"
+        [valueField]="'count'"
+      ></dxi-series>
+    </dx-pie-chart>
+  </div>
+
+  <div style="flex: 1; padding: 10px;">
+    <dx-pie-chart
+      [dataSource]="statusData"
+      [palette]="['#6ab0f3', '#8ec72e', '#e25a53', '#ff834e', '#a696c8']"
+      [title]="{
+        text: 'Project Status Statistics',
+        subtitle: 'Number of projects per status',
+      }"
+    >
+      <dxi-series
+        type="doughnut"
+        [argumentField]="'status'"
+        [valueField]="'count'"
+      ></dxi-series>
+    </dx-pie-chart>
+  </div>
+</div>
