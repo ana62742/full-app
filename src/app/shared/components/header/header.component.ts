@@ -13,9 +13,4 @@ export class HeaderComponent {
   logout() {
     this.authService.logout();
   }
-
-  navToStaff() {
-    console.log('of!');
-    this.router.navigate(['/staffing-up']);
-  }
 }
