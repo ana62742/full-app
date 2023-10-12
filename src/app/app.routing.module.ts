@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { SigninComponent } from './auth/components/signin/signin.component';
 import { AuthGuard } from './auth.guard';
 import { AppComponent } from './app.component';
+import { StatisticsComponent } from './statistics/statistics.component';
 
 const routes: Routes = [
   {
@@ -18,6 +19,11 @@ const routes: Routes = [
       import('./staffing-up/staffing-up.module').then(
         (m) => m.StaffingUpModule
       ),
+  },
+  {
+    path: 'statistics',
+    canActivate: [AuthGuard],
+    component: StatisticsComponent
   },
   { path: 'auth', component: SigninComponent },
 ];

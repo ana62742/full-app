@@ -4,15 +4,16 @@ import { StaffingUpComponent } from './components/staffing-up/staffing-up.compon
 import { ResizeDirective } from '../shared/directives/resize.directive';
 import { DxButtonModule, DxDataGridModule } from 'devextreme-angular';
 import { StaffingUpRoutingModule } from './staffing-up.routing.module';
-import { HeaderComponent } from '../shared/components/header/header.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
-  declarations: [StaffingUpComponent, HeaderComponent, ResizeDirective],
+  declarations: [StaffingUpComponent, ResizeDirective],
   imports: [
     CommonModule,
     StaffingUpRoutingModule,
     DxDataGridModule,
     DxButtonModule,
+    SharedModule
   ],
 })
 export class StaffingUpModule {}

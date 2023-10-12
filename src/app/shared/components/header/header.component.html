@@ -1,8 +1,15 @@
-<header
-  class="bg-white border-b border-gray-200 p-2 flex justify-end items-center h-[60px]"
->
+<header class="bg-gray-300 p-2 flex items-center h-[60px]">
+  <div class="pl-2">
+    <a routerLink="/staffing-up" class="text-gray-700 hover:text-blue-500"
+      >Staffing</a
+    >
+    <span class="text-gray-500 px-2">|</span>
+    <a routerLink="/statistics" class="text-gray-700 hover:text-blue-500"
+      >Statistics</a
+    >
+  </div>
   <button
-    class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+    class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-auto mr-2"
     (click)="logout()"
   >
     Logout
