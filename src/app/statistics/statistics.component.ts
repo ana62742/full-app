@@ -1,16 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { projectsMock } from '../staffing-up/mock/projects';
+import { ProjectService } from '../shared/services/project.service';
 
 @Component({
   selector: 'app-statistics',
   templateUrl: './statistics.component.html',
-  styleUrls: ['./statistics.component.css']
+  styleUrls: ['./statistics.component.css'],
 })
-export class StatisticsComponent {
-  skillData: { skill: string, count: number }[] = [];
-  statusData: { status: string, count: number }[] = []; 
+export class StatisticsComponent implements OnInit {
+  skillData: { skill: string; count: number }[] = [];
+  statusData: { status: string; count: number }[] = [];
 
-  constructor() {}
+  projects = this.projectService.projects();
+
+  constructor(private projectService: ProjectService) {}
 
   ngOnInit(): void {
     this.preprocessSkillData();
@@ -20,7 +22,7 @@ export class StatisticsComponent {
   preprocessSkillData() {
     const skillCountMap: Map<string, number> = new Map<string, number>();
 
-    for (const project of projectsMock) {
+    for (const project of this.projects) {
       for (const skill of project.tehnologii) {
         if (skillCountMap.has(skill)) {
           skillCountMap.set(skill, skillCountMap.get(skill)! + 1);
@@ -39,8 +41,8 @@ export class StatisticsComponent {
   preprocessStatusData() {
     const statusCountMap: Map<string, number> = new Map<string, number>();
 
-    for (const project of projectsMock) {
-      const status = project.aplicari[0]?.status; 
+    for (const project of this.projects) {
+      const status = project.aplicari[0]?.status;
 
       if (status) {
         if (statusCountMap.has(status)) {
