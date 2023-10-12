@@ -1,16 +1,12 @@
 import { Component, ViewChild } from '@angular/core';
 import { DxDataGridComponent } from 'devextreme-angular';
-import { projectsMock } from '../../mock/projects';
-import {
-  ProjectInterface,
-  isAplicare,
-  statusObj,
-} from '../../types/project.types';
+import { isAplicare, statusObj } from '../../../shared/types/project.types';
 import { RowDraggingEndEvent } from 'devextreme/ui/data_grid_types';
 import notify from 'devextreme/ui/notify';
 import { confirm } from 'devextreme/ui/dialog';
-import { usersMock } from '../../mock/users';
-import { isUser } from '../../types/user.types';
+import { isUser } from '../../../shared/types/user.types';
+import { ProjectService } from 'src/app/shared/services/project.service';
+import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
   selector: 'app-staffing-up',
@@ -23,41 +19,18 @@ export class StaffingUpComponent {
 
   public style: object = {};
 
-  statuses = Object.keys(statusObj).map((key) => {
-    return {
-      key: key,
-      value: statusObj[key as keyof typeof statusObj],
-    };
-  });
+  statuses = Object.values(statusObj);
 
-  users = usersMock;
-  projects: Array<ProjectInterface> = projectsMock.map((project) => {
-    return {
-      ...project,
-      aplicari: project.aplicari.map((aplicare) => {
-        // Find the key in statuses that matches the current status value
-        const statusKey = this.statuses.find(
-          (status) => status.value === aplicare.status
-        )?.key;
-
-        // If a matching key is found, use it as the new status
-        if (statusKey) {
-          return {
-            ...aplicare,
-            status: statusKey,
-          };
-        }
-
-        // If no matching key is found, return the aplicare without modifying the status
-        return aplicare;
-      }),
-    };
-  });
+  users = this.userService.users();
+  projects = this.projectService.projects();
 
   skillsSet = new Set(this.users.flatMap((user) => user.skills));
   skills: string[] = [...this.skillsSet];
 
-  constructor() {
+  constructor(
+    private projectService: ProjectService,
+    private userService: UserService
+  ) {
     this.onUserDragEnd = this.onUserDragEnd.bind(this);
   }
 
@@ -143,11 +116,12 @@ export class StaffingUpComponent {
           );
 
       if (confirmed) {
-        project.aplicari.push({
-          id: project.aplicari.length + 1,
-          user,
-          status: 'new',
-        });
+        this.projectService.addUserToProject(user, project);
+        // project.aplicari.push({
+        //   id: project.aplicari.length + 1,
+        //   user,
+        //   status: 'new',
+        // });
 
         notify(
           `User ${user.name} added to project ${project.firma} - ${project.proiect}`,
