@@ -14,7 +14,16 @@
         type="doughnut"
         [argumentField]="'skill'"
         [valueField]="'count'"
-      ></dxi-series>
+      >
+      <dxo-label
+      [visible]="true"
+      position="columns"
+      [customizeText]="customizeLabel"
+      >
+      <dxo-font [size]="16"></dxo-font>
+      <dxo-connector [visible]="true" [width]="0.5"></dxo-connector>
+    </dxo-label>
+    </dxi-series>
     </dx-pie-chart>
   </div>
 
@@ -31,7 +40,16 @@
         type="doughnut"
         [argumentField]="'status'"
         [valueField]="'count'"
-      ></dxi-series>
+      >
+      <dxo-label
+      [visible]="true"
+      position="columns"
+      [customizeText]="customizeLabel"
+      >
+      <dxo-font [size]="16"></dxo-font>
+      <dxo-connector [visible]="true" [width]="0.5"></dxo-connector>
+    </dxo-label>
+    </dxi-series>
     </dx-pie-chart>
   </div>
 </div>

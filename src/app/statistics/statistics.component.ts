@@ -58,4 +58,8 @@ export class StatisticsComponent implements OnInit {
       count,
     }));
   }
+
+  customizeLabel(arg: { valueText: any; percentText: any; }) {
+    return `${arg.valueText} (${arg.percentText})`;
+  }
 }
