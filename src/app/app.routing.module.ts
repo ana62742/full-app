@@ -4,6 +4,7 @@ import { SigninComponent } from './auth/components/signin/signin.component';
 import { AuthGuard } from './auth.guard';
 import { AppComponent } from './app.component';
 import { StatisticsComponent } from './statistics/statistics.component';
+import { SettingsComponent } from './settings/components/settings/settings.component';
 
 const routes: Routes = [
   {
@@ -11,6 +12,10 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     pathMatch: 'full',
     component: AppComponent,
+  },
+  {
+    path: 'auth',
+    component: SigninComponent,
   },
   {
     path: 'staffing-up',
@@ -23,9 +28,14 @@ const routes: Routes = [
   {
     path: 'statistics',
     canActivate: [AuthGuard],
-    component: StatisticsComponent
+    component: StatisticsComponent,
   },
-  { path: 'auth', component: SigninComponent },
+  {
+    path: 'settings',
+    canActivate: [AuthGuard],
+    component: SettingsComponent,
+  },
+  { path: '**', redirectTo: '' },
 ];
 
 @NgModule({

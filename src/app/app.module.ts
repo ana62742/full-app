@@ -10,9 +10,9 @@ import { AppComponent } from './app.component';
 import { SigninComponent } from './auth/components/signin/signin.component';
 import { AppRoutingModule } from './app.routing.module';
 import { DxButtonModule, DxTextBoxModule } from 'devextreme-angular';
+import { SettingsModule } from './settings/settings.module';
 import { StatisticsModule } from './statistics/statistics.module';
-import { HeaderComponent } from './shared/components/header/header.component';
-import { StaffingUpModule } from './staffing-up/staffing-up.module';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [AppComponent, SigninComponent],
@@ -23,8 +23,10 @@ import { StaffingUpModule } from './staffing-up/staffing-up.module';
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
+    SettingsModule,
+    StatisticsModule,
     DxButtonModule,
-    DxTextBoxModule
+    DxTextBoxModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
