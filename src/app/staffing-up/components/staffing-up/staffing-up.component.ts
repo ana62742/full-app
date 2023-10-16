@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { DxDataGridComponent } from 'devextreme-angular';
-import { isAplicare, statusObj } from '../../../shared/types/project.types';
+import { ApplicationInterface, isApplication, statusObj } from '../../../shared/types/project.types';
 import { RowDraggingEndEvent } from 'devextreme/ui/data_grid_types';
 import notify from 'devextreme/ui/notify';
 import { confirm } from 'devextreme/ui/dialog';
@@ -34,8 +34,8 @@ export class StaffingUpComponent {
     this.onUserDragEnd = this.onUserDragEnd.bind(this);
   }
 
-  intersectedSkills(skills: string[], tehnologies: string[]): string[] {
-    return skills.filter((skill) => tehnologies.includes(skill));
+  intersectedSkills(skills: string[], technologies: string[]): string[] {
+    return skills.filter((skill) => technologies.includes(skill));
   }
 
   calculateSkillsFilterExpression(
@@ -53,10 +53,18 @@ export class StaffingUpComponent {
   }
 
   calculateDisplayValue(rowData: unknown) {
-    if (isAplicare(rowData)) {
+    if (isApplication(rowData)) {
       return rowData.user.skills.join(', ');
     }
     return rowData;
+  }
+
+  calculateStatus(rowData: ApplicationInterface) {
+    if (rowData.statuses && rowData.statuses.length > 0) {
+      const latestStatus = rowData.statuses[rowData.statuses.length - 1];
+      return latestStatus.status;
+    }
+    return statusObj.new; 
   }
 
   onProjectDragStart(e: RowDraggingEndEvent) {
@@ -90,28 +98,28 @@ export class StaffingUpComponent {
     const project = this.projects.find((p) => p.id === projectId);
 
     if (project) {
-      const userAlreadyInProject = project.aplicari.find(
+      const userAlreadyInProject = project.applications.find(
         (a) => a.user.id === user.id
       );
 
       if (userAlreadyInProject) {
         notify(
-          `User ${user.name} is already allocated in project ${project.firma} - ${project.proiect}`,
+          `User ${user.name} is already allocated in project ${project.company} - ${project.project}`,
           'warning'
         );
         return;
       }
 
       const userHasRelevantSkills =
-        this.intersectedSkills(user.skills, project.tehnologii).length > 0;
+        this.intersectedSkills(user.skills, project.technologies).length > 0;
 
       const confirmed = userHasRelevantSkills
         ? await confirm(
-            `Are you sure you want to add ${user.name} to project ${project.firma} - ${project.proiect}`,
+            `Are you sure you want to add ${user.name} to project ${project.company} - ${project.project}`,
             'Confirm'
           )
         : await confirm(
-            `User ${user.name} does not have any relevant skills for project ${project.firma} - ${project.proiect}. Are you sure you want to add him?`,
+            `User ${user.name} does not have any relevant skills for project ${project.company} - ${project.project}. Are you sure you want to add him?`,
             'Skills mismatch'
           );
 
@@ -124,7 +132,7 @@ export class StaffingUpComponent {
         // });
 
         notify(
-          `User ${user.name} added to project ${project.firma} - ${project.proiect}`,
+          `User ${user.name} added to project ${project.company} - ${project.project}`,
           'success'
         );
       }

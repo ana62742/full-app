@@ -16,14 +16,14 @@ export class StatisticsComponent implements OnInit {
 
   ngOnInit(): void {
     this.preprocessSkillData();
-    this.preprocessStatusData();
+    //this.preprocessStatusData();
   }
 
   preprocessSkillData() {
     const skillCountMap: Map<string, number> = new Map<string, number>();
 
     for (const project of this.projects) {
-      for (const skill of project.tehnologii) {
+      for (const skill of project.technologies) {
         if (skillCountMap.has(skill)) {
           skillCountMap.set(skill, skillCountMap.get(skill)! + 1);
         } else {
@@ -38,26 +38,26 @@ export class StatisticsComponent implements OnInit {
     }));
   }
 
-  preprocessStatusData() {
-    const statusCountMap: Map<string, number> = new Map<string, number>();
+  // preprocessStatusData() {
+  //   const statusCountMap: Map<string, number> = new Map<string, number>();
 
-    for (const project of this.projects) {
-      const status = project.aplicari[0]?.status;
+  //   for (const project of this.projects) {
+  //     const status = project.applications[0]?.status;
 
-      if (status) {
-        if (statusCountMap.has(status)) {
-          statusCountMap.set(status, statusCountMap.get(status)! + 1);
-        } else {
-          statusCountMap.set(status, 1);
-        }
-      }
-    }
+  //     if (status) {
+  //       if (statusCountMap.has(status)) {
+  //         statusCountMap.set(status, statusCountMap.get(status)! + 1);
+  //       } else {
+  //         statusCountMap.set(status, 1);
+  //       }
+  //     }
+  //   }
 
-    this.statusData = Array.from(statusCountMap).map(([status, count]) => ({
-      status,
-      count,
-    }));
-  }
+  //   this.statusData = Array.from(statusCountMap).map(([status, count]) => ({
+  //     status,
+  //     count,
+  //   }));
+  // }
 
   customizeLabel(arg: { valueText: any; percentText: any; }) {
     return `${arg.valueText} (${arg.percentText})`;

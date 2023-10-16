@@ -9,11 +9,11 @@ export class ProjectService {
   private projectsMock: ProjectInterface[] = [
     {
       id: 1,
-      firma: 'BMW',
-      proiect: 'B2x',
-      tehnologii: ['Angular', 'Java'],
-      locuriDisponibile: 2,
-      aplicari: [
+      company: 'BMW',
+      project: 'B2x',
+      technologies: ['Angular', 'Java'],
+      availablePositions: 2,
+      applications: [
         {
           id: 1,
           user: {
@@ -23,25 +23,27 @@ export class ProjectService {
             skills: ['Angular', 'React', 'Vue'],
             type: 'Intern',
           },
-          status: statusObj.propusBl,
+          statuses: [
+            { status: statusObj.proposedByBl, timestamp: new Date('2023-10-16T10:00:00') },
+          ],
         },
       ],
     },
     {
       id: 2,
-      firma: 'BMW',
-      proiect: 'Proactiv',
-      tehnologii: ['C#', 'Vue'],
-      locuriDisponibile: 1,
-      aplicari: [],
+      company: 'BMW',
+      project: 'Proactiv',
+      technologies: ['C#', 'Vue'],
+      availablePositions: 1,
+      applications: [],
     },
     {
       id: 3,
-      firma: 'BMW',
-      proiect: 'B2x',
-      tehnologii: ['React'],
-      locuriDisponibile: 5,
-      aplicari: [
+      company: 'BMW',
+      project: 'B2x',
+      technologies: ['React'],
+      availablePositions: 5,
+      applications: [
         {
           id: 1,
           user: {
@@ -51,25 +53,28 @@ export class ProjectService {
             skills: ['Angular', 'React', 'Vue'],
             type: 'Intern',
           },
-          status: statusObj.propusClient,
+          statuses: [
+            { status: statusObj.proposedByClient, timestamp: new Date('2023-10-16T11:30:00') },
+            { status: statusObj.proposedByBl, timestamp: new Date('2023-10-16T12:45:00') },
+          ],
         },
       ],
     },
     {
       id: 4,
-      firma: 'Colt',
-      proiect: 'B2x',
-      tehnologii: ['Angular'],
-      locuriDisponibile: 0,
-      aplicari: [],
+      company: 'Colt',
+      project: 'B2x',
+      technologies: ['Angular'],
+      availablePositions: 0,
+      applications: [],
     },
     {
       id: 5,
-      firma: 'Colt',
-      proiect: '(blank)',
-      tehnologii: ['Selenium'],
-      locuriDisponibile: 1,
-      aplicari: [
+      company: 'Colt',
+      project: '(blank)',
+      technologies: ['Selenium'],
+      availablePositions: 1,
+      applications: [
         {
           id: 1,
           user: {
@@ -77,9 +82,11 @@ export class ProjectService {
             name: 'Magdalena',
             cc: 'MS Technologies',
             skills: ['C#', 'ASP.NET', 'SQL'],
-            type: 'Extern',
+            type: 'External',
           },
-          status: statusObj.alocareRespinsaClient,
+          statuses: [
+            { status: statusObj.clientAllocationRejected, timestamp: new Date('2023-10-16T13:15:00') },
+          ],
         },
       ],
     },
@@ -93,10 +100,10 @@ export class ProjectService {
     this.projects.mutate((projects) => {
       projects
         .find((p) => p.id === project.id)
-        ?.aplicari.push({
-          id: project.aplicari.length + 1,
+        ?.applications.push({
+          id: project.applications.length + 1,
           user,
-          status: statusObj.new,
+          statuses: [{ status: statusObj.new, timestamp: new Date() }]
         });
     });
   }

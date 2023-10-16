@@ -2,39 +2,39 @@ import { UserInterface } from './user.types';
 
 export const statusObj = {
   new: 'NEW',
-  propusBl: 'Propus BL',
-  propusClient: 'Propus Client',
-  alocarePosibila: 'Alocare posibila',
-  alocareRespinsaClient: 'Alocare respinsa client',
-  alocareRespinsaCandidat: 'Alocare respinsa candidat',
+  proposedByBl: 'Propus BL',
+  proposedByClient: 'Propus Client',
+  possibleAlocation: 'Alocare posibila',
+  clientAllocationRejected: 'Alocare respinsa client',
+  candidateAllocationRejected: 'Alocare respinsa candidat',
 };
 
-export interface AplicariInterface {
+export interface ApplicationInterface {
   id: number;
   user: UserInterface;
-  status: (typeof statusObj)[keyof typeof statusObj];
+  statuses: { status: (typeof statusObj)[keyof typeof statusObj], timestamp: Date }[];
 }
 
 export interface ProjectInterface {
   id: number;
-  firma: string;
-  proiect: string;
-  tehnologii: string[];
-  locuriDisponibile: number;
-  aplicari: AplicariInterface[];
+  company: string;
+  project: string;
+  technologies: string[];
+  availablePositions: number;
+  applications: ApplicationInterface[];
 }
 
 export function isProject(obj: any): obj is ProjectInterface {
   return (
     'id' in obj &&
-    'firma' in obj &&
-    'proiect' in obj &&
-    'tehnologii' in obj &&
-    'locuriDisponibile' in obj &&
-    'aplicari' in obj
+    'company' in obj &&
+    'project' in obj &&
+    'technologies' in obj &&
+    'availablePositions' in obj &&
+    'applications' in obj
   );
 }
 
-export function isAplicare(obj: any): obj is AplicariInterface {
+export function isApplication(obj: any): obj is ApplicationInterface {
   return 'id' in obj && 'user' in obj && 'status' in obj;
 }
