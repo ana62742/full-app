@@ -71,7 +71,7 @@ export class ProjectService {
     {
       id: 5,
       company: 'Colt',
-      project: '(blank)',
+      project: 'B2x',
       technologies: ['Selenium'],
       availablePositions: 1,
       applications: [

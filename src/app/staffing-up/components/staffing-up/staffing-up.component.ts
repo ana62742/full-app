@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { DxDataGridComponent } from 'devextreme-angular';
-import { ApplicationInterface, isApplication, statusObj } from '../../../shared/types/project.types';
+import { ApplicationInterface, ProjectInterface, isApplication, statusObj } from '../../../shared/types/project.types';
 import { RowDraggingEndEvent } from 'devextreme/ui/data_grid_types';
 import notify from 'devextreme/ui/notify';
 import { confirm } from 'devextreme/ui/dialog';
@@ -27,6 +27,10 @@ export class StaffingUpComponent {
   skillsSet = new Set(this.users.flatMap((user) => user.skills));
   skills: string[] = [...this.skillsSet];
 
+  dynamicSelectedFilterOperation = "contains";
+  dynamicFilterValue = "";
+  isToggled = false;
+
   constructor(
     private projectService: ProjectService,
     private userService: UserService
@@ -34,9 +38,31 @@ export class StaffingUpComponent {
     this.onUserDragEnd = this.onUserDragEnd.bind(this);
   }
 
+  toggleFilterAttributes() {
+    if (this.isToggled) {
+      this.dynamicSelectedFilterOperation = "contains";
+      this.dynamicFilterValue = "";
+    } else {
+      this.dynamicSelectedFilterOperation = "notcontains";
+      this.dynamicFilterValue = "respinsa";
+    }
+    this.isToggled = !this.isToggled;
+  }
+  
+  isStatusActive(status: string): boolean {
+    const activeStatuses = [
+      statusObj.new,
+      statusObj.proposedByBl,
+      statusObj.proposedByClient,
+      statusObj.possibleAlocation
+    ];
+  
+    return activeStatuses.includes(status);
+  }  
+
   intersectedSkills(skills: string[], technologies: string[]): string[] {
     return skills.filter((skill) => technologies.includes(skill));
-  }
+  }   
 
   calculateSkillsFilterExpression(
     filterValue: string,
@@ -65,8 +91,8 @@ export class StaffingUpComponent {
       return latestStatus.status;
     }
     return statusObj.new; 
-  }
-
+  } 
+    
   onProjectDragStart(e: RowDraggingEndEvent) {
     e.cancel = true;
     return;
@@ -138,4 +164,19 @@ export class StaffingUpComponent {
       }
     }
   }
+
+  onEditorPreparing(e: any) {
+    if (e.parentType === 'data' && e.dataField === 'status' && e.row.data.statuses) {
+      e.editorOptions.onValueChanged = (args: any) => {
+        if (args.value) {
+          e.row.data.statuses.push({
+            status: args.value,
+            timestamp: new Date(),
+          });
+          this.projectsGrid.instance.refresh();
+        }
+      };
+    }
+  }
+  
 }

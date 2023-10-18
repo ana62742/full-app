@@ -1,5 +1,13 @@
 <div class="overflow-hidden">
   <app-header></app-header>
+  <div class="flex items-center gap-2 p-3">
+    <dx-switch
+      [switchedOnText]="'Toate aplicarile'"
+      [switchedOffText]="'Aplicari active'"
+      (onValueChanged)="toggleFilterAttributes()"
+      style="width:100px"
+    ></dx-switch>
+  </div>
   <div id="wrapper" class="flex gap-1 p-3 h-[calc(100vh-60px)] overflow-hidden">
     <div #leftElement>
       <dx-data-grid
@@ -54,6 +62,7 @@
         [showBorders]="true"
         [scrolling]="{ mode: 'virtual' }"
         keyExpr="id"
+        (onEditorPreparing)="onEditorPreparing($event)"
       >
         <dxo-row-dragging
           data="projects"
@@ -101,6 +110,7 @@
               [allowUpdating]="true"
               [allowDeleting]="true"
             />
+            <dxo-lookup [dataSource]="statuses"></dxo-lookup>
             <dxi-column
               dataField="user.name"
               caption="Name"
@@ -109,9 +119,12 @@
             <dxi-column 
               dataField="status" 
               caption="Status" 
-              [allowEditing]="false" 
-              [calculateCellValue]="calculateStatus"
-            ></dxi-column>
+              [selectedFilterOperation]="dynamicSelectedFilterOperation"
+              [filterValue]="dynamicFilterValue"
+              [calculateCellValue]="calculateStatus" 
+              [allowEditing]="true">
+              <dxo-lookup [dataSource]="statuses"></dxo-lookup>
+            </dxi-column>            
             <dxi-column
               dataField="user.skills"
               caption="Relevant skills"
