@@ -67,4 +67,8 @@ export class UserService {
   users = signal<UserInterface[]>(this.usersMock);
 
   constructor() {}
+
+  overrideUsers(users: UserInterface[]) {
+    this.users.set(users);
+  }
 }

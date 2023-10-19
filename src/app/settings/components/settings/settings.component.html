@@ -1,0 +1,18 @@
+<app-header></app-header>
+
+<div class="max-w-xl m-auto mt-5">
+  <h3 class="font-semibold ml-5 text-xl">
+    Upload csv file to be converted to data:
+  </h3>
+  <div id="fileuploader-container">
+    <dx-file-uploader
+      name="file"
+      selectButtonText="Select CSV file"
+      accept="csv"
+      uploadMode="useButtons"
+      uploadUrl="http://localhost:3000/api/upload"
+      (onUploaded)="onUploaded($event)"
+    >
+    </dx-file-uploader>
+  </div>
+</div>
