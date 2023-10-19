@@ -13,7 +13,7 @@ yarn-error.log
 
 # Backend
 */node_modules
-/server/uploads
+/backend/uploads
 
 # IDEs and editors
 .idea/

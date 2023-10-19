@@ -5,7 +5,7 @@
       [switchedOnText]="'Toate aplicarile'"
       [switchedOffText]="'Aplicari active'"
       (onValueChanged)="toggleFilterAttributes()"
-      style="width:100px"
+      style="width: 100px"
     ></dx-switch>
   </div>
   <div id="wrapper" class="flex gap-1 p-3 h-[calc(100vh-60px)] overflow-hidden">
@@ -116,15 +116,16 @@
               caption="Name"
               [allowEditing]="false"
             ></dxi-column>
-            <dxi-column 
-              dataField="status" 
-              caption="Status" 
+            <dxi-column
+              dataField="status"
+              caption="Status"
               [selectedFilterOperation]="dynamicSelectedFilterOperation"
               [filterValue]="dynamicFilterValue"
-              [calculateCellValue]="calculateStatus" 
-              [allowEditing]="true">
+              [calculateCellValue]="calculateStatus"
+              [allowEditing]="true"
+            >
               <dxo-lookup [dataSource]="statuses"></dxo-lookup>
-            </dxi-column>            
+            </dxi-column>
             <dxi-column
               dataField="user.skills"
               caption="Relevant skills"

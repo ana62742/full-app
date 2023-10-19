@@ -1,6 +1,11 @@
 import { Component, ViewChild } from '@angular/core';
 import { DxDataGridComponent } from 'devextreme-angular';
-import { ApplicationInterface, ProjectInterface, isApplication, statusObj } from '../../../shared/types/project.types';
+import {
+  ApplicationInterface,
+  ProjectInterface,
+  isApplication,
+  statusObj,
+} from '../../../shared/types/project.types';
 import { RowDraggingEndEvent } from 'devextreme/ui/data_grid_types';
 import notify from 'devextreme/ui/notify';
 import { confirm } from 'devextreme/ui/dialog';
@@ -27,8 +32,8 @@ export class StaffingUpComponent {
   skillsSet = new Set(this.users.flatMap((user) => user.skills));
   skills: string[] = [...this.skillsSet];
 
-  dynamicSelectedFilterOperation = "contains";
-  dynamicFilterValue = "";
+  dynamicSelectedFilterOperation = 'contains';
+  dynamicFilterValue = '';
   isToggled = false;
 
   constructor(
@@ -40,29 +45,29 @@ export class StaffingUpComponent {
 
   toggleFilterAttributes() {
     if (this.isToggled) {
-      this.dynamicSelectedFilterOperation = "contains";
-      this.dynamicFilterValue = "";
+      this.dynamicSelectedFilterOperation = 'contains';
+      this.dynamicFilterValue = '';
     } else {
-      this.dynamicSelectedFilterOperation = "notcontains";
-      this.dynamicFilterValue = "respinsa";
+      this.dynamicSelectedFilterOperation = 'notcontains';
+      this.dynamicFilterValue = 'respinsa';
     }
     this.isToggled = !this.isToggled;
   }
-  
+
   isStatusActive(status: string): boolean {
     const activeStatuses = [
       statusObj.new,
       statusObj.proposedByBl,
       statusObj.proposedByClient,
-      statusObj.possibleAlocation
+      statusObj.possibleAlocation,
     ];
-  
+
     return activeStatuses.includes(status);
-  }  
+  }
 
   intersectedSkills(skills: string[], technologies: string[]): string[] {
     return skills.filter((skill) => technologies.includes(skill));
-  }   
+  }
 
   calculateSkillsFilterExpression(
     filterValue: string,
@@ -90,9 +95,9 @@ export class StaffingUpComponent {
       const latestStatus = rowData.statuses[rowData.statuses.length - 1];
       return latestStatus.status;
     }
-    return statusObj.new; 
-  } 
-    
+    return statusObj.new;
+  }
+
   onProjectDragStart(e: RowDraggingEndEvent) {
     e.cancel = true;
     return;
@@ -165,8 +170,13 @@ export class StaffingUpComponent {
     }
   }
 
+  // TODO: Don't use any type
   onEditorPreparing(e: any) {
-    if (e.parentType === 'data' && e.dataField === 'status' && e.row.data.statuses) {
+    if (
+      e.parentType === 'data' &&
+      e.dataField === 'status' &&
+      e.row.data.statuses
+    ) {
       e.editorOptions.onValueChanged = (args: any) => {
         if (args.value) {
           e.row.data.statuses.push({
@@ -178,5 +188,4 @@ export class StaffingUpComponent {
       };
     }
   }
-  
 }

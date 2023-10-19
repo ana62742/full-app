@@ -39,9 +39,12 @@ app.post("/api/upload", upload.single("file"), async (req, res) => {
     );
     fs.renameSync(req.file.path, newPath);
 
-    const csvData = fs
-      .readFileSync(newPath, { encoding: "utf16le" })
-      .toString();
+    // // Needed for csv created with OpenOffice
+    // const csvData = fs
+    //   .readFileSync(newPath, { encoding: "utf16le" })
+    //   .toString();
+
+    const csvData = fs.readFileSync(newPath).toString();
 
     const jsonArray = await csv().fromString(csvData);
 

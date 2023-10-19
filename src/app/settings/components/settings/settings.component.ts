@@ -18,7 +18,6 @@ export class SettingsComponent {
         skills: item.skills.split(', '),
       };
     });
-
     this.userService.overrideUsers(result);
   }
 }
