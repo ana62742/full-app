@@ -1,5 +1,13 @@
 <div class="overflow-hidden">
   <app-header></app-header>
+  <div class="flex items-center gap-2 p-3">
+    <dx-switch
+      [switchedOnText]="'Toate aplicarile'"
+      [switchedOffText]="'Aplicari active'"
+      (onValueChanged)="toggleFilterAttributes()"
+      style="width:100px"
+    ></dx-switch>
+  </div>
   <div id="wrapper" class="flex gap-1 p-3 h-[calc(100vh-60px)] overflow-hidden">
     <div #leftElement>
       <dx-data-grid
@@ -54,6 +62,7 @@
         [showBorders]="true"
         [scrolling]="{ mode: 'virtual' }"
         keyExpr="id"
+        (onEditorPreparing)="onEditorPreparing($event)"
       >
         <dxo-row-dragging
           data="projects"
@@ -70,28 +79,28 @@
           [autoExpandAll]="false"
           expandMode="rowClick"
         ></dxo-grouping>
-        <dxi-column dataField="firma" sortOrder="asc" [groupIndex]="0">
+        <dxi-column dataField="company" sortOrder="asc" [groupIndex]="0">
         </dxi-column>
-        <dxi-column dataField="proiect"></dxi-column>
-        <dxi-column dataField="tehnologii"></dxi-column>
-        <dxi-column dataField="locuriDisponibile"></dxi-column>
+        <dxi-column dataField="project"></dxi-column>
+        <dxi-column dataField="technologies"></dxi-column>
+        <dxi-column dataField="availablePositions"></dxi-column>
         <dxo-master-detail
           [enabled]="true"
           template="detail"
         ></dxo-master-detail>
         <div *dxTemplate="let project of 'detail'">
           <div class="master-detail-caption mb-1 font-semibold">
-            Aplicari pt. {{ project.data.firma }} - {{ project.data.proiect }}
+            Aplicari pt. {{ project.data.company }} - {{ project.data.project }}
           </div>
           <dx-data-grid
             #targetGrid
-            [dataSource]="project.data.aplicari"
+            [dataSource]="project.data.applications"
             [showBorders]="true"
             [columnAutoWidth]="true"
             keyExpr="id"
           >
             <dxo-row-dragging
-              data="aplicari-{{ project.data.id }}"
+              data="applications-{{ project.data.id }}"
               group="sameGroup"
               [showDragIcons]="false"
               [onDragStart]="onProjectDragStart"
@@ -101,14 +110,21 @@
               [allowUpdating]="true"
               [allowDeleting]="true"
             />
+            <dxo-lookup [dataSource]="statuses"></dxo-lookup>
             <dxi-column
               dataField="user.name"
               caption="Name"
               [allowEditing]="false"
             ></dxi-column>
-            <dxi-column dataField="status">
-              <dxo-lookup [dataSource]="statuses"> </dxo-lookup>
-            </dxi-column>
+            <dxi-column 
+              dataField="status" 
+              caption="Status" 
+              [selectedFilterOperation]="dynamicSelectedFilterOperation"
+              [filterValue]="dynamicFilterValue"
+              [calculateCellValue]="calculateStatus" 
+              [allowEditing]="true">
+              <dxo-lookup [dataSource]="statuses"></dxo-lookup>
+            </dxi-column>            
             <dxi-column
               dataField="user.skills"
               caption="Relevant skills"
@@ -116,7 +132,7 @@
               [allowEditing]="false"
             ></dxi-column>
             <div *dxTemplate="let skills of 'skillsTemplate'">
-              {{ intersectedSkills(skills.value, project.data.tehnologii) }}
+              {{ intersectedSkills(skills.value, project.data.technologies) }}
             </div>
           </dx-data-grid>
         </div>
