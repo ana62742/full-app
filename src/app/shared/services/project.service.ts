@@ -23,8 +23,11 @@ export class ProjectService {
             skills: ['Angular', 'React', 'Vue'],
             type: 'Intern',
           },
-          statuses: [
-            { status: statusObj.proposedByBl, timestamp: new Date('2023-10-16T10:00:00') },
+          statusArray: [
+            {
+              status: statusObj.proposedByBl,
+              timestamp: new Date('2023-10-16T10:00:00'),
+            },
           ],
         },
       ],
@@ -53,9 +56,15 @@ export class ProjectService {
             skills: ['Angular', 'React', 'Vue'],
             type: 'Intern',
           },
-          statuses: [
-            { status: statusObj.proposedByClient, timestamp: new Date('2023-10-16T11:30:00') },
-            { status: statusObj.proposedByBl, timestamp: new Date('2023-10-16T12:45:00') },
+          statusArray: [
+            {
+              status: statusObj.proposedByClient,
+              timestamp: new Date('2023-10-16T11:30:00'),
+            },
+            {
+              status: statusObj.proposedByBl,
+              timestamp: new Date('2023-10-16T12:45:00'),
+            },
           ],
         },
       ],
@@ -84,8 +93,11 @@ export class ProjectService {
             skills: ['C#', 'ASP.NET', 'SQL'],
             type: 'External',
           },
-          statuses: [
-            { status: statusObj.clientAllocationRejected, timestamp: new Date('2023-10-16T13:15:00') },
+          statusArray: [
+            {
+              status: statusObj.clientAllocationRejected,
+              timestamp: new Date('2023-10-16T13:15:00'),
+            },
           ],
         },
       ],
@@ -103,7 +115,7 @@ export class ProjectService {
         ?.applications.push({
           id: project.applications.length + 1,
           user,
-          statuses: [{ status: statusObj.new, timestamp: new Date() }]
+          statusArray: [{ status: statusObj.new, timestamp: new Date() }],
         });
     });
   }

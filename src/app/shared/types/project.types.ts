@@ -9,10 +9,15 @@ export const statusObj = {
   candidateAllocationRejected: 'Alocare respinsa candidat',
 };
 
+export interface ApplicationStatusInterface {
+  status: (typeof statusObj)[keyof typeof statusObj];
+  timestamp: Date;
+}
+
 export interface ApplicationInterface {
   id: number;
   user: UserInterface;
-  statuses: { status: (typeof statusObj)[keyof typeof statusObj], timestamp: Date }[];
+  statusArray: ApplicationStatusInterface[];
 }
 
 export interface ProjectInterface {

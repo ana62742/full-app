@@ -2,11 +2,16 @@ import { Component, ViewChild } from '@angular/core';
 import { DxDataGridComponent } from 'devextreme-angular';
 import {
   ApplicationInterface,
-  ProjectInterface,
+  ApplicationStatusInterface,
   isApplication,
   statusObj,
 } from '../../../shared/types/project.types';
-import { RowDraggingEndEvent } from 'devextreme/ui/data_grid_types';
+import {
+  EditingStartEvent,
+  RowDraggingEndEvent,
+  RowUpdatedEvent,
+  RowUpdatingEvent,
+} from 'devextreme/ui/data_grid_types';
 import notify from 'devextreme/ui/notify';
 import { confirm } from 'devextreme/ui/dialog';
 import { isUser } from '../../../shared/types/user.types';
@@ -25,6 +30,8 @@ export class StaffingUpComponent {
   public style: object = {};
 
   statuses = Object.values(statusObj);
+
+  statusArrayOnEditStart: Array<ApplicationStatusInterface> = [];
 
   users = this.userService.users();
   projects = this.projectService.projects();
@@ -90,14 +97,6 @@ export class StaffingUpComponent {
     return rowData;
   }
 
-  calculateStatus(rowData: ApplicationInterface) {
-    if (rowData.statuses && rowData.statuses.length > 0) {
-      const latestStatus = rowData.statuses[rowData.statuses.length - 1];
-      return latestStatus.status;
-    }
-    return statusObj.new;
-  }
-
   onProjectDragStart(e: RowDraggingEndEvent) {
     e.cancel = true;
     return;
@@ -156,11 +155,6 @@ export class StaffingUpComponent {
 
       if (confirmed) {
         this.projectService.addUserToProject(user, project);
-        // project.aplicari.push({
-        //   id: project.aplicari.length + 1,
-        //   user,
-        //   status: 'new',
-        // });
 
         notify(
           `User ${user.name} added to project ${project.company} - ${project.project}`,
@@ -170,22 +164,26 @@ export class StaffingUpComponent {
     }
   }
 
-  // TODO: Don't use any type
-  onEditorPreparing(e: any) {
-    if (
-      e.parentType === 'data' &&
-      e.dataField === 'status' &&
-      e.row.data.statuses
-    ) {
-      e.editorOptions.onValueChanged = (args: any) => {
-        if (args.value) {
-          e.row.data.statuses.push({
-            status: args.value,
-            timestamp: new Date(),
-          });
-          this.projectsGrid.instance.refresh();
-        }
-      };
+  calculateStatus(rowData: ApplicationInterface) {
+    if (rowData.statusArray && rowData.statusArray.length > 0) {
+      const latestStatus = rowData.statusArray[rowData.statusArray.length - 1];
+      return latestStatus.status;
+    }
+    return statusObj.new;
+  }
+
+  onEditingStart(e: EditingStartEvent) {
+    this.statusArrayOnEditStart = e.data.statusArray;
+  }
+
+  onRowUpdating(e: RowUpdatingEvent) {
+    if (e.newData.statusArray) {
+      e.oldData.statusArray.push({
+        status: e.newData.statusArray,
+        timestamp: new Date(),
+      });
+      // Prevent the grid from replacing the statusArray with the new status
+      delete e.newData.statusArray;
     }
   }
 }
