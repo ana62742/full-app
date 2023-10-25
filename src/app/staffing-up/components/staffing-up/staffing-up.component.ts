@@ -4,12 +4,12 @@ import {
   ApplicationInterface,
   ApplicationStatusInterface,
   isApplication,
+  isProject,
   statusObj,
 } from '../../../shared/types/project.types';
 import {
   EditingStartEvent,
   RowDraggingEndEvent,
-  RowUpdatedEvent,
   RowUpdatingEvent,
 } from 'devextreme/ui/data_grid_types';
 import notify from 'devextreme/ui/notify';
@@ -38,6 +38,11 @@ export class StaffingUpComponent {
 
   skillsSet = new Set(this.users.flatMap((user) => user.skills));
   skills: string[] = [...this.skillsSet];
+
+  technologiesSet = new Set(
+    this.projects.flatMap((project) => project.technologies)
+  );
+  technologies: string[] = [...this.technologiesSet];
 
   dynamicSelectedFilterOperation = 'contains';
   dynamicFilterValue = '';
@@ -76,16 +81,16 @@ export class StaffingUpComponent {
     return skills.filter((skill) => technologies.includes(skill));
   }
 
-  calculateSkillsFilterExpression(
-    filterValue: string,
-    selectedFilterOperation: any
-  ) {
+  calculateFilterExpression(filterValue: string, selectedFilterOperation: any) {
     return [this.calculateCellValue, 'contains', filterValue];
   }
 
   calculateCellValue(rowData: unknown) {
     if (isUser(rowData)) {
       return rowData.skills.join(', ');
+    }
+    if (isProject(rowData)) {
+      return rowData.technologies.join(', ');
     }
     return rowData;
   }

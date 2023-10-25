@@ -39,9 +39,8 @@
           caption="Skills"
           [lookup]="{ dataSource: skills }"
           [calculateCellValue]="calculateCellValue"
-          [calculateFilterExpression]="calculateSkillsFilterExpression"
+          [calculateFilterExpression]="calculateFilterExpression"
         >
-          >
         </dxi-column>
         <dxi-column dataField="type" caption="Type"></dxi-column>
       </dx-data-grid>
@@ -84,7 +83,13 @@
         <dxi-column dataField="company" sortOrder="asc" [groupIndex]="0">
         </dxi-column>
         <dxi-column dataField="project"></dxi-column>
-        <dxi-column dataField="technologies"></dxi-column>
+        <dxi-column
+          dataField="technologies"
+          caption="Technologies"
+          [lookup]="{ dataSource: technologies }"
+          [calculateCellValue]="calculateCellValue"
+          [calculateFilterExpression]="calculateFilterExpression"
+        ></dxi-column>
         <dxi-column dataField="availablePositions"></dxi-column>
         <dxo-master-detail
           [enabled]="true"
