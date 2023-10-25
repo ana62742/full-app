@@ -14,9 +14,13 @@ import {
 } from 'devextreme/ui/data_grid_types';
 import notify from 'devextreme/ui/notify';
 import { confirm } from 'devextreme/ui/dialog';
-import { isUser } from '../../../shared/types/user.types';
+import { SkillInterface, isUser } from '../../../shared/types/user.types';
 import { ProjectService } from 'src/app/shared/services/project.service';
 import { UserService } from 'src/app/shared/services/user.service';
+
+const skillInterfaceToString = (skill: SkillInterface): string => {
+  return `${skill.technology}(${skill.engineeringScore})`;
+};
 
 @Component({
   selector: 'app-staffing-up',
@@ -37,7 +41,7 @@ export class StaffingUpComponent {
   projects = this.projectService.projects();
 
   skillsSet = new Set(this.users.flatMap((user) => user.skills));
-  skills: string[] = [...this.skillsSet];
+  skills: string[] = [...this.skillsSet].map(skillInterfaceToString).sort();
 
   technologiesSet = new Set(
     this.projects.flatMap((project) => project.technologies)
@@ -77,8 +81,13 @@ export class StaffingUpComponent {
     return activeStatuses.includes(status);
   }
 
-  intersectedSkills(skills: string[], technologies: string[]): string[] {
-    return skills.filter((skill) => technologies.includes(skill));
+  intersectedSkills(
+    skills: SkillInterface[],
+    technologies: string[]
+  ): string[] {
+    return skills
+      .map((skill) => skill.technology)
+      .filter((skill) => technologies.includes(skill));
   }
 
   calculateFilterExpression(filterValue: string, selectedFilterOperation: any) {
@@ -87,7 +96,8 @@ export class StaffingUpComponent {
 
   calculateCellValue(rowData: unknown) {
     if (isUser(rowData)) {
-      return rowData.skills.join(', ');
+      if (rowData.skills.length === 0) return '';
+      return rowData.skills.map(skillInterfaceToString).join(', ');
     }
     if (isProject(rowData)) {
       return rowData.technologies.join(', ');

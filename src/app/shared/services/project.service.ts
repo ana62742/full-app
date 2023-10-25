@@ -20,7 +20,11 @@ export class ProjectService {
             id: 1,
             name: 'Vasile',
             cc: 'UI/UX',
-            skills: ['Angular', 'React', 'Vue'],
+            skills: [
+              { technology: 'Angular', engineeringScore: 4 },
+              { technology: 'React', engineeringScore: 2 },
+              { technology: 'Vue', engineeringScore: 2 },
+            ],
             type: 'Intern',
           },
           statusArray: [
@@ -53,7 +57,11 @@ export class ProjectService {
             id: 1,
             name: 'Vasile',
             cc: 'UI/UX',
-            skills: ['Angular', 'React', 'Vue'],
+            skills: [
+              { technology: 'Angular', engineeringScore: 4 },
+              { technology: 'React', engineeringScore: 2 },
+              { technology: 'Vue', engineeringScore: 2 },
+            ],
             type: 'Intern',
           },
           statusArray: [
@@ -90,7 +98,11 @@ export class ProjectService {
             id: 4,
             name: 'Magdalena',
             cc: 'MS Technologies',
-            skills: ['C#', 'ASP.NET', 'SQL'],
+            skills: [
+              { technology: 'C#', engineeringScore: 1 },
+              { technology: 'ASP.NET', engineeringScore: 1 },
+              { technology: 'SQL', engineeringScore: 3 },
+            ],
             type: 'External',
           },
           statusArray: [
