@@ -14,7 +14,7 @@ import {
 } from 'devextreme/ui/data_grid_types';
 import notify from 'devextreme/ui/notify';
 import { confirm } from 'devextreme/ui/dialog';
-import { SkillInterface, isUser } from '../../../shared/types/user.types';
+import { SkillInterface, UserInterface, isUser } from '../../../shared/types/user.types';
 import { ProjectService } from 'src/app/shared/services/project.service';
 import { UserService } from 'src/app/shared/services/user.service';
 
@@ -52,6 +52,33 @@ export class StaffingUpComponent {
   dynamicSelectedFilterOperation = 'contains';
   dynamicFilterValue = '';
   isToggled = false;
+
+  userHistory: any[] = [];
+
+  selectedUser: UserInterface | null = null;
+
+  onUserClick(user: UserInterface) {
+    this.selectedUser = user;
+    this.getUserStatusHistory(this.selectedUser);
+  }
+
+  getUserStatusHistory(user: UserInterface) {
+    const userHistory: any[] = [];
+    for (const project of this.projects) {
+      for (const application of project.applications) {
+        if (application.user.id === user.id && application.statusArray) {
+          for (const status of application.statusArray) {
+            userHistory.push({
+              project: `${project.company} - ${project.project}`,
+              status: status.status,
+              timestamp: status.timestamp,
+            });
+          }
+        }
+      }
+    }
+    this.userHistory = userHistory;
+  }
 
   constructor(
     private projectService: ProjectService,

@@ -5,11 +5,13 @@
       <dx-resizable class="h-full" handles="right">
         <dx-data-grid
           #usersGrid
-          height="100%"
+          class="border-b-2"
+          height="50%"
           [showBorders]="true"
           [dataSource]="users"
           keyExpr="id"
           [allowColumnReordering]="true"
+          (onRowClick)="onUserClick($event.data)"
         >
           <dxo-row-dragging
             data="users"
@@ -26,7 +28,7 @@
             [enabled]="true"
             mode="select"
           ></dxo-column-chooser>
-          <!-- COLS -->
+
           <dxi-column dataField="name" caption="Name"></dxi-column>
           <dxi-column dataField="cc" caption="CC"></dxi-column>
           <dxi-column
@@ -44,6 +46,22 @@
           </dxo-toolbar>
         </dx-data-grid>
       </dx-resizable>
+
+      <dx-data-grid
+        #userHistoryGrid
+        *ngIf="selectedUser"
+        height="50%"
+        [dataSource]="userHistory"
+        [showBorders]="true"
+      >
+        <dxi-column dataField="project" caption="Project"></dxi-column>
+        <dxi-column dataField="status" caption="Status"></dxi-column>
+        <dxi-column
+          dataField="timestamp"
+          caption="Timestamp"
+          dataType="datetime"
+        ></dxi-column>
+      </dx-data-grid>
     </div>
 
     <!-- ! Possible leak from appResize directory
@@ -56,7 +74,7 @@
       [rightResize]="rightElement"
     ></dx-button> -->
 
-    <div #rightElement>
+    <div #rightElement class="flex-2">
       <dx-data-grid
         #projectsGrid
         height="100%"
