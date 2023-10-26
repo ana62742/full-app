@@ -25,6 +25,7 @@ const skillInterfaceToString = (skill: SkillInterface): string => {
 @Component({
   selector: 'app-staffing-up',
   templateUrl: './staffing-up.component.html',
+  styleUrls: ['./staffing-up.component.css'],
 })
 export class StaffingUpComponent {
   @ViewChild('projectsGrid', { static: false })
@@ -71,14 +72,14 @@ export class StaffingUpComponent {
   }
 
   isStatusActive(status: string): boolean {
-    const activeStatuses = [
+    const currentStatuses: string[] = [
       statusObj.new,
       statusObj.proposedByBl,
       statusObj.proposedByClient,
       statusObj.possibleAlocation,
     ];
 
-    return activeStatuses.includes(status);
+    return currentStatuses.includes(status);
   }
 
   intersectedSkills(

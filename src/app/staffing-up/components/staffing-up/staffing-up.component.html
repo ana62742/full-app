@@ -1,49 +1,49 @@
 <div class="overflow-hidden">
   <app-header></app-header>
-  <div class="flex items-center gap-2 p-3">
-    <dx-switch
-      [switchedOnText]="'Toate aplicarile'"
-      [switchedOffText]="'Aplicari active'"
-      (onValueChanged)="toggleFilterAttributes()"
-      style="width: 100px"
-    ></dx-switch>
-  </div>
-  <div
-    id="wrapper"
-    class="flex gap-1 p-3 h-[calc(100vh-60px-48px)] overflow-hidden"
-  >
+  <div id="wrapper" class="flex gap-1 p-3 h-[calc(100vh-60px)] overflow-hidden">
     <div #leftElement>
-      <dx-data-grid
-        #usersGrid
-        height="100%"
-        [showBorders]="true"
-        [dataSource]="users"
-        keyExpr="id"
-      >
-        <dxo-row-dragging
-          data="users"
-          group="sameGroup"
-          [allowReordering]="false"
-          [allowDropInsideItem]="false"
-          [onDragEnd]="onUserDragEnd"
-        />
-        <dxo-header-filter
-          [visible]="true"
-          [search]="{ enabled: true }"
-        ></dxo-header-filter>
-        <!-- COLS -->
-        <dxi-column dataField="name" caption="Name"></dxi-column>
-        <dxi-column dataField="cc" caption="CC"></dxi-column>
-        <dxi-column
-          dataField="skills"
-          caption="Skills"
-          [lookup]="{ dataSource: skills }"
-          [calculateCellValue]="calculateCellValue"
-          [calculateFilterExpression]="calculateFilterExpression"
+      <dx-resizable class="h-full" handles="right">
+        <dx-data-grid
+          #usersGrid
+          height="100%"
+          [showBorders]="true"
+          [dataSource]="users"
+          keyExpr="id"
+          [allowColumnReordering]="true"
         >
-        </dxi-column>
-        <dxi-column dataField="type" caption="Type"></dxi-column>
-      </dx-data-grid>
+          <dxo-row-dragging
+            data="users"
+            group="sameGroup"
+            [allowReordering]="false"
+            [allowDropInsideItem]="false"
+            [onDragEnd]="onUserDragEnd"
+          />
+          <dxo-header-filter
+            [visible]="true"
+            [search]="{ enabled: true }"
+          ></dxo-header-filter>
+          <dxo-column-chooser
+            [enabled]="true"
+            mode="select"
+          ></dxo-column-chooser>
+          <!-- COLS -->
+          <dxi-column dataField="name" caption="Name"></dxi-column>
+          <dxi-column dataField="cc" caption="CC"></dxi-column>
+          <dxi-column
+            dataField="skills"
+            caption="Skills"
+            [lookup]="{ dataSource: skills }"
+            [calculateCellValue]="calculateCellValue"
+            [calculateFilterExpression]="calculateFilterExpression"
+          >
+          </dxi-column>
+          <dxi-column dataField="type" caption="Type"></dxi-column>
+
+          <dxo-toolbar>
+            <dxi-item location="after" name="columnChooserButton"></dxi-item>
+          </dxo-toolbar>
+        </dx-data-grid>
+      </dx-resizable>
     </div>
 
     <!-- ! Possible leak from appResize directory
@@ -64,6 +64,7 @@
         [showBorders]="true"
         [scrolling]="{ mode: 'virtual' }"
         keyExpr="id"
+        [allowColumnReordering]="true"
       >
         <dxo-row-dragging
           data="projects"
@@ -80,6 +81,8 @@
           [autoExpandAll]="false"
           expandMode="rowClick"
         ></dxo-grouping>
+        <dxo-column-chooser [enabled]="true" mode="select"></dxo-column-chooser>
+        <!-- COLS -->
         <dxi-column dataField="company" sortOrder="asc" [groupIndex]="0">
         </dxi-column>
         <dxi-column dataField="project"></dxi-column>
@@ -91,6 +94,21 @@
           [calculateFilterExpression]="calculateFilterExpression"
         ></dxi-column>
         <dxi-column dataField="availablePositions"></dxi-column>
+
+        <dxo-toolbar>
+          <dxi-item location="before" name="groupPanel"></dxi-item>
+          <dxi-item>
+            <dx-switch
+              [switchedOnText]="'Aplicari active'"
+              [switchedOffText]="'Toate aplicarile'"
+              (onValueChanged)="toggleFilterAttributes()"
+              [width]="140"
+              height="36px"
+            ></dx-switch>
+          </dxi-item>
+          <dxi-item location="after" name="columnChooserButton"></dxi-item>
+        </dxo-toolbar>
+
         <dxo-master-detail
           [enabled]="true"
           template="detail"
