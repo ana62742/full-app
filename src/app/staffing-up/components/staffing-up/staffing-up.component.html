@@ -12,39 +12,47 @@
     id="wrapper"
     class="flex gap-1 p-3 h-[calc(100vh-60px-48px)] overflow-hidden"
   >
-    <div #leftElement>
-      <dx-data-grid
-        #usersGrid
-        height="100%"
-        [showBorders]="true"
-        [dataSource]="users"
-        keyExpr="id"
+  <div #leftElement>
+    <dx-data-grid
+      #usersGrid
+      class="border-b-2"
+      height="50%"
+      [showBorders]="true"
+      [dataSource]="users"
+      keyExpr="id"
+      (onRowClick)="onUserClick($event.data)"
+    >
+      <dxo-row-dragging
+        data="users"
+        group="sameGroup"
+        [allowReordering]="false"
+        [allowDropInsideItem]="false"
+        [onDragEnd]="onUserDragEnd"
+      />
+      <dxo-header-filter
+        [visible]="true"
+        [search]="{ enabled: true }"
+      ></dxo-header-filter>
+  
+      <dxi-column dataField="name" caption="Name"></dxi-column>
+      <dxi-column dataField="cc" caption="CC"></dxi-column>
+      <dxi-column
+        dataField="skills"
+        caption="Skills"
+        [lookup]="{ dataSource: skills }"
+        [calculateCellValue]="calculateCellValue"
+        [calculateFilterExpression]="calculateFilterExpression"
       >
-        <dxo-row-dragging
-          data="users"
-          group="sameGroup"
-          [allowReordering]="false"
-          [allowDropInsideItem]="false"
-          [onDragEnd]="onUserDragEnd"
-        />
-        <dxo-header-filter
-          [visible]="true"
-          [search]="{ enabled: true }"
-        ></dxo-header-filter>
-        <!-- COLS -->
-        <dxi-column dataField="name" caption="Name"></dxi-column>
-        <dxi-column dataField="cc" caption="CC"></dxi-column>
-        <dxi-column
-          dataField="skills"
-          caption="Skills"
-          [lookup]="{ dataSource: skills }"
-          [calculateCellValue]="calculateCellValue"
-          [calculateFilterExpression]="calculateFilterExpression"
-        >
-        </dxi-column>
-        <dxi-column dataField="type" caption="Type"></dxi-column>
-      </dx-data-grid>
-    </div>
+      </dxi-column>
+      <dxi-column dataField="type" caption="Type"></dxi-column>
+    </dx-data-grid>
+
+    <dx-data-grid #userHistoryGrid *ngIf="selectedUser" height="50%" [dataSource]="userHistory" [showBorders]="true">
+      <dxi-column dataField="project" caption="Project"></dxi-column>
+      <dxi-column dataField="status" caption="Status"></dxi-column>
+      <dxi-column dataField="timestamp" caption="Timestamp" dataType="datetime"></dxi-column>
+    </dx-data-grid>
+  </div>  
 
     <!-- ! Possible leak from appResize directory
     <!-- TODO: Find alternative -->
@@ -56,7 +64,7 @@
       [rightResize]="rightElement"
     ></dx-button> -->
 
-    <div #rightElement>
+    <div #rightElement class="flex-2">
       <dx-data-grid
         #projectsGrid
         height="100%"
