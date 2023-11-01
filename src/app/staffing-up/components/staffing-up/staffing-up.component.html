@@ -2,7 +2,7 @@
   <app-header></app-header>
   <div id="wrapper" class="flex gap-1 p-3 h-[calc(100vh-60px)] overflow-hidden">
     <div #leftElement>
-      <dx-resizable class="h-full" handles="right">
+      <dx-resizable class="h-full flex flex-col gap-1" handles="right">
         <dx-data-grid
           #usersGrid
           class="border-b-2"
@@ -45,29 +45,29 @@
             <dxi-item location="after" name="columnChooserButton"></dxi-item>
           </dxo-toolbar>
         </dx-data-grid>
-      </dx-resizable>
 
-      <dx-data-grid
-        #userHistoryGrid
-        *ngIf="selectedUser"
-        height="50%"
-        [dataSource]="userHistory"
-        [showBorders]="true"
-      >
-        <dxi-column dataField="project" caption="Project"></dxi-column>
-        <dxi-column dataField="status" caption="Status"></dxi-column>
-        <dxi-column
-          dataField="timestamp"
-          caption="Timestamp"
-          dataType="datetime"
-        ></dxi-column>
-      </dx-data-grid>
+        <dx-data-grid
+          #userHistoryGrid
+          *ngIf="selectedUser"
+          height="50%"
+          [dataSource]="userHistory"
+          [showBorders]="true"
+        >
+          <dxi-column dataField="project" caption="Project"></dxi-column>
+          <dxi-column dataField="status" caption="Status"></dxi-column>
+          <dxi-column
+            dataField="timestamp"
+            caption="Timestamp"
+            dataType="datetime"
+          ></dxi-column>
+        </dx-data-grid>
+      </dx-resizable>
     </div>
 
     <!-- ! Possible leak from appResize directory
-    <!-- TODO: Find alternative -->
+      <!-- TODO: Find alternative -->
     <!-- <dx-button
-      icon="dragvertical"
+        icon="dragvertical"
       class="flex items-center justify-center cursor-col-resize w-4 h-8 my-auto focus:outline-none"
       appResize
       [leftResize]="leftElement"
