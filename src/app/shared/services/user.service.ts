@@ -94,6 +94,28 @@ export class UserService {
       ],
       type: 'Intern',
     },
+    {
+      id: 9,
+      name: 'Alex',
+      cc: 'UI/UX',
+      skills: [
+        { technology: 'Angular', engineeringScore: 3 },
+        { technology: 'React', engineeringScore: 3 },
+        { technology: 'Vue', engineeringScore: 3 },
+      ],
+      type: 'Intern',
+    },
+    {
+      id: 10,
+      name: 'Laura',
+      cc: 'Java',
+      skills: [
+        { technology: 'Java', engineeringScore: 4 },
+        { technology: 'Spring', engineeringScore: 4 },
+        { technology: 'Hibernate', engineeringScore: 4 },
+      ],
+      type: 'Extern',
+    },
   ];
 
   users = signal<UserInterface[]>(this.usersMock);

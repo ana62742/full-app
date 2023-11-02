@@ -105,9 +105,9 @@ export class StaffingUpComponent {
   isStatusActive(status: string): boolean {
     const currentStatuses: string[] = [
       statusObj.new,
-      statusObj.proposedByBl,
-      statusObj.proposedByClient,
-      statusObj.possibleAlocation,
+      statusObj.proposedToBl,
+      statusObj.proposedToClient,
+      statusObj.possibleAllocation,
     ];
 
     return currentStatuses.includes(status);
