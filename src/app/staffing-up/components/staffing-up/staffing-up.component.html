@@ -143,6 +143,8 @@
             keyExpr="id"
             (onEditingStart)="onEditingStart($event)"
             (onRowUpdating)="onRowUpdating($event)"
+            [filterSyncEnabled]="true"
+            [filterValue]="dynamicFilterValue"
           >
             <dxo-row-dragging
               data="applications-{{ project.data.id }}"
@@ -163,8 +165,6 @@
             <dxi-column
               dataField="statusArray"
               caption="Status"
-              [selectedFilterOperation]="dynamicSelectedFilterOperation"
-              [filterValue]="dynamicFilterValue"
               [calculateCellValue]="calculateStatus"
               [allowEditing]="true"
             >

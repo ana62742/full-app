@@ -53,8 +53,8 @@ export class StaffingUpComponent {
   );
   technologies: string[] = [...this.technologiesSet];
 
-  dynamicSelectedFilterOperation = 'contains';
-  dynamicFilterValue = '';
+  // TODO: Fix any
+  dynamicFilterValue: any = null;
   isToggled = false;
 
   userHistory: any[] = [];
@@ -93,11 +93,17 @@ export class StaffingUpComponent {
 
   toggleFilterAttributes() {
     if (this.isToggled) {
-      this.dynamicSelectedFilterOperation = 'contains';
-      this.dynamicFilterValue = '';
+      this.dynamicFilterValue = [];
     } else {
-      this.dynamicSelectedFilterOperation = 'notcontains';
-      this.dynamicFilterValue = 'respinsa';
+      this.dynamicFilterValue = [
+        'statusArray',
+        'noneof',
+        [
+          statusObj.rejectedByCandidate,
+          statusObj.rejectedByClient,
+          statusObj.impossibleAllocation,
+        ],
+      ];
     }
     this.isToggled = !this.isToggled;
   }
