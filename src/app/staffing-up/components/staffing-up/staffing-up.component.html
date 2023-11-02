@@ -6,7 +6,7 @@
         <dx-data-grid
           #usersGrid
           class="border-b-2"
-          height="50%"
+          height="70%"
           [showBorders]="true"
           [dataSource]="users"
           keyExpr="id"
@@ -45,22 +45,21 @@
             <dxi-item location="after" name="columnChooserButton"></dxi-item>
           </dxo-toolbar>
         </dx-data-grid>
-
         <dx-data-grid
-          #userHistoryGrid
-          *ngIf="selectedUser"
-          height="50%"
-          [dataSource]="userHistory"
-          [showBorders]="true"
-        >
-          <dxi-column dataField="project" caption="Project"></dxi-column>
-          <dxi-column dataField="status" caption="Status"></dxi-column>
-          <dxi-column
-            dataField="timestamp"
-            caption="Timestamp"
-            dataType="datetime"
-          ></dxi-column>
-        </dx-data-grid>
+        #userHistoryGrid
+        *ngIf="selectedUser"
+        height="30%"
+        [dataSource]="userHistory"
+        [showBorders]="true"
+      >
+        <dxi-column dataField="project" caption="Project"></dxi-column>
+        <dxi-column dataField="status" caption="Status"></dxi-column>
+        <dxi-column
+          dataField="timestamp"
+          caption="Timestamp"
+          dataType="datetime"
+        ></dxi-column>
+      </dx-data-grid>
       </dx-resizable>
     </div>
 
