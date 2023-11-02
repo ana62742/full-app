@@ -46,20 +46,20 @@
           </dxo-toolbar>
         </dx-data-grid>
         <dx-data-grid
-        #userHistoryGrid
-        *ngIf="selectedUser"
-        height="30%"
-        [dataSource]="userHistory"
-        [showBorders]="true"
-      >
-        <dxi-column dataField="project" caption="Project"></dxi-column>
-        <dxi-column dataField="status" caption="Status"></dxi-column>
-        <dxi-column
-          dataField="timestamp"
-          caption="Timestamp"
-          dataType="datetime"
-        ></dxi-column>
-      </dx-data-grid>
+          #userHistoryGrid
+          *ngIf="selectedUser"
+          height="30%"
+          [dataSource]="userHistory"
+          [showBorders]="true"
+        >
+          <dxi-column dataField="project" caption="Project"></dxi-column>
+          <dxi-column dataField="status" caption="Status"></dxi-column>
+          <dxi-column
+            dataField="timestamp"
+            caption="Timestamp"
+            dataType="datetime"
+          ></dxi-column>
+        </dx-data-grid>
       </dx-resizable>
     </div>
 
@@ -131,8 +131,17 @@
           template="detail"
         ></dxo-master-detail>
         <div *dxTemplate="let project of 'detail'">
-          <div class="master-detail-caption mb-1 font-semibold">
-            Aplicari pt. {{ project.data.company }} - {{ project.data.project }}
+          <div class="mb-1 font-semibold flex justify-between">
+            <div>
+              Aplicari pt. {{ project.data.company }} -
+              {{ project.data.project }}
+            </div>
+            <div>
+              Open:
+              {{ calculateOpenAllocations(project.data.applications) }}
+              - Available:
+              {{ project.data.availablePositions }}
+            </div>
           </div>
           <dx-data-grid
             #targetGrid

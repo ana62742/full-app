@@ -239,4 +239,15 @@ export class StaffingUpComponent {
       delete e.newData.statusArray;
     }
   }
+
+  calculateOpenAllocations(applications: ApplicationInterface[]) {
+    return applications.filter((application) => {
+      const status = this.calculateStatus(application);
+      return (
+        status !== statusObj.rejectedByCandidate &&
+        status !== statusObj.rejectedByClient &&
+        status !== statusObj.impossibleAllocation
+      );
+    }).length;
+  }
 }
