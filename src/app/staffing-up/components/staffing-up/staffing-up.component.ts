@@ -14,7 +14,11 @@ import {
 } from 'devextreme/ui/data_grid_types';
 import notify from 'devextreme/ui/notify';
 import { confirm } from 'devextreme/ui/dialog';
-import { SkillInterface, UserInterface, isUser } from '../../../shared/types/user.types';
+import {
+  SkillInterface,
+  UserInterface,
+  isUser,
+} from '../../../shared/types/user.types';
 import { ProjectService } from 'src/app/shared/services/project.service';
 import { UserService } from 'src/app/shared/services/user.service';
 
@@ -101,9 +105,9 @@ export class StaffingUpComponent {
   isStatusActive(status: string): boolean {
     const currentStatuses: string[] = [
       statusObj.new,
-      statusObj.proposedByBl,
-      statusObj.proposedByClient,
-      statusObj.possibleAlocation,
+      statusObj.proposedToBl,
+      statusObj.proposedToClient,
+      statusObj.possibleAllocation,
     ];
 
     return currentStatuses.includes(status);

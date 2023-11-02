@@ -2,11 +2,13 @@ import { UserInterface } from './user.types';
 
 export const statusObj = {
   new: 'NEW',
-  proposedByBl: 'Propus BL',
-  proposedByClient: 'Propus Client',
-  possibleAlocation: 'Alocare posibila',
-  clientAllocationRejected: 'Alocare respinsa client',
-  candidateAllocationRejected: 'Alocare respinsa candidat',
+  proposedToBl: 'Propus BL',
+  proposedToClient: 'Propus Client',
+  possibleAllocation: 'Alocare posibila',
+  impossibleAllocation: 'Alocare imposibila',
+  rejectedByClient: 'Alocare respinsa client',
+  rejectedByCandidate: 'Alocare respinsa candidat',
+  accepted: 'Acceptat',
 };
 
 export interface ApplicationStatusInterface {
