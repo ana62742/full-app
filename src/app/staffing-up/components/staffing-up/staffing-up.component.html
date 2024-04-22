@@ -31,7 +31,7 @@
 
           <dxi-column dataField="name" caption="Name" cellTemplate="nameTemplate"></dxi-column>
           <div *dxTemplate="let cellInfo of 'nameTemplate'">
-            <div [ngClass]="{'selected-row': cellInfo.data.name == selectedUser?.name}">
+            <div [ngClass]="{'selected-row': cellInfo.data.name == selectedUser?.name}" [title]="'Click to display user history'">
                 {{cellInfo.value}}
             </div>                                                 
           </div>
