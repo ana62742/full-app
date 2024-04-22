@@ -11,7 +11,7 @@
           [dataSource]="users"
           keyExpr="id"
           [allowColumnReordering]="true"
-          (onRowClick)="onUserClick($event.data)"
+          (onRowClick)="onUserClick($event.data)">
         >
           <dxo-row-dragging
             data="users"
@@ -29,7 +29,12 @@
             mode="select"
           ></dxo-column-chooser>
 
-          <dxi-column dataField="name" caption="Name"></dxi-column>
+          <dxi-column dataField="name" caption="Name" cellTemplate="nameTemplate"></dxi-column>
+          <div *dxTemplate="let cellInfo of 'nameTemplate'">
+            <div [ngClass]="{'selected-row': cellInfo.data.name == selectedUser?.name}">
+                {{cellInfo.value}}
+            </div>                                                 
+          </div>
           <dxi-column dataField="cc" caption="CC"></dxi-column>
           <dxi-column
             dataField="skills"
@@ -45,6 +50,7 @@
             <dxi-item location="after" name="columnChooserButton"></dxi-item>
           </dxo-toolbar>
         </dx-data-grid>
+
         <dx-data-grid
         #userHistoryGrid
         *ngIf="selectedUser"
