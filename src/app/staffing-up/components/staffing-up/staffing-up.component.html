@@ -6,7 +6,7 @@
         <dx-data-grid
           #usersGrid
           class="border-b-2"
-          height="70%"
+          height="100%"
           [showBorders]="true"
           [dataSource]="users"
           keyExpr="id"
@@ -29,12 +29,7 @@
             mode="select"
           ></dxo-column-chooser>
 
-          <dxi-column dataField="name" caption="Name" cellTemplate="nameTemplate"></dxi-column>
-          <div *dxTemplate="let cellInfo of 'nameTemplate'">
-            <div [ngClass]="{'selected-row': cellInfo.data.name == selectedUser?.name}" [title]="'Click to display user history'">
-                {{cellInfo.value}}
-            </div>                                                 
-          </div>
+          <dxi-column dataField="name" caption="Name"></dxi-column>
           <dxi-column dataField="cc" caption="CC"></dxi-column>
           <dxi-column
             dataField="skills"
@@ -51,21 +46,33 @@
           </dxo-toolbar>
         </dx-data-grid>
 
-        <dx-data-grid
-          #userHistoryGrid
-          *ngIf="selectedUser"
-          height="30%"
-          [dataSource]="userHistory"
-          [showBorders]="true"
-        >
-          <dxi-column dataField="project" caption="Project"></dxi-column>
-          <dxi-column dataField="status" caption="Status"></dxi-column>
-          <dxi-column
-            dataField="timestamp"
-            caption="Timestamp"
-            dataType="datetime"
-          ></dxi-column>
-        </dx-data-grid>
+        <dx-popup
+        [width]="660"
+        [height]="540"
+        [showTitle]="true"
+        [title]="selectedUser?.name +' - Allocation History'"
+        [dragEnabled]="false"
+        [hideOnOutsideClick]="true"
+        [(visible)]="popupVisible"
+        [showCloseButton]="true"
+      >
+        <div *dxTemplate="let data of 'content'">
+          <dx-data-grid
+            #userHistoryGrid
+            *ngIf="selectedUser"
+            [dataSource]="userHistory"
+            [showBorders]="true"
+            >
+            <dxi-column dataField="project" caption="Project"></dxi-column>
+            <dxi-column dataField="status" caption="Status"></dxi-column>
+            <dxi-column
+              dataField="timestamp"
+              caption="Timestamp"
+              dataType="datetime"
+            ></dxi-column>
+          </dx-data-grid>
+        </div>
+      </dx-popup>
       </dx-resizable>
     </div>
 

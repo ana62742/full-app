@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { DxDataGridComponent } from 'devextreme-angular';
+import { DxDataGridComponent, DxTemplateModule, DxPopupModule } from 'devextreme-angular';
 import {
   ApplicationInterface,
   ApplicationStatusInterface,
@@ -36,6 +36,8 @@ export class StaffingUpComponent {
   projectsGrid!: DxDataGridComponent;
   @ViewChild('usersGrid', { static: false }) usersGrid!: DxDataGridComponent;
 
+  popupVisible = false;
+
   public style: object = {};
 
   statuses = Object.values(statusObj);
@@ -64,6 +66,7 @@ export class StaffingUpComponent {
   onUserClick(user: UserInterface) {
     this.selectedUser = user;
     this.getUserStatusHistory(this.selectedUser);
+    this.popupVisible = true;
   }
 
   getUserStatusHistory(user: UserInterface) {

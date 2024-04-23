@@ -4,7 +4,9 @@ import { StaffingUpComponent } from './components/staffing-up/staffing-up.compon
 import {
   DxButtonModule,
   DxDataGridModule,
+  DxPopupModule,
   DxResizableModule,
+  DxTemplateModule,
 } from 'devextreme-angular';
 import { DxSwitchModule } from 'devextreme-angular';
 import { StaffingUpRoutingModule } from './staffing-up.routing.module';
@@ -20,6 +22,8 @@ import { SharedModule } from '../shared/shared.module';
     DxSwitchModule,
     DxResizableModule,
     SharedModule,
+    DxPopupModule,
+    DxTemplateModule
   ],
 })
 export class StaffingUpModule {}

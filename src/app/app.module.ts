@@ -9,7 +9,7 @@ import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { SigninComponent } from './auth/components/signin/signin.component';
 import { AppRoutingModule } from './app.routing.module';
-import { DxButtonModule, DxTextBoxModule, DxTooltipComponent, DxTooltipModule } from 'devextreme-angular';
+import { DxButtonModule, DxPopupModule, DxTemplateModule, DxTextBoxModule } from 'devextreme-angular';
 import { SettingsModule } from './settings/settings.module';
 import { StatisticsModule } from './statistics/statistics.module';
 import { SharedModule } from './shared/shared.module';
@@ -27,7 +27,8 @@ import { SharedModule } from './shared/shared.module';
     StatisticsModule,
     DxButtonModule,
     DxTextBoxModule,
-    DxTooltipModule
+    DxPopupModule,
+    DxTemplateModule
   ],
   providers: [],
   bootstrap: [AppComponent],
