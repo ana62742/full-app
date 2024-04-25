@@ -31,12 +31,24 @@
 
           <dxi-column dataField="name" caption="Name"></dxi-column>
           <dxi-column dataField="cc" caption="CC"></dxi-column>
-          <dxi-column
+          <!-- <dxi-column
             dataField="skills"
             caption="Skills"
             [lookup]="{ dataSource: skills }"
             [calculateCellValue]="calculateCellValue"
             [calculateFilterExpression]="calculateFilterExpression"
+          >
+          </dxi-column> -->
+          <dxi-column
+            dataField="skills"
+            caption="Primary Skill"
+            [calculateCellValue]="calculatePrimarySkillValue"
+          >
+          </dxi-column>
+          <dxi-column
+            dataField="skills"
+            caption="Secondary Skill"
+            [calculateCellValue]="calculateSecondarySkillValue"
           >
           </dxi-column>
           <dxi-column dataField="type" caption="Type"></dxi-column>

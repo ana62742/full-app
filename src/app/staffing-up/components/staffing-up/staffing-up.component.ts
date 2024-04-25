@@ -136,15 +136,38 @@ export class StaffingUpComponent {
   }
 
   calculateCellValue(rowData: unknown) {
-    if (isUser(rowData)) {
-      if (rowData.skills.length === 0) return '';
-      return rowData.skills.map(skillInterfaceToString).join(', ');
-    }
     if (isProject(rowData)) {
       return rowData.technologies.join(', ');
     }
     return rowData;
   }
+
+  calculatePrimarySkillValue(rowData: UserInterface): string {
+    if (rowData.skills.length === 0) return '';
+  
+    const skillsByScore = rowData.skills.slice().sort((a, b) => b.engineeringScore - a.engineeringScore);
+    const primaryScore = skillsByScore[0].engineeringScore;
+    const primarySkills = skillsByScore.filter(skill => skill.engineeringScore === primaryScore).map(skill => `${skill.technology}(${skill.engineeringScore})`);
+  
+    return primarySkills.join(', ');
+  }
+  
+  calculateSecondarySkillValue(rowData: UserInterface): string {
+    if (rowData.skills.length === 0) return '';
+  
+    const skillsByScore = rowData.skills.slice().sort((a, b) => b.engineeringScore - a.engineeringScore);
+    const primaryScore = skillsByScore[0].engineeringScore;
+    
+    let secondarySkills: string[] = [];
+    for (const skill of skillsByScore) {
+      if (skill.engineeringScore < primaryScore) {
+        secondarySkills.push(`${skill.technology}(${skill.engineeringScore})`);
+        break; 
+      }
+    }
+  
+    return secondarySkills.join(', ');
+  }    
 
   calculateDisplayValue(rowData: unknown) {
     if (isApplication(rowData)) {
@@ -159,6 +182,7 @@ export class StaffingUpComponent {
   }
 
   async onUserDragEnd(e: RowDraggingEndEvent) {
+    console.log(e.toData.dataField);
     if (!(e.fromData === 'users')) {
       e.cancel = true;
       return;
