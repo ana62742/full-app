@@ -170,6 +170,7 @@
             <dxo-row-dragging
               data="applications-{{ project.data.id }}"
               group="sameGroup"
+              [allowDropInsideItem]="true"
               [showDragIcons]="false"
               [onDragStart]="onProjectDragStart"
             />
