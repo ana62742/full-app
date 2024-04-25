@@ -23,6 +23,12 @@
               "node_modules/devextreme/dist/css/dx.light.css",
               "src/styles.css"
             ],
+            "allowedCommonJsDependencies": [
+              "jszip",
+              "devexpress-diagram",
+              "devexpress-gantt",
+              "devextreme-quill"
+            ],
             "scripts": []
           },
           "configurations": {

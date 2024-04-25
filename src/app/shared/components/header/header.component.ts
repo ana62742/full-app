@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { AuthenticationService } from '../../../auth/services/authentication.service';
-import { Router } from '@angular/router';
+import { MsalService } from '@azure/msal-angular';
 
 @Component({
   selector: 'app-header',
@@ -8,9 +7,9 @@ import { Router } from '@angular/router';
   styleUrls: [],
 })
 export class HeaderComponent {
-  constructor(private authService: AuthenticationService, private router: Router) {}
+  constructor(private msalService: MsalService) {}
 
   logout() {
-    this.authService.logout();
+    this.msalService.logoutRedirect();
   }
 }
