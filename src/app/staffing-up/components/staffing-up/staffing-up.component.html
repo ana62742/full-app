@@ -166,6 +166,7 @@
             (onRowUpdating)="onRowUpdating($event)"
             [filterSyncEnabled]="true"
             [filterValue]="dynamicFilterValue"
+            (onCellPrepared)="onCellPrepared($event)"
           >
             <dxo-row-dragging
               data="applications-{{ project.data.id }}"
@@ -179,16 +180,16 @@
               [allowDeleting]="true"
             />
             <dxi-column
-              dataField="user.name"
-              caption="Name"
-              [allowEditing]="false"
+            dataField="user.name"
+            caption="Name"
+            [allowEditing]="false"
             ></dxi-column>
             <dxi-column
               dataField="statusArray"
               caption="Status"
               [calculateCellValue]="calculateStatus"
               [allowEditing]="true"
-            >
+              >
               <dxo-lookup [dataSource]="statuses"></dxo-lookup>
             </dxi-column>
             <dxi-column
@@ -196,13 +197,16 @@
               caption="Relevant skills"
               cellTemplate="skillsTemplate"
               [allowEditing]="false"
-            ></dxi-column>
-            <div *dxTemplate="let skills of 'skillsTemplate'">
-              {{ intersectedSkills(skills.value, project.data.technologies) }}
-            </div>
-          </dx-data-grid>
-        </div>
-      </dx-data-grid>
+              ></dxi-column>
+              <div *dxTemplate="let skills of 'skillsTemplate'">
+                {{ intersectedSkills(skills.value, project.data.technologies) }}
+              </div>
+              <dxi-column type="buttons">
+                <dxi-button name="delete" icon="trash"></dxi-button>
+              </dxi-column>
+            </dx-data-grid>
+          </div>
+        </dx-data-grid>
+      </div>
     </div>
   </div>
-</div>

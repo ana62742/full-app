@@ -21,6 +21,7 @@ import {
 } from '../../../shared/types/user.types';
 import { ProjectService } from 'src/app/shared/services/project.service';
 import { UserService } from 'src/app/shared/services/user.service';
+import { CellPreparedEvent } from 'devextreme/ui/data_grid';
 
 const skillInterfaceToString = (skill: SkillInterface): string => {
   return `${skill.technology}(${skill.engineeringScore})`;
@@ -62,6 +63,13 @@ export class StaffingUpComponent {
   userHistory: any[] = [];
 
   selectedUser: UserInterface | null = null;
+
+  onCellPrepared(e: CellPreparedEvent) {
+    if (e.rowType === "data" && e.column.dataField === "statusArray") {
+      const status = e.data.statusArray;
+      e.cellElement.style.backgroundColor = this.getColorForStatus(status);
+    }
+  }
 
   onUserClick(user: UserInterface) {
     this.selectedUser = user;
@@ -253,4 +261,30 @@ export class StaffingUpComponent {
       );
     }).length;
   }
+
+  getColorForStatus(rowData: any): string {
+    const latestStatus = rowData[rowData.length - 1]; 
+    const status = latestStatus?.status; 
+  
+    switch (status) {
+      case 'NEW':
+        return 'rgba(52, 152, 219, 0.2)'; // blue
+      case 'Propus BL':
+        return 'rgba(241, 196, 15, 0.2)'; // yellow
+        case 'Propus Client':
+        return 'rgba(243, 156, 18, 0.2)'; // orange
+      case 'Alocare imposibila':
+      case 'Alocare respinsa client':
+      case 'Alocare respinsa candidat':
+        return 'rgba(231, 76, 60, 0.3)';  // red
+      case 'Alocare posibila':
+      case 'Acceptat':
+        return 'rgba(46, 204, 113, 0.2)'; // green
+      default:
+        return 'rgba(211, 211, 211, 0.2)';  //grey
+    }
+  }
+  
+  
+
 }
