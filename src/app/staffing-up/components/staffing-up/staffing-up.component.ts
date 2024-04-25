@@ -164,8 +164,9 @@ export class StaffingUpComponent {
       return;
     }
 
-    if (e.toData === 'projects' && e.dropInsideItem === false) {
+    if (e.toData !== 'projects' && !e.toData.startsWith('applications') && e.dropInsideItem === false) {
       e.cancel = true;
+      notify("You cannot drop users here", "error");
       return;
     }
 
@@ -175,7 +176,7 @@ export class StaffingUpComponent {
       projectId = +e.toData.split('aplicari-')[1];
     }
 
-    if (e.toData === 'projects') {
+    if (e.toData === 'projects' || e.toData.startsWith('applications')) {
       projectId = this.projectsGrid.instance.getKeyByRowIndex(+e.toIndex);
       this.projectsGrid.instance.expandRow(projectId);
     }
