@@ -16,3 +16,7 @@
   line-height: 36px;
 }
 
+::ng-deep .dx-datagrid .dx-link {
+  color: #EF4444;
+}
+
