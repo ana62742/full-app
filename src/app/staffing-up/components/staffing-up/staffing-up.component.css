@@ -16,3 +16,9 @@
   line-height: 36px;
 }
 
+.name:hover {
+  cursor: pointer;
+  color: #63A0D4; 
+  text-decoration: underline; 
+}
+
