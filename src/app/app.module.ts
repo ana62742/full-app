@@ -28,14 +28,17 @@ import {
   MSALInsanceFactory,
   msalConfig,
 } from './auth/auth.config';
+import { SharedModule } from './shared/shared.module';
+import { HomeComponent } from './shared/components/home/home.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, HomeComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    SharedModule,
     SettingsModule,
     StatisticsModule,
     DxButtonModule,

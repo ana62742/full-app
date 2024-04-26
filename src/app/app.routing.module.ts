@@ -1,17 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { BrowserUtils } from '@azure/msal-browser';
 
 import { AuthGuard } from './auth/auth.guard';
-import { AppComponent } from './app.component';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { SettingsComponent } from './settings/components/settings/settings.component';
+import { HomeComponent } from './shared/components/home/home.component';
 
 const routes: Routes = [
   {
     path: '',
     canActivate: [AuthGuard],
-    component: AppComponent,
+    component: HomeComponent,
     children: [
       {
         path: '',

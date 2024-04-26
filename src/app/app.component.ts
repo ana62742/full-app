@@ -3,6 +3,7 @@ import { MsalBroadcastService, MsalService } from '@azure/msal-angular';
 import { AuthenticationResult, InteractionStatus } from '@azure/msal-browser';
 import { Subject, filter, takeUntil } from 'rxjs';
 import { msalConfig } from './auth/auth.config';
+import { ProfileService } from './shared/services/profile.service';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +14,8 @@ export class AppComponent implements OnInit, OnDestroy {
 
   constructor(
     private msalService: MsalService,
-    private msalBroadcastService: MsalBroadcastService
+    private msalBroadcastService: MsalBroadcastService,
+    private profileService: ProfileService
   ) {}
 
   ngOnInit() {
@@ -41,6 +43,8 @@ export class AppComponent implements OnInit, OnDestroy {
       },
       error: (error) => console.log(error),
     });
+
+    this.authenticated && this.profileService.getProfilePhoto();
   }
 
   async logIn() {
