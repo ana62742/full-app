@@ -17,7 +17,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   showMobileMenu: boolean = false;
   accountInfo: AccountInfo | null =
     this.msalService.instance.getActiveAccount();
-  profileImage = '';
+  profileImage =
+    'https://pics.craiyon.com/2023-06-01/935f45ddfe174fc7adf76cf812ea1d5b.webp';
 
   constructor(
     private router: Router,
@@ -33,7 +34,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.profileImage = this.profileService.profilePhoto();
+    this.profileImage = this.profileService.profilePhoto() ?? this.profileImage;
   }
 
   onShowProfileClicked() {

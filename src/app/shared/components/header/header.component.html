@@ -5,6 +5,48 @@
         <div class="flex flex-shrink-0 items-center">
           <img class="h-8 w-auto" src="./assets/logo.png" alt="Your Company" />
         </div>
+        <!-- Mobile menu-->
+        <div class="inset-y-0 left-0 flex items-center sm:hidden pl-2">
+          <button
+            type="button"
+            class="flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+            aria-controls="mobile-menu"
+            aria-expanded="false"
+            (click)="onMobileMenuClicked()"
+          >
+            <svg
+              *ngIf="!showMobileMenu; else cancelIcon"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="white"
+              aria-hidden="true"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+              />
+            </svg>
+            <ng-template #cancelIcon>
+              <svg
+                class="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="white"
+                aria-hidden="true"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </ng-template>
+          </button>
+        </div>
         <div class="hidden sm:ml-6 sm:block">
           <div class="flex">
             <a
@@ -42,50 +84,11 @@
           </div>
         </div>
       </div>
-      <!-- Mobile menu-->
-      <div class="inset-y-0 left-0 flex items-center sm:hidden">
-        <button
-          type="button"
-          class="flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
-          aria-controls="mobile-menu"
-          aria-expanded="false"
-          (click)="onMobileMenuClicked()"
-        >
-          <svg
-            *ngIf="!showMobileMenu; else cancelIcon"
-            class="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="white"
-            aria-hidden="true"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-            />
-          </svg>
-          <ng-template #cancelIcon>
-            <svg
-              class="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="white"
-              aria-hidden="true"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M6 18L18 6M6 6l12 12"
-              />
-            </svg>
-          </ng-template>
-        </button>
-      </div>
+      <p class="text-gray-300 text-sm font-medium">
+        Hello, {{ accountInfo?.name }}
+      </p>
       <div
-        class="flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0"
+        class="flex items-center pr-2 sm:static sm:inset-auto sm:ml-1 sm:pr-0"
       >
         <div class="ml-3">
           <div>
@@ -101,7 +104,7 @@
               <span class="sr-only">Open user menu</span>
               <img
                 class="h-10 w-10 rounded-full"
-                src="https://pics.craiyon.com/2023-06-01/935f45ddfe174fc7adf76cf812ea1d5b.webp"
+                [src]="profileImage"
                 alt="Profile Photo"
               />
             </button>
