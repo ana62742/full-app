@@ -1,13 +1,13 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
-import { tap } from 'rxjs';
+import { catchError, map, tap, throwError } from 'rxjs';
 import { MS_GRAPH_URL } from 'src/app/auth/auth.config';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProfileService {
-  profilePhoto = signal<any>(null);
+  profilePhoto = signal<string>('');
 
   constructor(private http: HttpClient) {}
 
@@ -18,16 +18,20 @@ export class ProfileService {
         headers: new HttpHeaders({ 'Content-Type': 'image/jpeg' }),
       })
       .pipe(
+        catchError((error) => {
+          return throwError(() => error);
+        }),
         tap((response) => {
           const blobUrl = window.URL.createObjectURL(response.data);
           this.addProfilePhoto(blobUrl);
-          console.log({ blobUrl, response });
+
+          console.log('image: ', { blobUrl, response });
         })
       )
       .subscribe();
   }
 
-  addProfilePhoto(photo: any) {
+  addProfilePhoto(photo: string) {
     this.profilePhoto.set(photo);
   }
 }

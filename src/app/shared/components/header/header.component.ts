@@ -4,6 +4,7 @@ import { MsalService } from '@azure/msal-angular';
 import { AccountInfo } from '@azure/msal-browser';
 import { ProfileService } from '../../services/profile.service';
 import { Subscription, delay, filter } from 'rxjs';
+import { msalConfig } from 'src/app/auth/auth.config';
 
 @Component({
   selector: 'app-header',
@@ -28,13 +29,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.subscription = this.router.events
       .pipe(filter((e) => e instanceof NavigationEnd))
       .subscribe((event: any) => {
-        console.log(event.url);
         this.activeItem = event.url;
       });
   }
 
   ngOnInit(): void {
-    this.profileImage = this.profileService.profilePhoto() ?? this.profileImage;
+    this.profileImage = this.profileService.profilePhoto().length
+      ? this.profileService.profilePhoto()
+      : JSON.parse(localStorage.getItem('userData') ?? '').photoURL;
   }
 
   onShowProfileClicked() {
@@ -46,7 +48,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   logout() {
-    this.msalService.logoutRedirect();
+    this.msalService.logoutRedirect({
+      postLogoutRedirectUri: msalConfig.appUrl,
+    });
   }
 
   ngOnDestroy(): void {
