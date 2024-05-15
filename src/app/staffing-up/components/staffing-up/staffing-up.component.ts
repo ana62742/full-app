@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { DxDataGridComponent } from 'devextreme-angular';
+import { DxDataGridComponent, DxTemplateModule, DxPopupModule } from 'devextreme-angular';
 import {
   ApplicationInterface,
   ApplicationStatusInterface,
@@ -36,6 +36,8 @@ export class StaffingUpComponent {
   projectsGrid!: DxDataGridComponent;
   @ViewChild('usersGrid', { static: false }) usersGrid!: DxDataGridComponent;
 
+  popupVisible = false;
+
   public style: object = {};
 
   statuses = Object.values(statusObj);
@@ -64,6 +66,7 @@ export class StaffingUpComponent {
   onUserClick(user: UserInterface) {
     this.selectedUser = user;
     this.getUserStatusHistory(this.selectedUser);
+    this.popupVisible = true;
   }
 
   getUserStatusHistory(user: UserInterface) {
@@ -157,63 +160,68 @@ export class StaffingUpComponent {
 
   async onUserDragEnd(e: RowDraggingEndEvent) {
     if (!(e.fromData === 'users')) {
-      e.cancel = true;
-      return;
+        e.cancel = true;
+        return;
     }
 
-    if (e.toData === 'projects' && e.dropInsideItem === false) {
-      e.cancel = true;
-      return;
+    if (e.toData === 'projects' && !e.toData.startsWith('applications') && e.dropInsideItem === false) {
+        e.cancel = true;
+        notify("You cannot drop users here. Please drop the user inside a project.", "error");
+        return;
     }
 
     let projectId: number | undefined = undefined;
 
-    if (e.toData.startsWith('aplicari')) {
-      projectId = +e.toData.split('aplicari-')[1];
-    }
-
-    if (e.toData === 'projects') {
-      projectId = this.projectsGrid.instance.getKeyByRowIndex(+e.toIndex);
-      this.projectsGrid.instance.expandRow(projectId);
+    if (e.toData === 'projects' || e.toData.startsWith('applications')) {
+        if (e.toIndex === 0) {
+            projectId = this.projects[0]?.id;
+        } else {
+            projectId = this.projectsGrid.instance.getKeyByRowIndex(+e.toIndex);
+        }
+        if (!projectId) {
+            console.error("Project ID not found.");
+            return;
+        }
+        this.projectsGrid.instance.expandRow(projectId);
     }
 
     const user = e.itemData;
     const project = this.projects.find((p) => p.id === projectId);
 
     if (project) {
-      const userAlreadyInProject = project.applications.find(
-        (a) => a.user.id === user.id
-      );
-
-      if (userAlreadyInProject) {
-        notify(
-          `User ${user.name} is already allocated in project ${project.company} - ${project.project}`,
-          'warning'
+        const userAlreadyInProject = project.applications.find(
+            (a) => a.user.id === user.id
         );
-        return;
-      }
 
-      const userHasRelevantSkills =
-        this.intersectedSkills(user.skills, project.technologies).length > 0;
+        if (userAlreadyInProject) {
+            notify(
+                `User ${user.name} is already allocated in project ${project.company} - ${project.project}`,
+                'warning'
+            );
+            return;
+        }
 
-      const confirmed = userHasRelevantSkills
-        ? await confirm(
-            `Are you sure you want to add ${user.name} to project ${project.company} - ${project.project}`,
-            'Confirm'
-          )
-        : await confirm(
-            `User ${user.name} does not have any relevant skills for project ${project.company} - ${project.project}. Are you sure you want to add him?`,
-            'Skills mismatch'
-          );
+        const userHasRelevantSkills =
+            this.intersectedSkills(user.skills, project.technologies).length > 0;
 
-      if (confirmed) {
-        this.projectService.addUserToProject(user, project);
+        const confirmed = userHasRelevantSkills
+            ? await confirm(
+                `Are you sure you want to add ${user.name} to project ${project.company} - ${project.project}`,
+                'Confirm'
+            )
+            : await confirm(
+                `User ${user.name} does not have any relevant skills for project ${project.company} - ${project.project}. Are you sure you want to add him?`,
+                'Skills mismatch'
+            );
 
-        notify(
-          `User ${user.name} added to project ${project.company} - ${project.project}`,
-          'success'
-        );
-      }
+        if (confirmed) {
+            this.projectService.addUserToProject(user, project);
+
+            notify(
+                `User ${user.name} added to project ${project.company} - ${project.project}`,
+                'success'
+            );
+        }
     }
   }
 

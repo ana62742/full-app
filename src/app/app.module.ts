@@ -16,11 +16,15 @@ import { InteractionType } from '@azure/msal-browser';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing.module';
+<<<<<<< HEAD
+import { DxButtonModule, DxPopupModule, DxTemplateModule, DxTextBoxModule } from 'devextreme-angular';
+=======
 import {
   DxButtonModule,
   DxTextBoxModule,
   DxTooltipModule,
 } from 'devextreme-angular';
+>>>>>>> fc9419b643d8bbccdc708411389b64d91b00dea0
 import { SettingsModule } from './settings/settings.module';
 import { StatisticsModule } from './statistics/statistics.module';
 import {
@@ -43,6 +47,10 @@ import { HomeComponent } from './shared/components/home/home.component';
     StatisticsModule,
     DxButtonModule,
     DxTextBoxModule,
+<<<<<<< HEAD
+    DxPopupModule,
+    DxTemplateModule
+=======
     DxTooltipModule,
     MsalModule.forRoot(
       MSALInsanceFactory(),
@@ -57,6 +65,7 @@ import { HomeComponent } from './shared/components/home/home.component';
         protectedResourceMap: new Map([[MS_GRAPH_URL, msalConfig.scopes]]),
       }
     ),
+>>>>>>> fc9419b643d8bbccdc708411389b64d91b00dea0
   ],
   providers: [
     {
