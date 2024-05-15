@@ -1,0 +1,28 @@
+<div class="flex flex-col items-center h-1/2 justify-between p-4">
+  <div class="w-1/2 text-center">
+    <h3 class="font-semibold text-xl pb-4">
+      Upload csv file to be converted to data:
+    </h3>
+    <div id="fileuploader-container">
+      <dx-file-uploader
+        name="file"
+        selectButtonText="Select CSV file"
+        accept="csv"
+        uploadMode="useButtons"
+        uploadUrl="http://localhost:3000/api/upload"
+        (onUploaded)="onUploaded($event)"
+      >
+      </dx-file-uploader>
+    </div>
+  </div>
+  <div class="font-semibold text-xl">OR</div>
+  <div class="flex w-1/2 items-center justify-center">
+    <button
+      class="bg-blue-500 hover:bg-blue-700 text-white p-2 rounded"
+      (click)="getList()"
+    >
+      Get list from Sharepoint
+    </button>
+  </div>
+  <div *ngIf="!!response">Response: {{ response }}</div>
+</div>
