@@ -1,12 +1,6 @@
 export const environment = {
-    firebase: {
-        apiKey: "AIzaSyAaHOYAvnkSf7cj9C3TBMtH8EBc_GY1WiQ",
-        authDomain: "projectassignmentapp-f6d7f.firebaseapp.com",
-        projectId: "projectassignmentapp-f6d7f",
-        storageBucket: "projectassignmentapp-f6d7f.appspot.com",
-        messagingSenderId: "428066528340",
-        appId: "1:428066528340:web:ea96504289791f116561c1",
-        measurementId: "G-CL5Q12Q2YG"
-    },
-    production: false
+  production: false,
+  clientId: '6dcd9c76-7530-4141-86ba-81677d5bc5ca',
+  tenantName: '485e1432-3aae-44d5-b543-6c0a97068711',
+  appUrl: 'http://localhost:4200',
 };

@@ -1,21 +1,183 @@
-<header class="bg-gray-100 p-2 flex items-center h-[60px]">
-  <div class="pl-2">
-    <a routerLink="/staffing-up" class="text-gray-700 hover:text-blue-500"
-      >Staffing</a
-    >
-    <span class="text-gray-500 px-2">|</span>
-    <a routerLink="/statistics" class="text-gray-700 hover:text-blue-500"
-      >Statistics</a
-    >
-    <span class="text-gray-500 px-2">|</span>
-    <a routerLink="/settings" class="text-gray-700 hover:text-blue-500"
-      >Settings</a
-    >
+<nav class="bg-gray-700">
+  <div class="px-4">
+    <div class="flex h-16 items-center justify-between">
+      <div class="flex flex-1 items-center sm:items-stretch sm:justify-start">
+        <div class="flex flex-shrink-0 items-center">
+          <img class="h-8 w-auto" src="./assets/logo.png" alt="Your Company" />
+        </div>
+        <!-- Mobile menu-->
+        <div class="inset-y-0 left-0 flex items-center sm:hidden pl-2">
+          <button
+            type="button"
+            class="flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+            aria-controls="mobile-menu"
+            aria-expanded="false"
+            (click)="onMobileMenuClicked()"
+          >
+            <svg
+              *ngIf="!showMobileMenu; else cancelIcon"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="white"
+              aria-hidden="true"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+              />
+            </svg>
+            <ng-template #cancelIcon>
+              <svg
+                class="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="white"
+                aria-hidden="true"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </ng-template>
+          </button>
+        </div>
+        <div class="hidden sm:ml-6 sm:block">
+          <div class="flex">
+            <a
+              routerLink="/"
+              class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+              [ngClass]="{
+                'bg-gray-900 text-white hover:bg-gray-900': activeItem === '/'
+              }"
+              routerLinkActive="active"
+            >
+              Staffing
+            </a>
+            <a
+              routerLink="/statistics"
+              class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+              [ngClass]="{
+                'bg-gray-900 text-white hover:bg-gray-900':
+                  activeItem === '/statistics'
+              }"
+              routerLinkActive="active"
+            >
+              Statistics
+            </a>
+            <a
+              routerLink="/settings"
+              class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+              [ngClass]="{
+                'bg-gray-900 text-white hover:bg-gray-900':
+                  activeItem === '/settings'
+              }"
+              routerLinkActive="active"
+            >
+              Settings
+            </a>
+          </div>
+        </div>
+      </div>
+      <p class="text-gray-300 text-sm font-medium">
+        Hello, {{ accountInfo?.name }}
+      </p>
+      <div
+        class="flex items-center pr-2 sm:static sm:inset-auto sm:ml-1 sm:pr-0"
+      >
+        <div class="ml-3">
+          <div>
+            <button
+              type="button"
+              class="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+              id="user-menu-button"
+              aria-expanded="false"
+              aria-haspopup="true"
+              (click)="onShowProfileClicked()"
+            >
+              <span class="-inset-1.5"></span>
+              <span class="sr-only">Open user menu</span>
+              <img
+                class="h-10 w-10 rounded-full"
+                [src]="profileImage"
+                alt="Profile Photo"
+              />
+            </button>
+          </div>
+          <div
+            *ngIf="showProfileMenu"
+            class="absolute right-3 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none transition ease-out duration-100"
+            role="menu"
+            aria-orientation="vertical"
+            aria-labelledby="user-menu-button"
+            tabindex="-1"
+          >
+            <a
+              href="#"
+              class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200"
+              role="menuitem"
+              tabindex="-1"
+              id="user-menu-item-1"
+              >My Profile</a
+            >
+            <a
+              href="#"
+              class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200"
+              role="menuitem"
+              tabindex="-1"
+              id="user-menu-item-2"
+              (click)="logout()"
+              >Sign out</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <button
-    class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-auto mr-2"
-    (click)="logout()"
+
+  <!-- Mobile menu, show/hide based on menu state. -->
+  <div
+    class="sm:hidden"
+    id="mobile-menu"
+    [ngClass]="{ hidden: !showMobileMenu }"
   >
-    Logout
-  </button>
-</header>
+    <div class="p-2 text-center">
+      <a
+        routerLink="/"
+        class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
+        [ngClass]="{
+          'bg-gray-900 text-white hover:bg-gray-900': activeItem === '/'
+        }"
+        routerLinkActive="active"
+      >
+        Staffing
+      </a>
+      <a
+        routerLink="/statistics"
+        class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
+        [ngClass]="{
+          'bg-gray-900 text-white hover:bg-gray-900':
+            activeItem === '/statistics'
+        }"
+        routerLinkActive="active"
+      >
+        Statistics
+      </a>
+      <a
+        routerLink="/settings"
+        class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
+        [ngClass]="{
+          'bg-gray-900 text-white hover:bg-gray-900': activeItem === '/settings'
+        }"
+        routerLinkActive="active"
+      >
+        Settings
+      </a>
+    </div>
+  </div>
+</nav>
