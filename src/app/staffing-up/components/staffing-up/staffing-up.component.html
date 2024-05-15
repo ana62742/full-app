@@ -1,5 +1,4 @@
 <div class="overflow-hidden">
-  <app-header></app-header>
   <div id="wrapper" class="flex gap-1 p-3 h-[calc(100vh-60px)] overflow-hidden">
     <div #leftElement>
       <dx-resizable class="h-full flex flex-col gap-1" handles="right">
@@ -11,26 +10,39 @@
           [dataSource]="users"
           keyExpr="id"
           [allowColumnReordering]="true"
-          (onRowClick)="onUserClick($event.data)">
+          (onRowClick)="onUserClick($event.data)"
         >
-        <dxo-row-dragging
-          data="users"
-          group="sameGroup"
-          [allowReordering]="false"
-          [allowDropInsideItem]="false"
-          [onDragEnd]="onUserDragEnd"
-        />
-        <dxo-header-filter
-          [visible]="true"
-          [search]="{ enabled: true }"
-        ></dxo-header-filter>
-        <dxo-column-chooser [enabled]="true" mode="select"></dxo-column-chooser>
+          >
+          <dxo-row-dragging
+            data="users"
+            group="sameGroup"
+            [allowReordering]="false"
+            [allowDropInsideItem]="false"
+            [onDragEnd]="onUserDragEnd"
+          />
+          <dxo-header-filter
+            [visible]="true"
+            [search]="{ enabled: true }"
+          ></dxo-header-filter>
+          <dxo-column-chooser
+            [enabled]="true"
+            mode="select"
+          ></dxo-column-chooser>
 
-          <dxi-column dataField="name" caption="Name" cellTemplate="nameTemplate"></dxi-column>
+          <dxi-column
+            dataField="name"
+            caption="Name"
+            cellTemplate="nameTemplate"
+          ></dxi-column>
           <div *dxTemplate="let cellInfo of 'nameTemplate'">
-            <div [ngClass]="{'selected-row': cellInfo.data.name == selectedUser?.name}" [title]="'Click to display user history'">
-                {{cellInfo.value}}
-            </div>                                                 
+            <div
+              [ngClass]="{
+                'selected-row': cellInfo.data.name == selectedUser?.name
+              }"
+              [title]="'Click to display user history'"
+            >
+              {{ cellInfo.value }}
+            </div>
           </div>
           <dxi-column dataField="cc" caption="CC"></dxi-column>
           <dxi-column
@@ -43,10 +55,10 @@
           </dxi-column>
           <dxi-column dataField="type" caption="Type"></dxi-column>
 
-        <dxo-toolbar>
-          <dxi-item location="after" name="columnChooserButton"></dxi-item>
-        </dxo-toolbar>
-      </dx-data-grid>
+          <dxo-toolbar>
+            <dxi-item location="after" name="columnChooserButton"></dxi-item>
+          </dxo-toolbar>
+        </dx-data-grid>
 
         <dx-data-grid
           #userHistoryGrid
@@ -66,9 +78,9 @@
       </dx-resizable>
     </div>
 
-  <!-- ! Possible leak from appResize directory
+    <!-- ! Possible leak from appResize directory
       <!-- TODO: Find alternative -->
-  <!-- <dx-button
+    <!-- <dx-button
         icon="dragvertical"
       class="flex items-center justify-center cursor-col-resize w-4 h-8 my-auto focus:outline-none"
       appResize
@@ -115,19 +127,19 @@
         ></dxi-column>
         <dxi-column dataField="availablePositions"></dxi-column>
 
-      <dxo-toolbar>
-        <dxi-item location="before" name="groupPanel"></dxi-item>
-        <dxi-item>
-          <dx-switch
-            [switchedOnText]="'Aplicari active'"
-            [switchedOffText]="'Toate aplicarile'"
-            (onValueChanged)="toggleFilterAttributes()"
-            [width]="140"
-            height="36px"
-          ></dx-switch>
-        </dxi-item>
-        <dxi-item location="after" name="columnChooserButton"></dxi-item>
-      </dxo-toolbar>
+        <dxo-toolbar>
+          <dxi-item location="before" name="groupPanel"></dxi-item>
+          <dxi-item>
+            <dx-switch
+              [switchedOnText]="'Aplicari active'"
+              [switchedOffText]="'Toate aplicarile'"
+              (onValueChanged)="toggleFilterAttributes()"
+              [width]="140"
+              height="36px"
+            ></dx-switch>
+          </dxi-item>
+          <dxi-item location="after" name="columnChooserButton"></dxi-item>
+        </dxo-toolbar>
 
         <dxo-master-detail
           [enabled]="true"
