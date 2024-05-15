@@ -67,6 +67,7 @@
             *ngIf="selectedUser"
             [dataSource]="userHistory"
             [showBorders]="true"
+            (onExporting)="onExporting($event)"
             >
             <dxi-column dataField="project" caption="Project"></dxi-column>
             <dxi-column dataField="status" caption="Status"></dxi-column>
@@ -75,6 +76,10 @@
               caption="Timestamp"
               dataType="datetime"
             ></dxi-column>
+            <dxo-export
+            [enabled]="true"
+            [formats]="['pdf']"
+            ></dxo-export>
           </dx-data-grid>
         </div>
       </dx-popup>

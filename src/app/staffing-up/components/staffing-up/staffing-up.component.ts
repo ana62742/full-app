@@ -1,5 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { DxDataGridComponent, DxTemplateModule, DxPopupModule } from 'devextreme-angular';
+import { exportDataGrid } from 'devextreme/pdf_exporter';
 import {
   ApplicationInterface,
   ApplicationStatusInterface,
@@ -21,6 +22,8 @@ import {
 } from '../../../shared/types/user.types';
 import { ProjectService } from 'src/app/shared/services/project.service';
 import { UserService } from 'src/app/shared/services/user.service';
+import { DxDataGridTypes } from 'devextreme-angular/ui/data-grid';
+import jsPDF from 'jspdf';
 
 const skillInterfaceToString = (skill: SkillInterface): string => {
   return `${skill.technology}(${skill.engineeringScore})`;
@@ -252,5 +255,16 @@ export class StaffingUpComponent {
         status !== statusObj.impossibleAllocation
       );
     }).length;
+  }
+
+  onExporting(e: DxDataGridTypes.ExportingEvent) {
+    const doc = new jsPDF();
+    exportDataGrid({
+      jsPDFDocument: doc,
+      component: e.component,
+      indent: 5
+    }).then(() => {
+      doc.save(`${this.selectedUser?.name}'s Profile.pdf`);
+    });
   }
 }
