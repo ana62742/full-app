@@ -38,7 +38,7 @@ export class AppComponent implements OnInit, OnDestroy {
           !this.msalService.instance.getActiveAccount() &&
           this.msalService.instance.getAllAccounts().length > 0
         ) {
-          this.msalService.instance.setActiveAccount(result.account);
+          this.msalService.instance.setActiveAccount(result?.account);
         }
       },
       error: (error) => console.log(error),
