@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  clientId: '8c4c164b-93be-4333-8518-615cd153646b',
-  tenantName: '3260ea4d-aa20-465a-a197-28afd38975aa',
+  clientId: '6dcd9c76-7530-4141-86ba-81677d5bc5ca',
+  tenantName: '485e1432-3aae-44d5-b543-6c0a97068711',
   appUrl: 'http://localhost:4200',
 };
