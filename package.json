@@ -8,9 +8,7 @@
     "build-prod": "ng build --output-path docs --base-href /full-app/ --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "start:server": "nodemon ./backend/server.js",
-    "predeploy": "ng build",
-    "deploy": "gh-pages -b main -d docs"
+    "start:server": "nodemon ./backend/server.js"
   },
   "private": true,
   "dependencies": {
@@ -41,7 +39,6 @@
     "autoprefixer": "^10.4.16",
     "devextreme-cli": "latest",
     "devextreme-themebuilder": "^23.1.5",
-    "gh-pages": "^6.1.1",
     "jasmine-core": "~4.6.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
