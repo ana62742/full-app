@@ -45,8 +45,10 @@ import { HomeComponent } from './shared/components/home/home.component';
     StatisticsModule,
     DxButtonModule,
     DxTextBoxModule,
+<<<<<<< HEAD
     DxPopupModule,
-    DxTemplateModule,
+    DxTemplateModule
+=======
     DxTooltipModule,
     MsalModule.forRoot(
       MSALInsanceFactory(),
