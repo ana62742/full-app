@@ -29,6 +29,7 @@ export interface ProjectInterface {
   technologies: string[];
   availablePositions: number;
   applications: ApplicationInterface[];
+  binding: boolean;
 }
 
 export function isProject(obj: any): obj is ProjectInterface {

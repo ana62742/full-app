@@ -59,6 +59,8 @@ export class StaffingUpComponent {
   dynamicFilterValue: any = null;
   isToggled = false;
 
+  isBindingToggled: boolean = true;
+
   userHistory: any[] = [];
 
   selectedUser: UserInterface | null = null;
@@ -109,6 +111,15 @@ export class StaffingUpComponent {
       ];
     }
     this.isToggled = !this.isToggled;
+  }
+
+  toggleBindingProjects() {
+    if (this.isBindingToggled) {
+      this.projectsGrid.instance.filter(['binding', '=', true]);
+    } else {
+      this.projectsGrid.instance.clearFilter();
+    }
+    this.isBindingToggled = !this.isBindingToggled;
   }
 
   isStatusActive(status: string): boolean {

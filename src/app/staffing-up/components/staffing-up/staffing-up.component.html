@@ -131,6 +131,15 @@
           <dxi-item location="before" name="groupPanel"></dxi-item>
           <dxi-item>
             <dx-switch
+              [switchedOnText]="'Non-Binding'"
+              [switchedOffText]="'Binding'"
+              (onValueChanged)="toggleBindingProjects()"
+              [width]="140"
+              height="36px"
+            ></dx-switch>
+          </dxi-item>
+          <dxi-item>
+            <dx-switch
               [switchedOnText]="'Aplicari active'"
               [switchedOffText]="'Toate aplicarile'"
               (onValueChanged)="toggleFilterAttributes()"

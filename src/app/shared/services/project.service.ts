@@ -35,6 +35,7 @@ export class ProjectService {
           ],
         },
       ],
+      binding: false,
     },
     {
       id: 2,
@@ -256,6 +257,7 @@ export class ProjectService {
           ],
         },
       ],
+      binding: true,
     },
     {
       id: 3,
@@ -289,6 +291,7 @@ export class ProjectService {
           ],
         },
       ],
+      binding: false,
     },
     {
       id: 4,
@@ -297,6 +300,7 @@ export class ProjectService {
       technologies: ['Angular'],
       availablePositions: 0,
       applications: [],
+      binding: true,
     },
     {
       id: 5,
@@ -326,6 +330,7 @@ export class ProjectService {
           ],
         },
       ],
+      binding: false,
     },
   ];
 
