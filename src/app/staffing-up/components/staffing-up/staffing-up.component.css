@@ -15,4 +15,16 @@
   font-size: 14px;
   line-height: 36px;
 }
+.skills-container {
+  white-space: normal;
+}
+
+.skill-bubble {
+  display: inline-block;
+  background-color: #007bff3f;
+  color: #000000;
+  padding: 5px 10px;
+  border-radius: 20px;
+  margin: 5px;
+}
 
