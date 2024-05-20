@@ -18,6 +18,8 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing.module';
 import {
   DxButtonModule,
+  DxPopupModule,
+  DxTemplateModule,
   DxTextBoxModule,
   DxTooltipModule,
 } from 'devextreme-angular';
@@ -43,6 +45,8 @@ import { HomeComponent } from './shared/components/home/home.component';
     StatisticsModule,
     DxButtonModule,
     DxTextBoxModule,
+    DxPopupModule,
+    DxTemplateModule,
     DxTooltipModule,
     MsalModule.forRoot(
       MSALInsanceFactory(),
