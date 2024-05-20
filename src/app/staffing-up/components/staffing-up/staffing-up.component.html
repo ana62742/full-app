@@ -53,13 +53,24 @@
             [calculateFilterExpression]="calculateFilterExpression"
             cellTemplate="skillsCellTemplate"
           >
-          <div *dxTemplate="let cellInfo of 'skillsCellTemplate'" >
-            <div class="skills-container">
-              <div *ngFor="let skill of cellInfo.data.skills" class="skill-bubble">{{ skill.technology }} ({{ skill.engineeringScore }})</div>
+            <div *dxTemplate="let cellInfo of 'skillsCellTemplate'">
+              <div class="skills-container">
+                <div *ngFor="let skill of cellInfo.data.skills">
+                  {{ skill.technology }}
+                  <span class="skill-bubble">
+                    {{ skill.engineeringScore }}
+                  </span>
+                </div>
+              </div>
             </div>
-          </div>
           </dxi-column>
-          <dxi-column class="text-center" dataField="type" caption="Type" sortIndex="0" sortOrder="desc"></dxi-column>
+          <dxi-column
+            class="text-center"
+            dataField="type"
+            caption="Type"
+            sortIndex="0"
+            sortOrder="desc"
+          ></dxi-column>
 
           <dxo-toolbar>
             <dxi-item location="after" name="columnChooserButton"></dxi-item>
