@@ -1,9 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import {
-  DxDataGridComponent,
-  DxTemplateModule,
-  DxPopupModule,
-} from 'devextreme-angular';
+import { DxDataGridComponent } from 'devextreme-angular';
 import { exportDataGrid } from 'devextreme/pdf_exporter';
 import {
   ApplicationInterface,

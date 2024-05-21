@@ -28,7 +28,9 @@
               "devexpress-diagram",
               "devexpress-gantt",
               "devextreme-quill",
+              "jspdf-autotable",
               "raf",
+              "core-js",
               "rgbcolor",
               "dompurify",
               "html2canvas"
