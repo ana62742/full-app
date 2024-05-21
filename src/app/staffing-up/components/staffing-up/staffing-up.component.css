@@ -25,10 +25,6 @@
   cursor: pointer;
 }
 
-.skills-container {
-  white-space: normal;
-}
-
 .skill-bubble {
   background-color: #007bff3f;
   color: #000000;
