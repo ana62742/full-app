@@ -1,4 +1,4 @@
-<nav class="bg-gray-700">
+<nav class="bg-indigo-950">
   <div class="px-4">
     <div class="flex h-16 items-center justify-between">
       <div class="flex flex-1 items-center sm:items-stretch sm:justify-start">
@@ -9,7 +9,7 @@
         <div class="inset-y-0 left-0 flex items-center sm:hidden pl-2">
           <button
             type="button"
-            class="flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+            class="flex items-center justify-center rounded-md p-2 text-sky-400 hover:bg-sky-600 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
             aria-controls="mobile-menu"
             aria-expanded="false"
             (click)="onMobileMenuClicked()"
@@ -47,13 +47,14 @@
             </ng-template>
           </button>
         </div>
+        <!-- Desktop menu-->
         <div class="hidden sm:ml-6 sm:block">
           <div class="flex">
             <a
               routerLink="/"
-              class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+              class="text-gray-300 self-center hover:bg-sky-600 hover:text-white rounded-md px-2 py-1 mr-2 text-sm font-medium"
               [ngClass]="{
-                'bg-gray-900 text-white hover:bg-gray-900': activeItem === '/'
+                'bg-sky-600 text-white': activeItem === '/'
               }"
               routerLinkActive="active"
             >
@@ -61,10 +62,9 @@
             </a>
             <a
               routerLink="/statistics"
-              class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+              class="text-gray-300 self-center hover:bg-sky-600 hover:text-white rounded-md px-2 py-1 mr-2 text-sm font-medium"
               [ngClass]="{
-                'bg-gray-900 text-white hover:bg-gray-900':
-                  activeItem === '/statistics'
+                'bg-sky-600 text-white': activeItem === '/statistics'
               }"
               routerLinkActive="active"
             >
@@ -72,10 +72,9 @@
             </a>
             <a
               routerLink="/settings"
-              class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+              class="text-gray-300 self-center hover:bg-sky-600 hover:text-white rounded-md px-2 py-1 mr-2 text-sm font-medium"
               [ngClass]="{
-                'bg-gray-900 text-white hover:bg-gray-900':
-                  activeItem === '/settings'
+                'bg-sky-600 text-white': activeItem === '/settings'
               }"
               routerLinkActive="active"
             >
@@ -94,7 +93,7 @@
           <div>
             <button
               type="button"
-              class="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+              class="flex rounded-full bg-sky-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-sky-800"
               id="user-menu-button"
               aria-expanded="false"
               aria-haspopup="true"
@@ -111,7 +110,7 @@
           </div>
           <div
             *ngIf="showProfileMenu"
-            class="absolute right-3 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none transition ease-out duration-100"
+            class="absolute right-3 z-10 mt-2 w-48 origin-top-right py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none transition ease-out duration-100 bg-indigo-950"
             role="menu"
             aria-orientation="vertical"
             aria-labelledby="user-menu-button"
@@ -119,7 +118,7 @@
           >
             <a
               href="#"
-              class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200"
+              class="block px-4 py-2 text-sm text-gray-300 hover:bg-sky-600 hover:text-white"
               role="menuitem"
               tabindex="-1"
               id="user-menu-item-1"
@@ -127,7 +126,7 @@
             >
             <a
               href="#"
-              class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200"
+              class="block px-4 py-2 text-sm text-gray-300 hover:bg-sky-600 hover:text-white"
               role="menuitem"
               tabindex="-1"
               id="user-menu-item-2"
@@ -149,9 +148,9 @@
     <div class="p-2 text-center">
       <a
         routerLink="/"
-        class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
+        class="text-gray-300 hover:bg-sky-600 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
         [ngClass]="{
-          'bg-gray-900 text-white hover:bg-gray-900': activeItem === '/'
+          'bg-sky-600 text-white hover:bg-sky-600': activeItem === '/'
         }"
         routerLinkActive="active"
       >
@@ -159,10 +158,9 @@
       </a>
       <a
         routerLink="/statistics"
-        class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
+        class="text-gray-300 hover:bg-sky-600 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
         [ngClass]="{
-          'bg-gray-900 text-white hover:bg-gray-900':
-            activeItem === '/statistics'
+          'bg-sky-600 text-white hover:bg-sky-600': activeItem === '/statistics'
         }"
         routerLinkActive="active"
       >
@@ -170,9 +168,9 @@
       </a>
       <a
         routerLink="/settings"
-        class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
+        class="text-gray-300 hover:bg-sky-600 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
         [ngClass]="{
-          'bg-gray-900 text-white hover:bg-gray-900': activeItem === '/settings'
+          'bg-sky-600 text-white hover:bg-sky-600': activeItem === '/settings'
         }"
         routerLinkActive="active"
       >
