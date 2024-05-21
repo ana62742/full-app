@@ -129,6 +129,22 @@ export class StatisticsComponent implements OnInit {
   }
 
   customizeText(arg: any) {
-    return `<span style='font-size: 24px'>${arg.percentText}</span><br/>${arg.item.argument}`;
+    return `<span style='font-size: 24px'>${arg.percentText}</span><br/><span style='padding-top: 10px'>${arg.item.argument}</span>`;
+  }
+
+  customizeTooltip(arg: any) {
+    const color = arg.point ? arg.point.getColor() : arg.item.color;
+    const text = arg.point
+      ? arg.argumentText
+      : `<span>${arg.item.argument} ${arg.item.value}</span>`;
+
+    console.log(arg.item);
+
+    return {
+      text,
+      color,
+      borderColor: color,
+      fontColor: 'white',
+    };
   }
 }
