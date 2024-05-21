@@ -23,7 +23,7 @@ import { SharedModule } from '../shared/shared.module';
     DxResizableModule,
     SharedModule,
     DxPopupModule,
-    DxTemplateModule
+    DxTemplateModule,
   ],
 })
 export class StaffingUpModule {}

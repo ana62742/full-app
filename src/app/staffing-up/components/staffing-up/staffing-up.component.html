@@ -5,14 +5,15 @@
         <dx-data-grid
           #usersGrid
           class="border-b-2"
-          height="70%"
-          [showBorders]="true"
-          [dataSource]="users"
+          height="100%"
           keyExpr="id"
+          [showBorders]="true"
+          [showRowLines]="true"
+          [dataSource]="users"
           [allowColumnReordering]="true"
+          [hoverStateEnabled]="true"
           (onRowClick)="onUserClick($event.data)"
         >
-          >
           <dxo-row-dragging
             data="users"
             group="sameGroup"
@@ -24,6 +25,7 @@
             [visible]="true"
             [search]="{ enabled: true }"
           ></dxo-header-filter>
+
           <dxo-column-chooser
             [enabled]="true"
             mode="select"
@@ -34,13 +36,12 @@
             caption="Name"
             cellTemplate="nameTemplate"
           ></dxi-column>
+
           <div
             *dxTemplate="let cellInfo of 'nameTemplate'"
             title="Display user history"
           >
-            <div [ngClass]="'name'">
-              {{ cellInfo.value }}
-            </div>
+            {{ cellInfo.value }}
           </div>
           <dxi-column dataField="cc" caption="CC"></dxi-column>
           <dxi-column
@@ -68,9 +69,11 @@
             caption="Type"
             sortIndex="0"
             sortOrder="desc"
+            [width]="90"
           ></dxi-column>
 
           <dxo-toolbar>
+            <dxi-item location="after" name="columnChooserButton"></dxi-item>
             <dxi-item location="after" name="columnChooserButton"></dxi-item>
           </dxo-toolbar>
         </dx-data-grid>
@@ -155,7 +158,6 @@
           [calculateFilterExpression]="calculateFilterExpression"
         ></dxi-column>
         <dxi-column dataField="availablePositions"></dxi-column>
-
         <dxo-toolbar>
           <dxi-item location="before" name="groupPanel"></dxi-item>
           <dxi-item>

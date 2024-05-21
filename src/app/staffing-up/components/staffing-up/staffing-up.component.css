@@ -20,10 +20,9 @@
   color: #EF4444;
 }
 
-.name:hover {
+::ng-deep .dx-data-row.dx-state-hover {
+  background-color: rgba(150, 206, 255, 0.2);
   cursor: pointer;
-  color: #63A0D4;
-  text-decoration: underline;
 }
 
 .skills-container {
@@ -31,7 +30,6 @@
 }
 
 .skill-bubble {
-  display: inline-block;
   background-color: #007bff3f;
   color: #000000;
   padding: 1px 6px;
@@ -39,4 +37,3 @@
   margin: 5px;
   font-size: 12px;
 }
-

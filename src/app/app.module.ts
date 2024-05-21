@@ -18,7 +18,6 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing.module';
 import {
   DxButtonModule,
-  DxPopupModule,
   DxTemplateModule,
   DxTextBoxModule,
   DxTooltipModule,
@@ -45,7 +44,6 @@ import { HomeComponent } from './shared/components/home/home.component';
     StatisticsModule,
     DxButtonModule,
     DxTextBoxModule,
-    DxPopupModule,
     DxTemplateModule,
     DxTooltipModule,
     MsalModule.forRoot(

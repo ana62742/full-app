@@ -26,6 +26,9 @@ import { ProjectService } from 'src/app/shared/services/project.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import jsPDF from 'jspdf';
 
+const sortSkills = (a: SkillInterface, b: SkillInterface) =>
+  b.engineeringScore - a.engineeringScore;
+
 const skillInterfaceToString = (skill: SkillInterface): string => {
   return `${skill.technology}(${skill.engineeringScore})`;
 };
@@ -40,19 +43,16 @@ export class StaffingUpComponent {
   projectsGrid!: DxDataGridComponent;
   @ViewChild('usersGrid', { static: false }) usersGrid!: DxDataGridComponent;
 
-  popupVisible = false;
-
-  public style: object = {};
-
+  popupVisible: boolean = false;
+  style: object = {};
   statuses = Object.values(statusObj);
-
   statusArrayOnEditStart: Array<ApplicationStatusInterface> = [];
 
   users = this.userService.users();
   projects = this.projectService.projects();
 
   skillsSet = new Set(this.users.flatMap((user) => user.skills));
-  skills: string[] = [...this.skillsSet].map(skillInterfaceToString).sort();
+  skills: string[] = [...this.skillsSet].map(skillInterfaceToString);
 
   technologiesSet = new Set(
     this.projects.flatMap((project) => project.technologies)
@@ -160,7 +160,11 @@ export class StaffingUpComponent {
   calculateCellValue(rowData: unknown) {
     if (isUser(rowData)) {
       if (rowData.skills.length === 0) return '';
-      return rowData.skills.map(skillInterfaceToString).join(', ');
+
+      return rowData.skills
+        .sort(sortSkills)
+        .map(skillInterfaceToString)
+        .join(', ');
     }
     if (isProject(rowData)) {
       return rowData.technologies.join(', ');
