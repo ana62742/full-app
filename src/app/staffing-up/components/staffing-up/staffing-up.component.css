@@ -16,3 +16,27 @@
   line-height: 36px;
 }
 
+::ng-deep .dx-datagrid .dx-link {
+  color: #EF4444;
+}
+
+.name:hover {
+  cursor: pointer;
+  color: #63A0D4;
+  text-decoration: underline;
+}
+
+.skills-container {
+  white-space: normal;
+}
+
+.skill-bubble {
+  display: inline-block;
+  background-color: #007bff3f;
+  color: #000000;
+  padding: 1px 6px;
+  border-radius: 50%;
+  margin: 5px;
+  font-size: 12px;
+}
+

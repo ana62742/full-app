@@ -34,13 +34,11 @@
             caption="Name"
             cellTemplate="nameTemplate"
           ></dxi-column>
-          <div *dxTemplate="let cellInfo of 'nameTemplate'">
-            <div
-              [ngClass]="{
-                'selected-row': cellInfo.data.name == selectedUser?.name
-              }"
-              [title]="'Click to display user history'"
-            >
+          <div
+            *dxTemplate="let cellInfo of 'nameTemplate'"
+            title="Display user history"
+          >
+            <div [ngClass]="'name'">
               {{ cellInfo.value }}
             </div>
           </div>
@@ -51,30 +49,61 @@
             [lookup]="{ dataSource: skills }"
             [calculateCellValue]="calculateCellValue"
             [calculateFilterExpression]="calculateFilterExpression"
+            cellTemplate="skillsCellTemplate"
           >
+            <div *dxTemplate="let cellInfo of 'skillsCellTemplate'">
+              <div class="skills-container">
+                <div *ngFor="let skill of cellInfo.data.skills">
+                  {{ skill.technology }}
+                  <span class="skill-bubble">
+                    {{ skill.engineeringScore }}
+                  </span>
+                </div>
+              </div>
+            </div>
           </dxi-column>
-          <dxi-column dataField="type" caption="Type"></dxi-column>
+          <dxi-column
+            class="text-center"
+            dataField="type"
+            caption="Type"
+            sortIndex="0"
+            sortOrder="desc"
+          ></dxi-column>
 
           <dxo-toolbar>
             <dxi-item location="after" name="columnChooserButton"></dxi-item>
           </dxo-toolbar>
         </dx-data-grid>
 
-        <dx-data-grid
-          #userHistoryGrid
-          *ngIf="selectedUser"
-          height="30%"
-          [dataSource]="userHistory"
-          [showBorders]="true"
+        <dx-popup
+          [width]="660"
+          [height]="540"
+          [showTitle]="true"
+          [title]="selectedUser?.name + ' - Allocation History'"
+          [dragEnabled]="false"
+          [hideOnOutsideClick]="true"
+          [(visible)]="popupVisible"
+          [showCloseButton]="true"
         >
-          <dxi-column dataField="project" caption="Project"></dxi-column>
-          <dxi-column dataField="status" caption="Status"></dxi-column>
-          <dxi-column
-            dataField="timestamp"
-            caption="Timestamp"
-            dataType="datetime"
-          ></dxi-column>
-        </dx-data-grid>
+          <div *dxTemplate="let data of 'content'">
+            <dx-data-grid
+              #userHistoryGrid
+              *ngIf="selectedUser"
+              [dataSource]="userHistory"
+              [showBorders]="true"
+              (onExporting)="onExporting($event)"
+            >
+              <dxi-column dataField="project" caption="Project"></dxi-column>
+              <dxi-column dataField="status" caption="Status"></dxi-column>
+              <dxi-column
+                dataField="timestamp"
+                caption="Timestamp"
+                dataType="datetime"
+              ></dxi-column>
+              <dxo-export [enabled]="true" [formats]="['pdf']"></dxo-export>
+            </dx-data-grid>
+          </div>
+        </dx-popup>
       </dx-resizable>
     </div>
 
@@ -177,6 +206,7 @@
             (onRowUpdating)="onRowUpdating($event)"
             [filterSyncEnabled]="true"
             [filterValue]="dynamicFilterValue"
+            (onCellPrepared)="onCellPrepared($event)"
           >
             <dxo-row-dragging
               data="applications-{{ project.data.id }}"
@@ -211,6 +241,13 @@
             <div *dxTemplate="let skills of 'skillsTemplate'">
               {{ intersectedSkills(skills.value, project.data.technologies) }}
             </div>
+            <dxi-column type="buttons">
+              <dxi-button
+                id="deleteBtn"
+                name="delete"
+                icon="trash"
+              ></dxi-button>
+            </dxi-column>
           </dx-data-grid>
         </div>
       </dx-data-grid>

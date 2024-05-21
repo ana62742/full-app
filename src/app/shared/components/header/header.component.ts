@@ -34,9 +34,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    const localUserData = localStorage.getItem('userData') ?? '';
     this.profileImage = this.profileService.profilePhoto().length
       ? this.profileService.profilePhoto()
-      : JSON.parse(localStorage.getItem('userData') ?? '').photoURL;
+      : JSON.parse(localUserData).photoURL;
   }
 
   onShowProfileClicked() {
