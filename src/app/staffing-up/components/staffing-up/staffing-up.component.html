@@ -51,15 +51,18 @@
             [calculateCellValue]="calculateCellValue"
             [calculateFilterExpression]="calculateFilterExpression"
             cellTemplate="skillsCellTemplate"
+            [width]="150"
           >
             <div *dxTemplate="let cellInfo of 'skillsCellTemplate'">
-              <div class="skills-container">
-                <div *ngFor="let skill of cellInfo.data.skills">
-                  {{ skill.technology }}
-                  <span class="skill-bubble">
-                    {{ skill.engineeringScore }}
-                  </span>
-                </div>
+              <div
+                *ngFor="let skill of cellInfo.data.skills; let i = index"
+                class="flex items-center justify-between"
+                [ngClass]="'skill-text-' + i"
+              >
+                {{ skill.technology }}
+                <span class="skill-bubble" [ngClass]="'skill-bubble-' + i">
+                  {{ skill.engineeringScore }}
+                </span>
               </div>
             </div>
           </dxi-column>

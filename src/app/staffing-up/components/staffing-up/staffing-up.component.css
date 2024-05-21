@@ -25,15 +25,19 @@
   cursor: pointer;
 }
 
-.skills-container {
-  white-space: normal;
-}
-
 .skill-bubble {
-  background-color: #007bff3f;
-  color: #000000;
+  background-color: rgb(161 207 180 / 40%);
   padding: 1px 6px;
   border-radius: 50%;
-  margin: 5px;
+  margin: 2px;
   font-size: 12px;
+}
+
+.skill-bubble-0 {
+  background-color: rgba(46, 204, 113, 0.4);
+  font-weight: bold;
+}
+
+.skill-text-0 {
+  font-weight: bold;
 }
