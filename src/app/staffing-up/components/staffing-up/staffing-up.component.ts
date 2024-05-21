@@ -1,5 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
-import { DxDataGridComponent, DxTemplateModule, DxPopupModule } from 'devextreme-angular';
+import {
+  DxDataGridComponent,
+  DxTemplateModule,
+  DxPopupModule,
+} from 'devextreme-angular';
+import { exportDataGrid } from 'devextreme/pdf_exporter';
 import {
   ApplicationInterface,
   ApplicationStatusInterface,
@@ -8,9 +13,11 @@ import {
   statusObj,
 } from '../../../shared/types/project.types';
 import {
+  CellPreparedEvent,
   EditingStartEvent,
   RowDraggingEndEvent,
   RowUpdatingEvent,
+  ExportingEvent,
 } from 'devextreme/ui/data_grid_types';
 import notify from 'devextreme/ui/notify';
 import { confirm } from 'devextreme/ui/dialog';
@@ -21,7 +28,7 @@ import {
 } from '../../../shared/types/user.types';
 import { ProjectService } from 'src/app/shared/services/project.service';
 import { UserService } from 'src/app/shared/services/user.service';
-import { CellPreparedEvent } from 'devextreme/ui/data_grid';
+import jsPDF from 'jspdf';
 
 const skillInterfaceToString = (skill: SkillInterface): string => {
   return `${skill.technology}(${skill.engineeringScore})`;
@@ -65,7 +72,7 @@ export class StaffingUpComponent {
   selectedUser: UserInterface | null = null;
 
   onCellPrepared(e: CellPreparedEvent) {
-    if (e.rowType === "data" && e.column.dataField === "statusArray") {
+    if (e.rowType === 'data' && e.column.dataField === 'statusArray') {
       const status = e.data.statusArray;
       e.cellElement.style.backgroundColor = this.getColorForStatus(status);
     }
@@ -168,68 +175,75 @@ export class StaffingUpComponent {
 
   async onUserDragEnd(e: RowDraggingEndEvent) {
     if (!(e.fromData === 'users')) {
-        e.cancel = true;
-        return;
+      e.cancel = true;
+      return;
     }
 
-    if (e.toData === 'projects' && !e.toData.startsWith('applications') && e.dropInsideItem === false) {
-        e.cancel = true;
-        notify("You cannot drop users here. Please drop the user inside a project.", "error");
-        return;
+    if (
+      e.toData === 'projects' &&
+      !e.toData.startsWith('applications') &&
+      e.dropInsideItem === false
+    ) {
+      e.cancel = true;
+      notify(
+        'You cannot drop users here. Please drop the user inside a project.',
+        'error'
+      );
+      return;
     }
 
     let projectId: number | undefined = undefined;
 
     if (e.toData === 'projects' || e.toData.startsWith('applications')) {
-        if (e.toIndex === 0) {
-            projectId = this.projects[0]?.id;
-        } else {
-            projectId = this.projectsGrid.instance.getKeyByRowIndex(+e.toIndex);
-        }
-        if (!projectId) {
-            console.error("Project ID not found.");
-            return;
-        }
-        this.projectsGrid.instance.expandRow(projectId);
+      if (e.toIndex === 0) {
+        projectId = this.projects[0]?.id;
+      } else {
+        projectId = this.projectsGrid.instance.getKeyByRowIndex(+e.toIndex);
+      }
+      if (!projectId) {
+        console.error('Project ID not found.');
+        return;
+      }
+      this.projectsGrid.instance.expandRow(projectId);
     }
 
     const user = e.itemData;
     const project = this.projects.find((p) => p.id === projectId);
 
     if (project) {
-        const userAlreadyInProject = project.applications.find(
-            (a) => a.user.id === user.id
+      const userAlreadyInProject = project.applications.find(
+        (a) => a.user.id === user.id
+      );
+
+      if (userAlreadyInProject) {
+        notify(
+          `User ${user.name} is already allocated in project ${project.company} - ${project.project}`,
+          'warning'
         );
+        return;
+      }
 
-        if (userAlreadyInProject) {
-            notify(
-                `User ${user.name} is already allocated in project ${project.company} - ${project.project}`,
-                'warning'
-            );
-            return;
-        }
+      const userHasRelevantSkills =
+        this.intersectedSkills(user.skills, project.technologies).length > 0;
 
-        const userHasRelevantSkills =
-            this.intersectedSkills(user.skills, project.technologies).length > 0;
+      const confirmed = userHasRelevantSkills
+        ? await confirm(
+            `Are you sure you want to add ${user.name} to project ${project.company} - ${project.project}`,
+            'Confirm'
+          )
+        : await confirm(
+            `User ${user.name} does not have any relevant skills for project ${project.company} - ${project.project}. Are you sure you want to add him?`,
+            'Skills mismatch'
+          );
 
-        const confirmed = userHasRelevantSkills
-            ? await confirm(
-                `Are you sure you want to add ${user.name} to project ${project.company} - ${project.project}`,
-                'Confirm'
-            )
-            : await confirm(
-                `User ${user.name} does not have any relevant skills for project ${project.company} - ${project.project}. Are you sure you want to add him?`,
-                'Skills mismatch'
-            );
+      if (confirmed) {
+        this.projectService.addUserToProject(user, project);
 
-        if (confirmed) {
-            this.projectService.addUserToProject(user, project);
-
-            notify(
-                `User ${user.name} added to project ${project.company} - ${project.project}`,
-                'success'
-            );
-        }
+        notify(
+          `User ${user.name} added to project ${project.company} - ${project.project}`,
+          'success'
+        );
+      }
     }
   }
 
@@ -267,29 +281,37 @@ export class StaffingUpComponent {
     }).length;
   }
 
+  onExporting(e: ExportingEvent) {
+    const doc = new jsPDF();
+    exportDataGrid({
+      jsPDFDocument: doc,
+      component: e.component,
+      indent: 5,
+    }).then(() => {
+      doc.save(`${this.selectedUser?.name}'s Profile.pdf`);
+    });
+  }
+
   getColorForStatus(rowData: any): string {
-    const latestStatus = rowData[rowData.length - 1]; 
-    const status = latestStatus?.status; 
-  
+    const latestStatus = rowData[rowData.length - 1];
+    const status = latestStatus?.status;
+
     switch (status) {
       case 'NEW':
         return 'rgba(52, 152, 219, 0.2)'; // blue
       case 'Propus BL':
         return 'rgba(241, 196, 15, 0.2)'; // yellow
-        case 'Propus Client':
+      case 'Propus Client':
         return 'rgba(243, 156, 18, 0.2)'; // orange
       case 'Alocare imposibila':
       case 'Alocare respinsa client':
       case 'Alocare respinsa candidat':
-        return 'rgba(231, 76, 60, 0.3)';  // red
+        return 'rgba(231, 76, 60, 0.3)'; // red
       case 'Alocare posibila':
       case 'Acceptat':
         return 'rgba(46, 204, 113, 0.2)'; // green
       default:
-        return 'rgba(211, 211, 211, 0.2)';  //grey
+        return 'rgba(211, 211, 211, 0.2)'; //grey
     }
   }
-  
-  
-
 }

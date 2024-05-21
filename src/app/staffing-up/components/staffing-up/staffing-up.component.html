@@ -34,13 +34,11 @@
             caption="Name"
             cellTemplate="nameTemplate"
           ></dxi-column>
-          <div *dxTemplate="let cellInfo of 'nameTemplate'">
-            <div
-              [ngClass]="{
-                'selected-row': cellInfo.data.name == selectedUser?.name
-              }"
-              [title]="'Click to display user history'"
-            >
+          <div
+            *dxTemplate="let cellInfo of 'nameTemplate'"
+            title="Display user history"
+          >
+            <div [ngClass]="'name'">
               {{ cellInfo.value }}
             </div>
           </div>
@@ -77,21 +75,35 @@
           </dxo-toolbar>
         </dx-data-grid>
 
-        <dx-data-grid
-          #userHistoryGrid
-          *ngIf="selectedUser"
-          height="30%"
-          [dataSource]="userHistory"
-          [showBorders]="true"
+        <dx-popup
+          [width]="660"
+          [height]="540"
+          [showTitle]="true"
+          [title]="selectedUser?.name + ' - Allocation History'"
+          [dragEnabled]="false"
+          [hideOnOutsideClick]="true"
+          [(visible)]="popupVisible"
+          [showCloseButton]="true"
         >
-          <dxi-column dataField="project" caption="Project"></dxi-column>
-          <dxi-column dataField="status" caption="Status"></dxi-column>
-          <dxi-column
-            dataField="timestamp"
-            caption="Timestamp"
-            dataType="datetime"
-          ></dxi-column>
-        </dx-data-grid>
+          <div *dxTemplate="let data of 'content'">
+            <dx-data-grid
+              #userHistoryGrid
+              *ngIf="selectedUser"
+              [dataSource]="userHistory"
+              [showBorders]="true"
+              (onExporting)="onExporting($event)"
+            >
+              <dxi-column dataField="project" caption="Project"></dxi-column>
+              <dxi-column dataField="status" caption="Status"></dxi-column>
+              <dxi-column
+                dataField="timestamp"
+                caption="Timestamp"
+                dataType="datetime"
+              ></dxi-column>
+              <dxo-export [enabled]="true" [formats]="['pdf']"></dxo-export>
+            </dx-data-grid>
+          </div>
+        </dx-popup>
       </dx-resizable>
     </div>
 
@@ -199,16 +211,16 @@
               [allowDeleting]="true"
             />
             <dxi-column
-            dataField="user.name"
-            caption="Name"
-            [allowEditing]="false"
+              dataField="user.name"
+              caption="Name"
+              [allowEditing]="false"
             ></dxi-column>
             <dxi-column
               dataField="statusArray"
               caption="Status"
               [calculateCellValue]="calculateStatus"
               [allowEditing]="true"
-              >
+            >
               <dxo-lookup [dataSource]="statuses"></dxo-lookup>
             </dxi-column>
             <dxi-column
@@ -216,16 +228,20 @@
               caption="Relevant skills"
               cellTemplate="skillsTemplate"
               [allowEditing]="false"
-              ></dxi-column>
-              <div *dxTemplate="let skills of 'skillsTemplate'">
-                {{ intersectedSkills(skills.value, project.data.technologies) }}
-              </div>
-              <dxi-column type="buttons">
-                <dxi-button id="deleteBtn" name="delete" icon="trash"></dxi-button>
-              </dxi-column>
-            </dx-data-grid>
-          </div>
-        </dx-data-grid>
-      </div>
+            ></dxi-column>
+            <div *dxTemplate="let skills of 'skillsTemplate'">
+              {{ intersectedSkills(skills.value, project.data.technologies) }}
+            </div>
+            <dxi-column type="buttons">
+              <dxi-button
+                id="deleteBtn"
+                name="delete"
+                icon="trash"
+              ></dxi-button>
+            </dxi-column>
+          </dx-data-grid>
+        </div>
+      </dx-data-grid>
     </div>
   </div>
+</div>
