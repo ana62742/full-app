@@ -81,34 +81,40 @@
         </dx-data-grid>
 
         <dx-popup
-          [width]="660"
-          [height]="540"
-          [showTitle]="true"
-          [title]="selectedUser?.name + ' - Allocation History'"
-          [dragEnabled]="false"
-          [hideOnOutsideClick]="true"
-          [(visible)]="popupVisible"
-          [showCloseButton]="true"
-        >
-          <div *dxTemplate="let data of 'content'">
-            <dx-data-grid
-              #userHistoryGrid
-              *ngIf="selectedUser"
-              [dataSource]="userHistory"
-              [showBorders]="true"
-              (onExporting)="onExporting($event)"
+        [width]="660"
+        [height]="540"
+        [showTitle]="true"
+        [title]="selectedUser?.name +' - Allocation History'"
+        [dragEnabled]="false"
+        [hideOnOutsideClick]="true"
+        [(visible)]="popupVisible"
+        [showCloseButton]="true"
+      >
+        <div *dxTemplate="let data of 'content'" class="text-right">
+          <dx-button
+            text="Download User's Profile"
+            type="default"
+            stylingMode="contained"
+            icon="export"
+            class="mb-5"
+            (onClick)="downloadProfile(selectedUser)">
+          </dx-button>
+          <dx-data-grid
+            #userHistoryGrid
+            *ngIf="selectedUser"
+            [dataSource]="userHistory"
+            [showBorders]="true"
             >
-              <dxi-column dataField="project" caption="Project"></dxi-column>
-              <dxi-column dataField="status" caption="Status"></dxi-column>
-              <dxi-column
-                dataField="timestamp"
-                caption="Timestamp"
-                dataType="datetime"
-              ></dxi-column>
-              <dxo-export [enabled]="true" [formats]="['pdf']"></dxo-export>
-            </dx-data-grid>
-          </div>
-        </dx-popup>
+            <dxi-column dataField="project" caption="Project"></dxi-column>
+            <dxi-column dataField="status" caption="Status"></dxi-column>
+            <dxi-column
+              dataField="timestamp"
+              caption="Timestamp"
+              dataType="datetime"
+            ></dxi-column>
+          </dx-data-grid>
+        </div>
+      </dx-popup>
       </dx-resizable>
     </div>
 
