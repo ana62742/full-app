@@ -61,13 +61,20 @@
         [(visible)]="popupVisible"
         [showCloseButton]="true"
       >
-        <div *dxTemplate="let data of 'content'">
+        <div *dxTemplate="let data of 'content'" class="text-right">
+          <dx-button
+            text="Download User's Profile"
+            type="default"
+            stylingMode="contained"
+            icon="export"
+            class="mb-5"
+            (onClick)="downloadProfile(selectedUser)">
+          </dx-button>
           <dx-data-grid
             #userHistoryGrid
             *ngIf="selectedUser"
             [dataSource]="userHistory"
             [showBorders]="true"
-            (onExporting)="onExporting($event)"
             >
             <dxi-column dataField="project" caption="Project"></dxi-column>
             <dxi-column dataField="status" caption="Status"></dxi-column>
@@ -76,10 +83,6 @@
               caption="Timestamp"
               dataType="datetime"
             ></dxi-column>
-            <dxo-export
-            [enabled]="true"
-            [formats]="['pdf']"
-            ></dxo-export>
           </dx-data-grid>
         </div>
       </dx-popup>

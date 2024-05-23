@@ -24,6 +24,7 @@ import { ProjectService } from 'src/app/shared/services/project.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import { DxDataGridTypes } from 'devextreme-angular/ui/data-grid';
 import jsPDF from 'jspdf';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 const skillInterfaceToString = (skill: SkillInterface): string => {
   return `${skill.technology}(${skill.engineeringScore})`;
@@ -95,6 +96,19 @@ export class StaffingUpComponent {
     private userService: UserService
   ) {
     this.onUserDragEnd = this.onUserDragEnd.bind(this);
+  }
+
+  downloadProfile(user: any) {
+    const fileName = `${user.id}.docx`;//namin convention
+    const url = `assets/user-profiles/${fileName}`;
+
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${user.name}'s Profile.docx`;
+
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
   }
 
   toggleFilterAttributes() {
