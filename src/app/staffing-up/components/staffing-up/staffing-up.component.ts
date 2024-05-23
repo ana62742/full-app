@@ -1,5 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
-import { DxDataGridComponent, DxTemplateModule, DxPopupModule } from 'devextreme-angular';
+import {
+  DxDataGridComponent,
+  DxTemplateModule,
+  DxPopupModule,
+} from 'devextreme-angular';
 import { exportDataGrid } from 'devextreme/pdf_exporter';
 import {
   ApplicationInterface,
@@ -9,9 +13,11 @@ import {
   statusObj,
 } from '../../../shared/types/project.types';
 import {
+  CellPreparedEvent,
   EditingStartEvent,
   RowDraggingEndEvent,
   RowUpdatingEvent,
+  ExportingEvent,
 } from 'devextreme/ui/data_grid_types';
 import notify from 'devextreme/ui/notify';
 import { confirm } from 'devextreme/ui/dialog';
@@ -22,7 +28,6 @@ import {
 } from '../../../shared/types/user.types';
 import { ProjectService } from 'src/app/shared/services/project.service';
 import { UserService } from 'src/app/shared/services/user.service';
-import { DxDataGridTypes } from 'devextreme-angular/ui/data-grid';
 import jsPDF from 'jspdf';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
@@ -66,6 +71,13 @@ export class StaffingUpComponent {
   userHistory: any[] = [];
 
   selectedUser: UserInterface | null = null;
+
+  onCellPrepared(e: CellPreparedEvent) {
+    if (e.rowType === 'data' && e.column.dataField === 'statusArray') {
+      const status = e.data.statusArray;
+      e.cellElement.style.backgroundColor = this.getColorForStatus(status);
+    }
+  }
 
   onUserClick(user: UserInterface) {
     this.selectedUser = user;
@@ -181,19 +193,31 @@ export class StaffingUpComponent {
       return;
     }
 
-    if (e.toData === 'projects' && e.dropInsideItem === false) {
+    if (
+      e.toData === 'projects' &&
+      !e.toData.startsWith('applications') &&
+      e.dropInsideItem === false
+    ) {
       e.cancel = true;
+      notify(
+        'You cannot drop users here. Please drop the user inside a project.',
+        'error'
+      );
       return;
     }
 
     let projectId: number | undefined = undefined;
 
-    if (e.toData.startsWith('aplicari')) {
-      projectId = +e.toData.split('aplicari-')[1];
-    }
-
-    if (e.toData === 'projects') {
-      projectId = this.projectsGrid.instance.getKeyByRowIndex(+e.toIndex);
+    if (e.toData === 'projects' || e.toData.startsWith('applications')) {
+      if (e.toIndex === 0) {
+        projectId = this.projects[0]?.id;
+      } else {
+        projectId = this.projectsGrid.instance.getKeyByRowIndex(+e.toIndex);
+      }
+      if (!projectId) {
+        console.error('Project ID not found.');
+        return;
+      }
       this.projectsGrid.instance.expandRow(projectId);
     }
 
@@ -271,14 +295,37 @@ export class StaffingUpComponent {
     }).length;
   }
 
-  onExporting(e: DxDataGridTypes.ExportingEvent) {
+  onExporting(e: ExportingEvent) {
     const doc = new jsPDF();
     exportDataGrid({
       jsPDFDocument: doc,
       component: e.component,
-      indent: 5
+      indent: 5,
     }).then(() => {
       doc.save(`${this.selectedUser?.name}'s Profile.pdf`);
     });
+  }
+
+  getColorForStatus(rowData: any): string {
+    const latestStatus = rowData[rowData.length - 1];
+    const status = latestStatus?.status;
+
+    switch (status) {
+      case 'NEW':
+        return 'rgba(52, 152, 219, 0.2)'; // blue
+      case 'Propus BL':
+        return 'rgba(241, 196, 15, 0.2)'; // yellow
+      case 'Propus Client':
+        return 'rgba(243, 156, 18, 0.2)'; // orange
+      case 'Alocare imposibila':
+      case 'Alocare respinsa client':
+      case 'Alocare respinsa candidat':
+        return 'rgba(231, 76, 60, 0.3)'; // red
+      case 'Alocare posibila':
+      case 'Acceptat':
+        return 'rgba(46, 204, 113, 0.2)'; // green
+      default:
+        return 'rgba(211, 211, 211, 0.2)'; //grey
+    }
   }
 }
