@@ -5,6 +5,8 @@ import { AuthGuard } from './auth/auth.guard';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { SettingsComponent } from './settings/components/settings/settings.component';
 import { HomeComponent } from './shared/components/home/home.component';
+import { GeneralStatisticsComponent } from './statistics/general-statistics/general-statistics.component';
+import { ProjectStatisticsComponent } from './statistics/project-statistics/project-statistics.component';
 
 const routes: Routes = [
   {
@@ -29,6 +31,8 @@ const routes: Routes = [
       },
     ],
   },
+  { path: 'general-statistics', component: GeneralStatisticsComponent },
+  { path: 'project-statistics', component: ProjectStatisticsComponent },
   { path: '**', redirectTo: '' },
 ];
 

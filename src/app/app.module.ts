@@ -31,6 +31,7 @@ import {
 } from './auth/auth.config';
 import { SharedModule } from './shared/shared.module';
 import { HomeComponent } from './shared/components/home/home.component';
+import { GeneralStatisticsComponent } from './statistics/general-statistics/general-statistics.component';
 
 @NgModule({
   declarations: [AppComponent, HomeComponent],

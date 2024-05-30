@@ -1,0 +1,116 @@
+<dx-responsive-box class="flex flex-wrap justify-center md:justify-between h-full overflow-y-auto">
+    <dxi-row [ratio]="1"></dxi-row>
+    <dxi-row [ratio]="4"></dxi-row>
+
+    <dxi-col [ratio]="0.5"></dxi-col>
+    <dxi-col [ratio]="1"></dxi-col>
+    <dxi-col [ratio]="1"></dxi-col>
+
+    <dxi-item>
+        <dxi-location
+          [row]="0"
+          [col]="0"
+          [colspan]="3"
+        ></dxi-location>
+        <ul class="project-list flex flex-column justify-center">
+            <li *ngFor="let project of projects" class="project-item" [class.selected]="project.id === selectedProject.id" (click)="onProjectChange(project.id)">
+              {{ project.project }} - {{ project.company }}
+            </li>
+        </ul>
+    </dxi-item>
+
+    <dxi-item>
+        <dxi-location [row]="1" [col]="0"></dxi-location>
+        <div class="card">
+            <div class="card-content">
+                <i class="dx-icon-group dx-icon-custom-style"></i>
+                <h3>Total Applications: {{ totalApplications }}</h3>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-content">
+                <i class="dx-icon-bell dx-icon-custom-style"></i>
+                <h3>Open Positions: {{ openPositions }}</h3>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-content">
+                <i class="dx-icon-datapie dx-icon-custom-style"></i>
+                <h3>Average Engineering Score: {{ averageEngineeringScore.toFixed(2) }}</h3>
+            </div>
+        </div>
+    </dxi-item>
+
+    <dxi-item>
+        <dxi-location [row]="1" [col]="1"></dxi-location>
+        <div class="card">
+            <div class="card-content">
+            <dx-pie-chart
+            id="statusDistribution"
+            [dataSource]="statusDistribution"
+            [palette]="['#6ab0f3', '#8ec72e', '#e25a53', '#ff834e', '#a696c8']"
+            [title]="{
+              text: 'Status Distribution'
+            }"
+          >
+            <dxo-tooltip
+              [enabled]="true"
+              [customizeTooltip]="customizeTooltip"
+              [opacity]="0.8"
+            ></dxo-tooltip>
+            <dxi-series
+              type="doughnut"
+              [argumentField]="'status'"
+              [valueField]="'count'"
+            >
+              <dxo-label
+                [visible]="true"
+                position="columns"
+                [customizeText]="customizeLabel"
+              >
+                <dxo-font [size]="16"></dxo-font>
+                <dxo-connector [visible]="true" [width]="0.5"></dxo-connector>
+              </dxo-label>
+            </dxi-series>
+          </dx-pie-chart>
+          </div>
+        </div>
+    </dxi-item>
+
+    <dxi-item>
+        <dxi-location [row]="1" [col]="2"></dxi-location>
+        <div class="card">
+            <div class="card-content">
+            <dx-pie-chart
+            id="topTechnologies"
+            [dataSource]="topTechnologies"
+            [palette]="['#6ab0f3', '#8ec72e', '#e25a53', '#ff834e', '#a696c8']"
+            [title]="{
+              text: 'Top Technologies'
+            }"
+          >
+            <dxo-tooltip
+              [enabled]="true"
+              [customizeTooltip]="customizeTooltip"
+              [opacity]="0.8"
+            ></dxo-tooltip>
+            <dxi-series
+              type="doughnut"
+              [argumentField]="'technology'"
+              [valueField]="'count'"
+            >
+              <dxo-label
+                [visible]="true"
+                position="columns"
+                [customizeText]="customizeLabel"
+              >
+                <dxo-font [size]="16"></dxo-font>
+                <dxo-connector [visible]="true" [width]="0.5"></dxo-connector>
+              </dxo-label>
+            </dxi-series>
+          </dx-pie-chart>
+          </div>
+        </div>
+    </dxi-item>
+  
+</dx-responsive-box>

@@ -1,0 +1,53 @@
+  .project-list {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .project-item {
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: color 0.3s; 
+  }
+  
+  .project-item:hover {
+    color: rgb(141, 141, 141);
+  }
+  
+  .project-item.selected {
+    color: #0284C7; 
+  }
+  
+  .card {
+    margin: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+  
+  .card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .statistic-icon {
+    width: 24px;
+    height: 24px;
+    background-color: #0284C7;
+    border-radius: 50%;
+    margin-right: 10px;
+    display: inline-block;
+  }
+
+  .dx-icon-custom-style {
+    font-size: 24px;
+    padding: 10px;
+    margin-bottom: 5px;
+    color: white;
+    background-color: #0284C7;
+    border-radius: 50%;
+}
+
+  
