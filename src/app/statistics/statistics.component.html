@@ -1,4 +1,6 @@
-<dx-responsive-box class="flex flex-wrap justify-center md:justify-between h-full overflow-y-auto">
+<dx-responsive-box>
+  <dxi-row [ratio]="1"></dxi-row>
+  <dxi-row [ratio]="1"></dxi-row>
   <dxi-row [ratio]="1"></dxi-row>
 
   <dxi-col [ratio]="1"></dxi-col>
@@ -7,7 +9,7 @@
   <dxi-col [ratio]="1"></dxi-col>
 
   <dxi-item>
-    <dxi-location [row]="0" [col]="1"></dxi-location>
+    <dxi-location [row]="1" [col]="1"></dxi-location>
     <div class="card hover" (click)="navigateToGeneralStatistics()">
       <div class="card-content">
           <i class="dx-icon-dataarea dx-icon-custom-style"></i>
@@ -17,7 +19,7 @@
   </dxi-item>
   
   <dxi-item>
-    <dxi-location [row]="0" [col]="2"></dxi-location>
+    <dxi-location [row]="1" [col]="2"></dxi-location>
     <div class="card hover" (click)="navigateToProjectStatistics()">
       <div class="card-content">
           <i class="dx-icon-datatrending dx-icon-custom-style"></i>
@@ -25,10 +27,4 @@
       </div>
     </div>
   </dxi-item>
-
-<!-- TO DO:
-  -navigation between statistics
-  -prettier dashboard
-  -restyle general statistics
--->
 </dx-responsive-box>

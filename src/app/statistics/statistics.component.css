@@ -1,13 +1,20 @@
   .card {
     margin: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .card-content {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     padding: 20px;
+    height: 100%;
+    width: 100%;
   }
 
   .hover:hover {
@@ -27,7 +34,7 @@
 
   .back-button {
     position: absolute;
-    left: 5px;
+    right: 5px;
     top: 85px;
     transform: translateY(-50%);
   }

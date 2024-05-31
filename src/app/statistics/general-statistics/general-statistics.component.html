@@ -1,6 +1,4 @@
-<dx-responsive-box
-  class="flex flex-wrap justify-center md:justify-between gap-4 p-4 h-full overflow-y-auto"
->
+<dx-responsive-box class=" gap-4 p-4 h-full">
   <dxi-row [ratio]="1"></dxi-row>
 
   <dxi-col [ratio]="1"></dxi-col>
@@ -9,7 +7,7 @@
 
   <dxi-item class="mt-6">
     <dxi-location [row]="0" [col]="0"></dxi-location>
-    <dx-button (click)="navigateToStatistics()" icon="arrowleft" class="back-button ml-4"></dx-button>
+    <dx-button (click)="navigateToStatistics()" icon="arrowleft" class="back-button mr-4"></dx-button>
     <div class="card">
       <div class="card-content">
       <dx-pie-chart
