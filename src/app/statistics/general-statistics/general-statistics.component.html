@@ -1,91 +1,113 @@
-<div
+<dx-responsive-box
   class="flex flex-wrap justify-center md:justify-between gap-4 p-4 h-full overflow-y-auto"
 >
-  <div class="skills w-full md:w-2/5">
-    <dx-pie-chart
-      id="skills"
-      [dataSource]="skillData"
-      [palette]="['#6ab0f3', '#8ec72e', '#e25a53', '#ff834e', '#a696c8']"
-      [title]="{
-        text: 'Skill Statistics',
-        subtitle: 'Number of projects per skill',
-      }"
-    >
-      <dxo-tooltip
-        [enabled]="true"
-        [customizeTooltip]="customizeTooltip"
-        [opacity]="0.8"
-      ></dxo-tooltip>
-      <dxi-series
-        type="doughnut"
-        [argumentField]="'skill'"
-        [valueField]="'count'"
+  <dxi-row [ratio]="1"></dxi-row>
+
+  <dxi-col [ratio]="1"></dxi-col>
+  <dxi-col [ratio]="1"></dxi-col>
+  <dxi-col [ratio]="1"></dxi-col>
+
+  <dxi-item class="mt-6">
+    <dxi-location [row]="0" [col]="0"></dxi-location>
+    <dx-button (click)="navigateToStatistics()" icon="arrowleft" class="back-button ml-4"></dx-button>
+    <div class="card">
+      <div class="card-content">
+      <dx-pie-chart
+        id="skills"
+        [dataSource]="skillData"
+        [palette]="['#6ab0f3', '#8ec72e', '#e25a53', '#ff834e', '#a696c8']"
+        [title]="{
+          text: 'Skill Statistics',
+          subtitle: 'Number of projects per skill',
+        }"
       >
+        <dxo-tooltip
+          [enabled]="true"
+          [customizeTooltip]="customizeTooltip"
+          [opacity]="0.8"
+        ></dxo-tooltip>
+        <dxi-series
+          type="doughnut"
+          [argumentField]="'skill'"
+          [valueField]="'count'"
+        >
+          <dxo-label
+            [visible]="true"
+            position="columns"
+            [customizeText]="customizeLabel"
+          >
+            <dxo-font [size]="16"></dxo-font>
+            <dxo-connector [visible]="true" [width]="0.5"></dxo-connector>
+          </dxo-label>
+        </dxi-series>
+      </dx-pie-chart>
+      </div>
+    </div>  
+  </dxi-item>
+
+  <dxi-item class="mt-6">
+    <dxi-location [row]="0" [col]="1"></dxi-location>
+    <div class="card">
+      <div class="card-content">
+      <dx-pie-chart
+        id="status"
+        [dataSource]="statusData"
+        [palette]="['#6ab0f3', '#8ec72e', '#e25a53', '#ff834e', '#a696c8']"
+        [title]="{
+          text: 'Project Status Statistics',
+          subtitle: 'Number of projects per status',
+        }"
+      >
+        <dxo-tooltip
+          [enabled]="true"
+          [customizeTooltip]="customizeTooltip"
+          [opacity]="0.8"
+        ></dxo-tooltip>
+        <dxi-series
+          type="doughnut"
+          [argumentField]="'status'"
+          [valueField]="'count'"
+        >
+          <dxo-label
+            [visible]="true"
+            position="columns"
+            [customizeText]="customizeLabel"
+          >
+            <dxo-font [size]="16"></dxo-font>
+            <dxo-connector [visible]="true" [width]="0.5"></dxo-connector>
+          </dxo-label>
+        </dxi-series>
+      </dx-pie-chart>
+      </div>
+    </div>
+  </dxi-item>
+
+  <dxi-item class="mt-6">
+    <dxi-location [row]="0" [col]="2"></dxi-location>
+    <div class="card">
+      <div class="card-content">
+      <dx-funnel
+        [dataSource]="allStatusData"
+        argumentField="status"
+        valueField="count"
+      >
+        <dxo-title text="Candidate Conversions">
+          <dxo-margin [bottom]="30"></dxo-margin>
+        </dxo-title>
+        <dxo-tooltip
+          [enabled]="true"
+          [customizeTooltip]="customizeTooltip"
+          [opacity]="0.8"
+        ></dxo-tooltip>
         <dxo-label
           [visible]="true"
-          position="columns"
-          [customizeText]="customizeLabel"
+          position="inside"
+          backgroundColor="none"
+          [customizeText]="customizeText"
         >
-          <dxo-font [size]="16"></dxo-font>
-          <dxo-connector [visible]="true" [width]="0.5"></dxo-connector>
         </dxo-label>
-      </dxi-series>
-    </dx-pie-chart>
-  </div>
-
-  <div class="status w-full md:w-7/12">
-    <dx-pie-chart
-      id="status"
-      [dataSource]="statusData"
-      [palette]="['#6ab0f3', '#8ec72e', '#e25a53', '#ff834e', '#a696c8']"
-      [title]="{
-        text: 'Project Status Statistics',
-        subtitle: 'Number of projects per status',
-      }"
-    >
-      <dxo-tooltip
-        [enabled]="true"
-        [customizeTooltip]="customizeTooltip"
-        [opacity]="0.8"
-      ></dxo-tooltip>
-      <dxi-series
-        type="doughnut"
-        [argumentField]="'status'"
-        [valueField]="'count'"
-      >
-        <dxo-label
-          [visible]="true"
-          position="columns"
-          [customizeText]="customizeLabel"
-        >
-          <dxo-font [size]="16"></dxo-font>
-          <dxo-connector [visible]="true" [width]="0.5"></dxo-connector>
-        </dxo-label>
-      </dxi-series>
-    </dx-pie-chart>
-  </div>
-
-  <div class="w-full h-4/5 flex justify-center">
-    <dx-funnel
-      [dataSource]="allStatusData"
-      argumentField="status"
-      valueField="count"
-    >
-      <dxo-title text="Candidate Conversions">
-        <dxo-margin [bottom]="30"></dxo-margin>
-      </dxo-title>
-      <dxo-tooltip
-        [enabled]="true"
-        [customizeTooltip]="customizeTooltip"
-        [opacity]="0.8"
-      ></dxo-tooltip>
-      <dxo-label
-        [visible]="true"
-        position="inside"
-        backgroundColor="none"
-        [customizeText]="customizeText"
-      >
-      </dxo-label>
-    </dx-funnel>
-  </div>
-</div>
+      </dx-funnel>
+      </div>
+    </div>
+  </dxi-item>
+</dx-responsive-box>

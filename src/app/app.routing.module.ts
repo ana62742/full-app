@@ -23,16 +23,22 @@ const routes: Routes = [
       },
       {
         path: 'statistics',
-        component: StatisticsComponent,
+        component: StatisticsComponent
       },
       {
         path: 'settings',
-        component: SettingsComponent,
+        component: SettingsComponent
+      },
+      {
+        path: 'general-statistics',
+        component: GeneralStatisticsComponent 
+      },
+      { 
+        path: 'project-statistics',
+        component: ProjectStatisticsComponent
       },
     ],
   },
-  { path: 'general-statistics', component: GeneralStatisticsComponent },
-  { path: 'project-statistics', component: ProjectStatisticsComponent },
   { path: '**', redirectTo: '' },
 ];
 

@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ProjectService } from 'src/app/shared/services/project.service';
 import { statusObj } from 'src/app/shared/types/project.types';
 
 @Component({
   selector: 'app-general-statistics',
-  templateUrl: './general-statistics.component.html'
+  templateUrl: './general-statistics.component.html',
+  styleUrls: ['../statistics.component.css']
 })
 export class GeneralStatisticsComponent implements OnInit {
   skillData: { skill: string; count: number }[] = [];
@@ -13,7 +15,7 @@ export class GeneralStatisticsComponent implements OnInit {
 
   projects = this.projectService.projects();
 
-  constructor(private projectService: ProjectService) {}
+  constructor(private projectService: ProjectService, private router: Router) {}
 
   ngOnInit(): void {
     this.preprocessSkillData();
@@ -145,5 +147,9 @@ export class GeneralStatisticsComponent implements OnInit {
       borderColor: color,
       fontColor: 'white',
     };
+  }
+
+  navigateToStatistics() {
+    this.router.navigate(['/statistics']);
   }
 }

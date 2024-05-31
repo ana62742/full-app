@@ -3,22 +3,24 @@
 
   <dxi-col [ratio]="1"></dxi-col>
   <dxi-col [ratio]="1"></dxi-col>
+  <dxi-col [ratio]="1"></dxi-col>
+  <dxi-col [ratio]="1"></dxi-col>
 
   <dxi-item>
-    <dxi-location [row]="0" [col]="0"></dxi-location>
-    <div class="card">
+    <dxi-location [row]="0" [col]="1"></dxi-location>
+    <div class="card hover" (click)="navigateToGeneralStatistics()">
       <div class="card-content">
-          <i class="dx-icon-group dx-icon-custom-style"></i>
+          <i class="dx-icon-dataarea dx-icon-custom-style"></i>
           <h3>General Statistics</h3>
       </div>
     </div>
   </dxi-item>
   
   <dxi-item>
-    <dxi-location [row]="0" [col]="1"></dxi-location>
-    <div class="card">
+    <dxi-location [row]="0" [col]="2"></dxi-location>
+    <div class="card hover" (click)="navigateToProjectStatistics()">
       <div class="card-content">
-          <i class="dx-icon-group dx-icon-custom-style"></i>
+          <i class="dx-icon-datatrending dx-icon-custom-style"></i>
           <h3>Project Statistics</h3>
       </div>
     </div>

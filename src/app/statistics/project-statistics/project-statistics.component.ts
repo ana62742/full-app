@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ProjectService } from 'src/app/shared/services/project.service';
 import { ProjectInterface } from 'src/app/shared/types/project.types';
 
 @Component({
   selector: 'app-project-statistics',
   templateUrl: './project-statistics.component.html',
-  styleUrls: ['./project-statistics.component.css']
+  styleUrls: ['./project-statistics.component.css', '../statistics.component.css']
 })
 export class ProjectStatisticsComponent implements OnInit {
   projects: ProjectInterface[] = [];
@@ -17,7 +18,7 @@ export class ProjectStatisticsComponent implements OnInit {
   openPositions: number = 0;
   averageEngineeringScore: number = 0;
 
-  constructor(private projectService: ProjectService) {}
+  constructor(private projectService: ProjectService, private router: Router) {}
 
   ngOnInit() {
     this.projects = this.projectService.projects();
@@ -68,14 +69,15 @@ export class ProjectStatisticsComponent implements OnInit {
     const statusCount: { [key: string]: number } = {};
 
     applications.forEach(application => {
-      application.statusArray.forEach((statusEntry: { status: string }) => {
-        const status = statusEntry.status;
+      if (application.statusArray.length > 0) {
+        const lastStatusEntry = application.statusArray[application.statusArray.length - 1];
+        const status = lastStatusEntry.status;
         if (statusCount[status]) {
           statusCount[status]++;
         } else {
           statusCount[status] = 1;
         }
-      });
+      }
     });
 
     return Object.keys(statusCount).map(status => ({
@@ -117,5 +119,15 @@ export class ProjectStatisticsComponent implements OnInit {
 
   customizeLabel(arg: any) {
     return `${arg.argumentText}: ${arg.valueText}`;
+  }
+
+  navigateToStatistics() {
+    this.router.navigate(['/statistics']);
+  }
+
+  hasData(): boolean {
+    return this.totalApplications > 0 || this.openPositions > 0 || this.averageEngineeringScore > 0 || 
+      (this.statusDistribution && this.statusDistribution.length > 0) || 
+      (this.topTechnologies && this.topTechnologies.length > 0);
   }
 }

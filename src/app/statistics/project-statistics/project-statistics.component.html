@@ -7,16 +7,15 @@
     <dxi-col [ratio]="1"></dxi-col>
 
     <dxi-item>
-        <dxi-location
-          [row]="0"
-          [col]="0"
-          [colspan]="3"
-        ></dxi-location>
+      <dxi-location [row]="0" [col]="0" [colspan]="3"></dxi-location>
+      <div class="project-list-container">
+        <dx-button (click)="navigateToStatistics()" icon="arrowleft" class="back-button"></dx-button>
         <ul class="project-list flex flex-column justify-center">
-            <li *ngFor="let project of projects" class="project-item" [class.selected]="project.id === selectedProject.id" (click)="onProjectChange(project.id)">
-              {{ project.project }} - {{ project.company }}
-            </li>
+          <li *ngFor="let project of projects" class="project-item" [class.selected]="project.id === selectedProject.id" (click)="onProjectChange(project.id)">
+            {{ project.project }} - {{ project.company }}
+          </li>
         </ul>
+      </div>
     </dxi-item>
 
     <dxi-item>
@@ -86,7 +85,7 @@
             [dataSource]="topTechnologies"
             [palette]="['#6ab0f3', '#8ec72e', '#e25a53', '#ff834e', '#a696c8']"
             [title]="{
-              text: 'Top Technologies'
+              text: 'Top Candidate Technologies'
             }"
           >
             <dxo-tooltip
@@ -112,5 +111,4 @@
           </div>
         </div>
     </dxi-item>
-  
 </dx-responsive-box>

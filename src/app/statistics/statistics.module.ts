@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { DxChartModule, DxFunnelModule, DxPieChartModule, DxResponsiveBoxModule, DxSelectBoxModule, DxToolbarModule } from 'devextreme-angular';
+import { DxButtonModule, DxChartModule, DxFunnelModule, DxPieChartModule, DxResponsiveBoxModule, DxSelectBoxModule, DxToolbarModule } from 'devextreme-angular';
 import { StatisticsComponent } from './statistics.component';
 import { SharedModule } from '../shared/shared.module';
 import { GeneralStatisticsComponent } from './general-statistics/general-statistics.component';
@@ -16,7 +16,8 @@ import { CommonModule } from '@angular/common';
     DxSelectBoxModule,
     DxToolbarModule, 
     DxChartModule,
-    DxResponsiveBoxModule
+    DxResponsiveBoxModule,
+    DxButtonModule
   ],
 })
 export class StatisticsModule {}

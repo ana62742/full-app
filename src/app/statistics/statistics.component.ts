@@ -7,4 +7,13 @@ import { Router } from '@angular/router';
   styleUrls: ['./statistics.component.css'],
 })
 export class StatisticsComponent {
+  constructor(private router: Router) { }
+
+  navigateToGeneralStatistics() {
+    this.router.navigate(['/general-statistics']);
+  }
+
+  navigateToProjectStatistics() {
+    this.router.navigate(['/project-statistics']);
+  }
 }

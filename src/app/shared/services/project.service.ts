@@ -298,8 +298,29 @@ export class ProjectService {
       company: 'Colt',
       project: 'B2x',
       technologies: ['Angular'],
-      availablePositions: 0,
-      applications: [],
+      availablePositions: 1,
+      applications: [
+        {
+          id: 1,
+          user: {
+            id: 1,
+            name: 'Vasile',
+            cc: 'UI/UX',
+            skills: [
+              { technology: 'Angular', engineeringScore: 4 },
+              { technology: 'React', engineeringScore: 2 },
+              { technology: 'Vue', engineeringScore: 2 },
+            ],
+            type: 'Intern',
+          },
+          statusArray: [
+            {
+              status: statusObj.proposedToBl,
+              timestamp: new Date('2023-10-16T10:00:00'),
+            },
+          ],
+        },
+      ],
       binding: true,
     },
     {
