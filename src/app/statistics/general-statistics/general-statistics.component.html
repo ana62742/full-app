@@ -1,4 +1,4 @@
-<dx-responsive-box class=" gap-4 p-4 h-full">
+<dx-responsive-box class="gap-4 p-4 h-full overflow-auto">
   <dxi-row [ratio]="1"></dxi-row>
 
   <dxi-col [ratio]="1"></dxi-col>
@@ -18,6 +18,8 @@
           text: 'Skill Statistics',
           subtitle: 'Number of projects per skill',
         }"
+        [diameter]="0.3"
+        style="width: 100%;"
       >
         <dxo-tooltip
           [enabled]="true"
@@ -56,6 +58,8 @@
           text: 'Project Status Statistics',
           subtitle: 'Number of projects per status',
         }"
+        [diameter]="0.3"
+        style="width: 100%;"
       >
         <dxo-tooltip
           [enabled]="true"
@@ -90,6 +94,7 @@
         [dataSource]="allStatusData"
         argumentField="status"
         valueField="count"
+        style="width: 100%;"
       >
         <dxo-title text="Candidate Conversions">
           <dxo-margin [bottom]="30"></dxo-margin>

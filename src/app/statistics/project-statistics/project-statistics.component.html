@@ -1,4 +1,4 @@
-<dx-responsive-box>
+<dx-responsive-box class="overflow-auto">
     <dxi-row [ratio]="1"></dxi-row>
     <dxi-row [ratio]="4"></dxi-row>
 
@@ -51,6 +51,8 @@
             [title]="{
               text: 'Status Distribution'
             }"
+            [diameter]="0.5"
+            style="width: 100%;"
           >
             <dxo-tooltip
               [enabled]="true"
@@ -88,6 +90,8 @@
             [title]="{
               text: 'Top Candidate Technologies'
             }"
+            [diameter]="0.5"
+            style="width: 100%;"
           >
             <dxo-tooltip
               [enabled]="true"
